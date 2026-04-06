@@ -3,7 +3,7 @@
 import os, json, html, shutil
 from pathlib import Path
 
-DOMAIN = "https://zxcapital.ai"
+DOMAIN = "https://zxcapitalgroup.com"
 OUT = "zxcapital-site"
 
 # ============================================================
@@ -1920,13 +1920,13 @@ def gen_sitemap():
 
 def gen_static():
     page('robots.txt', f'User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n')
-    page('CNAME', 'zxcapital.ai\n')
+    page('CNAME', 'zxcapitalgroup.com\n')
     page('.nojekyll', '')
     page('README.md', f'''# ZX Capital 珍兴资本
 
 Investment Tools & Market Research Platform
 
-🌐 [zxcapital.ai](https://zxcapital.ai)
+🌐 [zxcapitalgroup.com](https://zxcapitalgroup.com)
 
 ## Features
 
