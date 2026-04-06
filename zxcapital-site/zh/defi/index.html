@@ -64,6 +64,7 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 .df-badge-blue{background:rgba(59,130,246,.15);color:#3b82f6}
 .df-badge-gold{background:rgba(240,160,80,.15);color:var(--amb)}
 .df-badge-red{background:rgba(255,77,106,.15);color:var(--r)}
+.df-badge-purple{background:rgba(168,85,247,.15);color:#a855f7}
 .df-table{width:100%;border-collapse:collapse;font-size:13px}
 .df-table th{background:var(--card);color:var(--td);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:13px 14px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s}
 .df-table th:hover{color:var(--g)}
@@ -121,6 +122,11 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <option value="100000000">TVL &gt; $100M</option>
 <option value="0">全部</option>
 </select>
+<select class="df-sel" id="df-ptype">
+<option value="">全部类型</option>
+<option value="passive">被动收益</option>
+<option value="active">主动管理</option>
+</select>
 <input type="text" class="df-search" id="df-search" placeholder="搜索池名/代币...">
 <label class="df-tog"><input type="checkbox" id="df-stable"> 仅稳定币</label>
 <label class="df-tog"><input type="checkbox" id="df-reliable"> 仅可靠</label>
@@ -153,7 +159,7 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 var API='https://yields.llama.fi/pools';
 var CHART_API='https://yields.llama.fi/chart/';
 var PAGE_SIZE=50;
-var state={pools:[],filtered:[],page:0,sort:'apy',sortDir:-1,filters:{chain:'',protocol:'',minTvl:10000000,search:'',stableOnly:false,reliableOnly:false},compare:[],loading:true};
+var state={pools:[],filtered:[],page:0,sort:'apy',sortDir:-1,filters:{chain:'',protocol:'',minTvl:10000000,search:'',stableOnly:false,reliableOnly:false,poolType:''},compare:[],loading:true};
 var app=document.getElementById('df-app');
 var preChain=app?app.dataset.chain||'':'';
 var preProto=app?app.dataset.protocol||'':'';
@@ -179,11 +185,15 @@ var T={
   hiTvl:'High TVL',stable:isZH?'稳定币':'Stablecoin',organic:isZH?'有机收益':'Organic',
   verified:isZH?'已验证':'Verified',hiIl:isZH?'高IL风险':'High IL',
   score:isZH?'可靠评分':'Reliability',history:isZH?'历史APY':'APY History',
+  passive:isZH?'被动':'Passive',active:isZH?'主动':'Active',
   buyOn:isZH?'买入于':'Buy on',startLp:isZH?'开始提供流动性':'Start Providing Liquidity',
   startDesc:isZH?'在安全交易所购买代币，为流动性池提供资金':'Buy tokens on trusted exchanges to fund your liquidity pool positions',
   page_:isZH?'页':'Page'
 };
 var VERIFIED=['aave-v3','aave-v2','uniswap-v3','uniswap-v2','curve-dex','lido','compound-v3','compound-v2','convex-finance','pancakeswap-amm-v3','gmx','raydium','morpho','pendle','yearn-finance','balancer-v2','maker','rocket-pool','sky-lending','spark','jito','marinade-finance','benqi-lending','venus-core-pool','sushiswap'];
+var ACTIVE_PROTOS=['uniswap-v3','pancakeswap-amm-v3','pancakeswap-amm-v2','raydium','raydium-concentrated','trader-joe-v2.1','orca','maverick-v2','ambient','fenix-concentrated','thruster-v3','aerodrome-slipstream','velodrome-v2','sushiswap-v3','camelot-v3','quickswap-v3','baseswap-v3','swapbased-v3','kim-v4','woofi-v2','izumi-finance'];
+var PASSIVE_PROTOS=['aave-v3','aave-v2','compound-v3','compound-v2','lido','rocket-pool','curve-dex','convex-finance','yearn-finance','maker','sky-lending','spark','morpho','balancer-v2','benqi-lending','venus-core-pool','jito','marinade-finance','gmx','pendle','beefy','sturdy','radiant-v2','moonwell','aura','stargate','euler','frax-ether','swell','kelp-dao','eigenlayer','ether.fi','renzo'];
+function poolType(p){if(PASSIVE_PROTOS.indexOf(p.project)>=0)return 'passive';if(ACTIVE_PROTOS.indexOf(p.project)>=0)return 'active';return p.project.indexOf('-v3')>=0||p.project.indexOf('concentrated')>=0||p.project.indexOf('slipstream')>=0?'active':'passive'}
 
 function fmt$(n){if(n>=1e12)return '$'+(n/1e12).toFixed(2)+'T';if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(1)+'K';return '$'+n.toFixed(0)}
 function fmtPct(n){if(n==null)return '-';return n.toFixed(2)+'%'}
@@ -198,6 +208,8 @@ function reliScore(p){
 }
 function badges(p){
   var h='';
+  var pt=poolType(p);
+  h+='<span class="df-badge '+(pt==='passive'?'df-badge-blue':'df-badge-purple')+'">'+(pt==='passive'?T.passive:T.active)+'</span>';
   if(p.tvlUsd>1e7)h+='<span class="df-badge df-badge-green">'+T.hiTvl+'</span>';
   if(p.stablecoin)h+='<span class="df-badge df-badge-blue">'+T.stable+'</span>';
   if(p.apyBase&&p.apy&&p.apyBase>p.apy*0.5)h+='<span class="df-badge df-badge-green">'+T.organic+'</span>';
@@ -250,6 +262,7 @@ function applyFilters(){
     if(p.tvlUsd<f.minTvl)return false;
     if(f.stableOnly&&!p.stablecoin)return false;
     if(f.reliableOnly&&reliScore(p)<4)return false;
+    if(f.poolType&&poolType(p)!==f.poolType)return false;
     if(q&&(p.symbol||'').toLowerCase().indexOf(q)<0&&(p.project||'').toLowerCase().indexOf(q)<0&&(p.chain||'').toLowerCase().indexOf(q)<0)return false;
     return true;
   });
@@ -469,6 +482,7 @@ if(app){
   document.getElementById('df-chain')&&document.getElementById('df-chain').addEventListener('change',function(){state.filters.chain=this.value;applyFilters()});
   document.getElementById('df-proto')&&document.getElementById('df-proto').addEventListener('change',function(){state.filters.protocol=this.value;applyFilters()});
   document.getElementById('df-tvl')&&document.getElementById('df-tvl').addEventListener('change',function(){state.filters.minTvl=parseInt(this.value)||0;applyFilters()});
+  document.getElementById('df-ptype')&&document.getElementById('df-ptype').addEventListener('change',function(){state.filters.poolType=this.value;applyFilters()});
   document.getElementById('df-search')&&document.getElementById('df-search').addEventListener('input',function(){state.filters.search=this.value;applyFilters()});
   document.getElementById('df-stable')&&document.getElementById('df-stable').addEventListener('change',function(){state.filters.stableOnly=this.checked;applyFilters()});
   document.getElementById('df-reliable')&&document.getElementById('df-reliable').addEventListener('change',function(){state.filters.reliableOnly=this.checked;applyFilters()});
