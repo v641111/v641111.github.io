@@ -189,6 +189,37 @@
   <url><loc>https://zxcapital.ai/calculator/fire.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://zxcapital.ai/calculator/cost-of-living.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://zxcapital.ai/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zxcapital.ai/defi/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/ethereum.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/arbitrum.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/solana.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/polygon.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/avalanche.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/bsc.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/optimism.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/chain/base.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/aave-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/uniswap-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/curve-dex.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/lido.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/compound-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/convex-finance.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/pancakeswap-amm-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/gmx.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/raydium.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/morpho.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/pendle.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/yearn-finance.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/balancer-v2.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/maker.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/protocol/rocket-pool.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/defi/guide/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/defi/guide/liquidity-pools.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/defi/guide/impermanent-loss.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/defi/guide/yield-farming.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/defi/guide/stablecoin-pools.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://zxcapital.ai/zh/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://zxcapital.ai/zh/etf/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://zxcapital.ai/zh/etf/SPY.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
@@ -378,4 +409,35 @@
   <url><loc>https://zxcapital.ai/zh/calculator/fire.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://zxcapital.ai/zh/calculator/cost-of-living.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://zxcapital.ai/zh/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/ethereum.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/arbitrum.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/solana.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/polygon.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/avalanche.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/bsc.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/optimism.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/chain/base.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/aave-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/uniswap-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/curve-dex.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/lido.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/compound-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/convex-finance.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/pancakeswap-amm-v3.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/gmx.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/raydium.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/morpho.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/pendle.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/yearn-finance.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/balancer-v2.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/maker.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/protocol/rocket-pool.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/guide/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/guide/liquidity-pools.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/guide/impermanent-loss.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/guide/yield-farming.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapital.ai/zh/defi/guide/stablecoin-pools.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -59,19 +59,19 @@ def pn(v):
 
 def nav(lang='en', prefix=''):
     p = '/zh' if lang=='zh' else ''
-    lbl = {'etf':'ETF','stock':'股票' if lang=='zh' else 'Stocks','crypto':'加密货币' if lang=='zh' else 'Crypto','calc':'工具' if lang=='zh' else 'Tools','about':'关于' if lang=='zh' else 'About'}
+    lbl = {'etf':'ETF','stock':'股票' if lang=='zh' else 'Stocks','crypto':'加密货币' if lang=='zh' else 'Crypto','defi':'DeFi','calc':'工具' if lang=='zh' else 'Tools','about':'关于' if lang=='zh' else 'About'}
     toggle = f'<a href="/" class="lbtn">EN</a>' if lang=='zh' else f'<a href="/zh/" class="lbtn">中文</a>'
     return f'''<nav class="nav"><div class="nav-in">
 <a href="{p}/" class="logo"><span class="logo-i">ZX</span>ZX Capital</a>
-<div class="nlinks"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div>
+<div class="nlinks"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/defi/">{lbl['defi']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div>
 <div style="display:flex;gap:10px;align-items:center">{toggle}<button class="mbtn" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menu">☰</button></div>
-</div><div id="mm" class="mmenu"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div></nav>'''
+</div><div id="mm" class="mmenu"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/defi/">{lbl['defi']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div></nav>'''
 
 def footer(lang='en'):
     p = '/zh' if lang=='zh' else ''
     return f'''<footer><div class="fi">
 <div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
-<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="{p}/etf/">ETF</a><a href="{p}/stock/">{"股票" if lang=="zh" else "Stocks"}</a><a href="{p}/crypto/">{"加密货币" if lang=="zh" else "Crypto"}</a><a href="{p}/calculator/">{"工具" if lang=="zh" else "Tools"}</a><a href="{p}/about.html">{"关于" if lang=="zh" else "About"}</a></nav>
+<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="{p}/etf/">ETF</a><a href="{p}/stock/">{"股票" if lang=="zh" else "Stocks"}</a><a href="{p}/crypto/">{"加密货币" if lang=="zh" else "Crypto"}</a><a href="{p}/defi/">DeFi</a><a href="{p}/calculator/">{"工具" if lang=="zh" else "Tools"}</a><a href="{p}/about.html">{"关于" if lang=="zh" else "About"}</a></nav>
 <div class="fc">© 2026 ZX Capital. All rights reserved.</div></div></footer>'''
 
 def head(title, desc, path, lang='en'):
@@ -676,6 +676,982 @@ def gen_crypto_detail(crypto, lang='en'):
     h += '</body></html>'
     page(f"{'zh/' if lang=='zh' else ''}crypto/{s}.html", h)
 
+# ============================================================
+# DEFI SECTION
+# ============================================================
+DEFI_CSS = """
+.df-wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.df-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.df-stat{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:18px 20px}
+.df-stat-l{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.df-stat-v{font-size:22px;font-weight:700;font-family:'Space Mono',monospace}
+.df-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.df-sel{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:9px 14px;color:var(--t);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;min-width:140px}
+.df-sel:focus{border-color:var(--g)}
+.df-search{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:9px 14px;color:var(--t);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;flex:1;min-width:180px}
+.df-search:focus{border-color:var(--g)}
+.df-search::placeholder{color:var(--td)}
+.df-tog{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tm);cursor:pointer;white-space:nowrap;user-select:none}
+.df-tog input{accent-color:var(--g);width:16px;height:16px;cursor:pointer}
+.df-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.02em;margin-right:4px}
+.df-badge-green{background:rgba(0,220,130,.15);color:var(--g)}
+.df-badge-blue{background:rgba(59,130,246,.15);color:#3b82f6}
+.df-badge-gold{background:rgba(240,160,80,.15);color:var(--amb)}
+.df-badge-red{background:rgba(255,77,106,.15);color:var(--r)}
+.df-table{width:100%;border-collapse:collapse;font-size:13px}
+.df-table th{background:var(--card);color:var(--td);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:13px 14px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s}
+.df-table th:hover{color:var(--g)}
+.df-table th.df-sorted{color:var(--g)}
+.df-table td{padding:12px 14px;border-bottom:1px solid rgba(22,29,42,.5);white-space:nowrap}
+.df-table tr{transition:background .15s}.df-table tr:hover td{background:var(--card)}
+.df-table tr.df-selected{background:rgba(0,220,130,.04)}
+.df-pag{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:20px}
+.df-pag button{background:var(--card);border:1px solid var(--bdr);border-radius:6px;padding:7px 14px;color:var(--tm);font-size:12px;cursor:pointer;transition:all .2s}
+.df-pag button:hover:not(:disabled){border-color:var(--g);color:var(--g)}
+.df-pag button:disabled{opacity:.4;cursor:default}
+.df-pag span{font-size:12px;color:var(--td)}
+.df-skel{background:linear-gradient(90deg,var(--card) 25%,var(--bdr) 50%,var(--card) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px;height:16px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.df-empty{text-align:center;padding:60px 20px;color:var(--td)}
+.df-apy-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--bdr)}
+.df-apy-base{background:var(--g);height:100%}.df-apy-reward{background:var(--amb);height:100%}
+.df-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:all .25s}
+.df-modal-overlay.open{opacity:1;visibility:visible}
+.df-modal{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative}
+.df-modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--td);font-size:20px;cursor:pointer}
+.df-modal-close:hover{color:var(--t)}
+.df-rel-dots{display:flex;gap:4px}.df-rel-dot{width:10px;height:10px;border-radius:50%;background:var(--bdr)}.df-rel-dot.on{background:var(--g)}
+.df-compare-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bdr);padding:12px 20px;z-index:150;display:none;align-items:center;justify-content:center;gap:16px}
+.df-compare-bar.show{display:flex}
+.df-chart-svg{width:100%;height:160px}
+.df-ad{background:var(--card);border:1px solid var(--bdr);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--td);font-size:11px;overflow:hidden}
+.df-cta{background:linear-gradient(135deg,rgba(0,220,130,.08),rgba(0,179,107,.08));border:1px solid rgba(0,220,130,.2);border-radius:14px;padding:28px 32px;text-align:center;margin:32px 0}
+.df-cta h3{font-size:20px;font-weight:700;margin-bottom:8px}.df-cta p{color:var(--td);font-size:13px;margin-bottom:16px}
+.df-cta-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.df-cta-links a{display:inline-block;background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--t);transition:all .2s}
+.df-cta-links a:hover{border-color:var(--g);color:var(--g);transform:translateY(-1px)}
+.df-guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.df-chain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+@media(max-width:768px){.df-stats{grid-template-columns:repeat(2,1fr)}.df-filters{flex-direction:column}.df-sel,.df-search{width:100%}.df-table td:nth-child(3),.df-table th:nth-child(3){display:none}}
+@media(max-width:500px){.df-stats{grid-template-columns:1fr 1fr}.df-table{font-size:11px}.df-table td,.df-table th{padding:8px 10px}.df-modal{padding:20px}}
+"""
+
+DEFI_JS = r"""
+(function(){
+'use strict';
+var API='https://yields.llama.fi/pools';
+var CHART_API='https://yields.llama.fi/chart/';
+var PAGE_SIZE=50;
+var state={pools:[],filtered:[],page:0,sort:'apy',sortDir:-1,filters:{chain:'',protocol:'',minTvl:10000000,search:'',stableOnly:false,reliableOnly:false},compare:[],loading:true};
+var app=document.getElementById('df-app');
+var preChain=app?app.dataset.chain||'':'';
+var preProto=app?app.dataset.protocol||'':'';
+var isZH=document.documentElement.lang==='zh';
+var cache=null;var cacheTTL=300000;var cacheTime=0;
+var T={
+  pool:isZH?'池':'Pool',protocol:isZH?'协议':'Protocol',chain:isZH?'链':'Chain',
+  apy:'APY',tvl:'TVL',tokens:isZH?'代币对':'Tokens',reliability:isZH?'可靠性':'Reliability',
+  allChains:isZH?'所有链':'All Chains',allProtocols:isZH?'所有协议':'All Protocols',
+  minTvl:isZH?'最低TVL':'Min TVL',search:isZH?'搜索池名/代币...':'Search pool/token...',
+  stableOnly:isZH?'仅稳定币':'Stablecoins Only',reliableOnly:isZH?'仅可靠池':'Reliable Only',
+  loading:isZH?'正在加载数据...':'Loading pool data...',
+  error:isZH?'加载失败，请刷新重试':'Failed to load data. Please refresh.',
+  noResults:isZH?'无匹配结果':'No matching pools found',
+  prev:isZH?'上一页':'Prev',next:isZH?'下一页':'Next',
+  compare:isZH?'对比':'Compare',clear:isZH?'清除':'Clear',
+  detail:isZH?'池详情':'Pool Details',close:isZH?'关闭':'Close',
+  base:isZH?'基础收益':'Base APY',reward:isZH?'奖励收益':'Reward APY',
+  il7d:isZH?'7日无常损失':'7d Impermanent Loss',vol:isZH?'日交易量':'Daily Volume',
+  viewOn:isZH?'在协议中查看':'View on Protocol',
+  totalTvl:isZH?'总TVL':'Total TVL',avgApy:isZH?'平均APY':'Avg APY',
+  topApy:isZH?'最高APY':'Top APY',poolCount:isZH?'池数量':'Pool Count',
+  hiTvl:'High TVL',stable:isZH?'稳定币':'Stablecoin',organic:isZH?'有机收益':'Organic',
+  verified:isZH?'已验证':'Verified',hiIl:isZH?'高IL风险':'High IL',
+  score:isZH?'可靠评分':'Reliability',history:isZH?'历史APY':'APY History',
+  buyOn:isZH?'买入于':'Buy on',startLp:isZH?'开始提供流动性':'Start Providing Liquidity',
+  startDesc:isZH?'在安全交易所购买代币，为流动性池提供资金':'Buy tokens on trusted exchanges to fund your liquidity pool positions',
+  page_:isZH?'页':'Page'
+};
+var VERIFIED=['aave-v3','aave-v2','uniswap-v3','uniswap-v2','curve-dex','lido','compound-v3','compound-v2','convex-finance','pancakeswap-amm-v3','gmx','raydium','morpho','pendle','yearn-finance','balancer-v2','maker','rocket-pool','sky-lending','spark','jito','marinade-finance','benqi-lending','venus-core-pool','sushiswap'];
+
+function fmt$(n){if(n>=1e12)return '$'+(n/1e12).toFixed(2)+'T';if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(1)+'K';return '$'+n.toFixed(0)}
+function fmtPct(n){if(n==null)return '-';return n.toFixed(2)+'%'}
+
+function reliScore(p){
+  var s=0;
+  if(p.tvlUsd>1e6)s++;if(p.tvlUsd>1e7)s++;if(p.tvlUsd>1e8)s++;
+  if(p.apyBase>0)s++;
+  if(p.stablecoin)s++;
+  if(p.il7d==null||Math.abs(p.il7d||0)<0.5)s++;
+  return s;
+}
+function badges(p){
+  var h='';
+  if(p.tvlUsd>1e7)h+='<span class="df-badge df-badge-green">'+T.hiTvl+'</span>';
+  if(p.stablecoin)h+='<span class="df-badge df-badge-blue">'+T.stable+'</span>';
+  if(p.apyBase&&p.apy&&p.apyBase>p.apy*0.5)h+='<span class="df-badge df-badge-green">'+T.organic+'</span>';
+  if(VERIFIED.indexOf(p.project)>=0)h+='<span class="df-badge df-badge-gold">'+T.verified+'</span>';
+  if(p.il7d!=null&&Math.abs(p.il7d)>2)h+='<span class="df-badge df-badge-red">'+T.hiIl+'</span>';
+  return h;
+}
+function relDots(score){
+  var h='<div class="df-rel-dots" title="'+score+'/6">';
+  for(var i=0;i<6;i++)h+='<div class="df-rel-dot'+(i<score?' on':'')+'"></div>';
+  return h+'</div>';
+}
+
+function fetchPools(){
+  var now=Date.now();
+  if(cache&&(now-cacheTime)<cacheTTL){onData(cache);return}
+  var stored=null;
+  try{stored=sessionStorage.getItem('df_pools');var st=sessionStorage.getItem('df_pools_t');if(stored&&st&&(now-parseInt(st))<cacheTTL){cache=JSON.parse(stored);cacheTime=parseInt(st);onData(cache);return}}catch(e){}
+  state.loading=true;renderLoading();
+  fetch(API).then(function(r){return r.json()}).then(function(d){
+    cache=d.data||d;cacheTime=Date.now();
+    try{sessionStorage.setItem('df_pools',JSON.stringify(cache));sessionStorage.setItem('df_pools_t',''+cacheTime)}catch(e){}
+    onData(cache);
+  }).catch(function(){state.loading=false;renderError()});
+}
+
+function onData(pools){
+  state.pools=pools.filter(function(p){return p.apy!=null&&p.apy>0&&p.tvlUsd!=null&&p.tvlUsd>0});
+  state.loading=false;
+  buildFilterOptions();
+  if(preChain){state.filters.chain=preChain;var cs=document.getElementById('df-chain');if(cs)cs.value=preChain}
+  if(preProto){state.filters.protocol=preProto;var ps=document.getElementById('df-proto');if(ps)ps.value=preProto}
+  applyFilters();
+}
+
+function buildFilterOptions(){
+  var chains={},protos={};
+  state.pools.forEach(function(p){chains[p.chain]=1;protos[p.project]=1});
+  var cs=Object.keys(chains).sort();var ps=Object.keys(protos).sort();
+  var ce=document.getElementById('df-chain');var pe=document.getElementById('df-proto');
+  if(ce){ce.innerHTML='<option value="">'+T.allChains+'</option>';cs.forEach(function(c){ce.innerHTML+='<option value="'+c+'">'+c+'</option>'})}
+  if(pe){pe.innerHTML='<option value="">'+T.allProtocols+'</option>';ps.forEach(function(p){pe.innerHTML+='<option value="'+p+'">'+p+'</option>'})}
+}
+
+function applyFilters(){
+  var f=state.filters;var q=f.search.toLowerCase();
+  state.filtered=state.pools.filter(function(p){
+    if(f.chain&&p.chain!==f.chain)return false;
+    if(f.protocol&&p.project!==f.protocol)return false;
+    if(p.tvlUsd<f.minTvl)return false;
+    if(f.stableOnly&&!p.stablecoin)return false;
+    if(f.reliableOnly&&reliScore(p)<4)return false;
+    if(q&&(p.symbol||'').toLowerCase().indexOf(q)<0&&(p.project||'').toLowerCase().indexOf(q)<0&&(p.chain||'').toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+  sortPools();
+  state.page=0;
+  render();
+}
+
+function sortPools(){
+  var k=state.sort;var d=state.sortDir;
+  state.filtered.sort(function(a,b){
+    var va=a[k]||0,vb=b[k]||0;
+    if(typeof va==='string')return d*va.localeCompare(vb);
+    return d*(va-vb);
+  });
+}
+
+function render(){
+  if(!app)return;
+  var start=state.page*PAGE_SIZE;var end=start+PAGE_SIZE;
+  var paged=state.filtered.slice(start,end);
+  var totalPages=Math.ceil(state.filtered.length/PAGE_SIZE);
+
+  renderStats();
+
+  var tb=document.getElementById('df-tbody');
+  if(!tb)return;
+  if(paged.length===0){tb.innerHTML='<tr><td colspan="7" class="df-empty">'+T.noResults+'</td></tr>';document.getElementById('df-pag').innerHTML='';return}
+
+  var h='';
+  paged.forEach(function(p){
+    var sel=state.compare.indexOf(p.pool)>=0;
+    var sc=reliScore(p);
+    var apyBase=p.apyBase||0;var apyReward=p.apyReward||0;
+    var bw=p.apy>0?Math.round(apyBase/p.apy*100):100;
+    h+='<tr class="'+(sel?'df-selected':'')+'" data-pool="'+p.pool+'">';
+    h+='<td><div style="font-weight:600;color:var(--t)">'+(p.symbol||'-')+'</div><div style="font-size:11px;color:var(--td);margin-top:2px">'+badges(p)+'</div></td>';
+    h+='<td style="color:var(--tm)">'+p.project+'</td>';
+    h+='<td><span style="background:rgba(0,220,130,.08);color:var(--g);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">'+p.chain+'</span></td>';
+    h+='<td class="mono pos" style="font-weight:700">'+fmtPct(p.apy)+'<div class="df-apy-bar" style="width:80px;margin-top:4px"><div class="df-apy-base" style="width:'+bw+'%"></div><div class="df-apy-reward" style="width:'+(100-bw)+'%"></div></div></td>';
+    h+='<td class="mono" style="color:var(--tm)">'+fmt$(p.tvlUsd)+'</td>';
+    h+='<td>'+relDots(sc)+'</td>';
+    h+='<td><label class="df-tog" style="margin:0"><input type="checkbox" '+(sel?'checked':'')+' onchange="window.dfToggleCompare(\''+p.pool+'\')"></label></td>';
+    h+='</tr>';
+  });
+  tb.innerHTML=h;
+
+  // Click rows for detail
+  tb.querySelectorAll('tr').forEach(function(tr){
+    tr.style.cursor='pointer';
+    tr.addEventListener('click',function(ev){
+      if(ev.target.type==='checkbox')return;
+      var pid=tr.dataset.pool;
+      var pool=state.pools.find(function(p){return p.pool===pid});
+      if(pool)showModal(pool);
+    });
+  });
+
+  // Pagination
+  var ph=document.getElementById('df-pag');
+  if(ph){
+    ph.innerHTML='<button onclick="window.dfPage(-1)"'+(state.page<=0?' disabled':'')+'>'+T.prev+'</button><span>'+T.page_+' '+(state.page+1)+' / '+totalPages+'</span><button onclick="window.dfPage(1)"'+(state.page>=totalPages-1?' disabled':'')+'>'+T.next+'</button>';
+  }
+
+  updateCompareBar();
+
+  // Update sort headers
+  document.querySelectorAll('.df-table th[data-sort]').forEach(function(th){
+    th.classList.toggle('df-sorted',th.dataset.sort===state.sort);
+    var arrow=th.querySelector('.sort-arrow');
+    if(arrow)arrow.textContent=th.dataset.sort===state.sort?(state.sortDir===-1?' \u2193':' \u2191'):'';
+  });
+}
+
+function renderStats(){
+  var pools=state.filtered;
+  var totalTvl=0,totalApy=0,topApy=0;
+  pools.forEach(function(p){totalTvl+=p.tvlUsd;totalApy+=p.apy;if(p.apy>topApy)topApy=p.apy});
+  var avgApy=pools.length>0?totalApy/pools.length:0;
+  var el=document.getElementById('df-stats');
+  if(el){
+    el.children[0].querySelector('.df-stat-v').textContent=fmt$(totalTvl);
+    el.children[1].querySelector('.df-stat-v').textContent=fmtPct(avgApy);
+    el.children[2].querySelector('.df-stat-v').textContent=fmtPct(topApy);
+    el.children[3].querySelector('.df-stat-v').textContent=pools.length.toLocaleString();
+  }
+}
+
+function renderLoading(){
+  var tb=document.getElementById('df-tbody');
+  if(!tb)return;
+  var h='';for(var i=0;i<10;i++)h+='<tr><td colspan="7"><div class="df-skel" style="width:'+(60+Math.random()*30)+'%"></div></td></tr>';
+  tb.innerHTML=h;
+}
+function renderError(){
+  var tb=document.getElementById('df-tbody');
+  if(tb)tb.innerHTML='<tr><td colspan="7" class="df-empty" style="color:var(--r)">'+T.error+'</td></tr>';
+}
+
+function showModal(p){
+  var sc=reliScore(p);
+  var apyBase=p.apyBase||0;var apyReward=p.apyReward||0;
+  var bw=p.apy>0?Math.round(apyBase/p.apy*100):100;
+  var h='<button class="df-modal-close" onclick="window.dfCloseModal()">&times;</button>';
+  h+='<h2 style="font-size:22px;font-weight:700;margin-bottom:4px">'+(p.symbol||'-')+'</h2>';
+  h+='<div style="font-size:13px;color:var(--td);margin-bottom:20px">'+p.project+' &middot; '+p.chain+'</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">';
+  h+='<div class="met"><div class="met-l">'+T.apy+'</div><div class="met-v pos">'+fmtPct(p.apy)+'</div></div>';
+  h+='<div class="met"><div class="met-l">'+T.tvl+'</div><div class="met-v">'+fmt$(p.tvlUsd)+'</div></div>';
+  h+='<div class="met"><div class="met-l">'+T.base+'</div><div class="met-v" style="color:var(--g)">'+fmtPct(apyBase)+'</div></div>';
+  h+='<div class="met"><div class="met-l">'+T.reward+'</div><div class="met-v" style="color:var(--amb)">'+fmtPct(apyReward)+'</div></div>';
+  if(p.il7d!=null){h+='<div class="met"><div class="met-l">'+T.il7d+'</div><div class="met-v'+(Math.abs(p.il7d)>1?' neg':'')+'">'+fmtPct(p.il7d)+'</div></div>'}
+  if(p.volumeUsd1d){h+='<div class="met"><div class="met-l">'+T.vol+'</div><div class="met-v">'+fmt$(p.volumeUsd1d)+'</div></div>'}
+  h+='</div>';
+  h+='<div style="margin-bottom:16px"><div style="font-size:12px;color:var(--td);margin-bottom:6px">APY Breakdown</div><div class="df-apy-bar" style="height:10px"><div class="df-apy-base" style="width:'+bw+'%"></div><div class="df-apy-reward" style="width:'+(100-bw)+'%"></div></div><div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px"><span style="color:var(--g)">Base '+fmtPct(apyBase)+'</span><span style="color:var(--amb)">Reward '+fmtPct(apyReward)+'</span></div></div>';
+  h+='<div style="margin-bottom:20px"><div style="font-size:12px;color:var(--td);margin-bottom:8px">'+T.score+' ('+sc+'/6)</div>'+relDots(sc)+'<div style="margin-top:6px">'+badges(p)+'</div></div>';
+  h+='<div id="df-chart-container" style="margin-bottom:20px"><div style="font-size:12px;color:var(--td);margin-bottom:8px">'+T.history+'</div><div class="df-skel" style="height:160px;width:100%"></div></div>';
+
+  // Affiliate CTA
+  var tokens=(p.symbol||'').split('-');
+  h+='<div style="border-top:1px solid var(--bdr);padding-top:16px;margin-top:16px">';
+  h+='<div style="font-size:13px;font-weight:600;margin-bottom:10px">'+T.buyOn+'</div>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  tokens.forEach(function(tk){
+    tk=tk.trim();if(!tk)return;
+    h+='<a href="https://www.binance.com/en/trade/'+tk+'_USDT?ref=ZX2024" target="_blank" rel="nofollow sponsored" class="bo" style="padding:8px 16px;font-size:12px">'+tk+' on Binance</a>';
+    h+='<a href="https://www.okx.com/trade-spot/'+tk.toLowerCase()+'-usdt?channelid=ZX2024" target="_blank" rel="nofollow sponsored" class="bo" style="padding:8px 16px;font-size:12px">'+tk+' on OKX</a>';
+  });
+  h+='</div></div>';
+
+  var overlay=document.getElementById('df-modal-overlay');
+  var modal=document.getElementById('df-modal');
+  if(overlay&&modal){modal.innerHTML=h;overlay.classList.add('open');document.body.style.overflow='hidden'}
+
+  // Fetch chart
+  fetchChart(p.pool);
+}
+
+function fetchChart(poolId){
+  fetch(CHART_API+poolId).then(function(r){return r.json()}).then(function(d){
+    var data=(d.data||d).slice(-30);
+    if(!data.length)return;
+    var container=document.getElementById('df-chart-container');
+    if(!container)return;
+    var maxApy=0;data.forEach(function(pt){if(pt.apy>maxApy)maxApy=pt.apy});
+    if(maxApy===0)maxApy=1;
+    var w=600,h=160,pad=30;
+    var stepX=(w-pad*2)/(data.length-1||1);
+    var points=data.map(function(pt,i){return (pad+i*stepX)+','+(h-pad-(pt.apy/maxApy)*(h-pad*2))});
+    var svg='<svg viewBox="0 0 '+w+' '+h+'" class="df-chart-svg" preserveAspectRatio="none">';
+    svg+='<defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,220,130,.3)"/><stop offset="100%" stop-color="rgba(0,220,130,0)"/></linearGradient></defs>';
+    svg+='<polygon points="'+pad+','+(h-pad)+' '+points.join(' ')+' '+(pad+(data.length-1)*stepX)+','+(h-pad)+'" fill="url(#cg)"/>';
+    svg+='<polyline points="'+points.join(' ')+'" fill="none" stroke="var(--g)" stroke-width="2"/>';
+    // Y axis labels
+    svg+='<text x="2" y="'+(pad-5)+'" fill="var(--td)" font-size="10">'+fmtPct(maxApy)+'</text>';
+    svg+='<text x="2" y="'+(h-pad+12)+'" fill="var(--td)" font-size="10">0%</text>';
+    // X axis
+    if(data.length>1){
+      var first=data[0].timestamp.split('T')[0].slice(5);
+      var last=data[data.length-1].timestamp.split('T')[0].slice(5);
+      svg+='<text x="'+pad+'" y="'+(h-5)+'" fill="var(--td)" font-size="10">'+first+'</text>';
+      svg+='<text x="'+(w-pad)+'" y="'+(h-5)+'" fill="var(--td)" font-size="10" text-anchor="end">'+last+'</text>';
+    }
+    svg+='</svg>';
+    container.innerHTML='<div style="font-size:12px;color:var(--td);margin-bottom:8px">'+T.history+' (30d)</div>'+svg;
+  }).catch(function(){});
+}
+
+window.dfCloseModal=function(){
+  var overlay=document.getElementById('df-modal-overlay');
+  if(overlay){overlay.classList.remove('open');document.body.style.overflow=''}
+};
+window.dfToggleCompare=function(poolId){
+  var idx=state.compare.indexOf(poolId);
+  if(idx>=0)state.compare.splice(idx,1);
+  else if(state.compare.length<4)state.compare.push(poolId);
+  render();
+};
+window.dfPage=function(dir){
+  state.page+=dir;render();window.scrollTo({top:document.getElementById('df-app').offsetTop-80,behavior:'smooth'});
+};
+function updateCompareBar(){
+  var bar=document.getElementById('df-compare-bar');
+  if(!bar)return;
+  if(state.compare.length>0){
+    bar.classList.add('show');
+    bar.innerHTML='<span style="font-size:13px">'+state.compare.length+' '+T.pool+'(s)</span><button class="bp" style="padding:8px 20px;font-size:12px" onclick="window.dfShowCompare()">'+T.compare+'</button><button class="bo" style="padding:8px 16px;font-size:12px" onclick="window.dfClearCompare()">'+T.clear+'</button>';
+  } else {bar.classList.remove('show')}
+}
+window.dfClearCompare=function(){state.compare=[];render()};
+window.dfShowCompare=function(){
+  var pools=state.compare.map(function(id){return state.pools.find(function(p){return p.pool===id})}).filter(Boolean);
+  if(!pools.length)return;
+  var maxApy=Math.max.apply(null,pools.map(function(p){return p.apy}));
+  var h='<button class="df-modal-close" onclick="window.dfCloseModal()">&times;</button>';
+  h+='<h2 style="font-size:22px;font-weight:700;margin-bottom:20px">'+T.compare+' ('+pools.length+')</h2>';
+  h+='<div style="display:grid;grid-template-columns:repeat('+Math.min(pools.length,4)+',1fr);gap:14px">';
+  pools.forEach(function(p){
+    var isTop=p.apy===maxApy;
+    h+='<div class="card" style="'+(isTop?'border-color:var(--g)':'')+'">';
+    h+='<div style="font-weight:700;margin-bottom:4px">'+(p.symbol||'-')+'</div>';
+    h+='<div style="font-size:11px;color:var(--td);margin-bottom:12px">'+p.project+' &middot; '+p.chain+'</div>';
+    h+='<div class="mono pos" style="font-size:24px;font-weight:700;margin-bottom:8px'+(isTop?';color:var(--g)':'')+'">'+fmtPct(p.apy)+'</div>';
+    h+='<div style="font-size:12px;color:var(--tm)">TVL: '+fmt$(p.tvlUsd)+'</div>';
+    h+='<div style="margin-top:8px">'+relDots(reliScore(p))+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  var overlay=document.getElementById('df-modal-overlay');
+  var modal=document.getElementById('df-modal');
+  if(overlay&&modal){modal.innerHTML=h;overlay.classList.add('open');document.body.style.overflow='hidden'}
+};
+
+// Init
+if(app){
+  // Event listeners
+  document.getElementById('df-chain')&&document.getElementById('df-chain').addEventListener('change',function(){state.filters.chain=this.value;applyFilters()});
+  document.getElementById('df-proto')&&document.getElementById('df-proto').addEventListener('change',function(){state.filters.protocol=this.value;applyFilters()});
+  document.getElementById('df-tvl')&&document.getElementById('df-tvl').addEventListener('change',function(){state.filters.minTvl=parseInt(this.value)||0;applyFilters()});
+  document.getElementById('df-search')&&document.getElementById('df-search').addEventListener('input',function(){state.filters.search=this.value;applyFilters()});
+  document.getElementById('df-stable')&&document.getElementById('df-stable').addEventListener('change',function(){state.filters.stableOnly=this.checked;applyFilters()});
+  document.getElementById('df-reliable')&&document.getElementById('df-reliable').addEventListener('change',function(){state.filters.reliableOnly=this.checked;applyFilters()});
+
+  // Sort headers
+  document.querySelectorAll('.df-table th[data-sort]').forEach(function(th){
+    th.addEventListener('click',function(){
+      var k=this.dataset.sort;
+      if(state.sort===k)state.sortDir*=-1;
+      else{state.sort=k;state.sortDir=-1}
+      sortPools();state.page=0;render();
+    });
+  });
+
+  // Modal overlay click to close
+  document.getElementById('df-modal-overlay')&&document.getElementById('df-modal-overlay').addEventListener('click',function(ev){
+    if(ev.target===this)window.dfCloseModal();
+  });
+
+  // ESC to close
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape')window.dfCloseModal()});
+
+  fetchPools();
+}
+})();
+"""
+
+DEFI_CHAINS = [
+    {"slug":"Ethereum","name":"Ethereum","name_zh":"以太坊",
+     "desc":"The largest DeFi ecosystem with the most established protocols, highest TVL, and deepest liquidity. Home to Uniswap, Aave, Curve, and hundreds of yield-generating protocols.",
+     "desc_zh":"最大的DeFi生态系统，拥有最成熟的协议、最高的TVL和最深的流动性。Uniswap、Aave、Curve等数百个收益协议的所在地。"},
+    {"slug":"Arbitrum","name":"Arbitrum","name_zh":"Arbitrum",
+     "desc":"Leading Ethereum L2 rollup with low fees and fast transactions. Growing DeFi ecosystem including GMX, Camelot, and native Arbitrum protocols.",
+     "desc_zh":"领先的以太坊L2 rollup，低手续费和快速交易。包括GMX、Camelot等不断增长的DeFi生态。"},
+    {"slug":"Solana","name":"Solana","name_zh":"Solana",
+     "desc":"High-performance blockchain with sub-second finality. DeFi ecosystem features Raydium, Marinade Finance, Jito, and Jupiter.",
+     "desc_zh":"高性能区块链，亚秒级确认。DeFi生态包含Raydium、Marinade Finance、Jito和Jupiter。"},
+    {"slug":"Polygon","name":"Polygon","name_zh":"Polygon",
+     "desc":"Popular EVM-compatible sidechain with low transaction costs. Hosts Aave, QuickSwap, and many yield farming opportunities.",
+     "desc_zh":"流行的EVM兼容侧链，交易成本低。托管Aave、QuickSwap等众多收益农场。"},
+    {"slug":"Avalanche","name":"Avalanche","name_zh":"Avalanche",
+     "desc":"Fast smart contract platform with Trader Joe, Benqi, and Platypus Finance driving its DeFi ecosystem.",
+     "desc_zh":"快速智能合约平台，Trader Joe、Benqi和Platypus Finance驱动其DeFi生态。"},
+    {"slug":"BSC","name":"BNB Chain","name_zh":"币安智能链",
+     "desc":"BNB Chain (formerly BSC) offers low fees and fast blocks. PancakeSwap, Venus, and Alpaca Finance are major DeFi protocols here.",
+     "desc_zh":"BNB Chain提供低费用和快速区块。PancakeSwap、Venus和Alpaca Finance是主要DeFi协议。"},
+    {"slug":"Optimism","name":"Optimism","name_zh":"Optimism",
+     "desc":"Ethereum L2 optimistic rollup powering Velodrome, Synthetix, and a growing DeFi ecosystem with OP token incentives.",
+     "desc_zh":"以太坊L2乐观rollup，支持Velodrome、Synthetix及不断增长的DeFi生态，带有OP代币激励。"},
+    {"slug":"Base","name":"Base","name_zh":"Base",
+     "desc":"Coinbase-backed Ethereum L2 with rapidly growing DeFi activity. Aerodrome, Moonwell, and other protocols offer competitive yields.",
+     "desc_zh":"Coinbase支持的以太坊L2，DeFi活动快速增长。Aerodrome、Moonwell等协议提供有竞争力的收益。"},
+]
+
+DEFI_PROTOCOLS = [
+    {"slug":"aave-v3","name":"Aave V3","name_zh":"Aave V3","cat":"Lending","url":"https://aave.com",
+     "desc":"The leading decentralized lending protocol. Aave V3 offers supply/borrow pools across multiple chains with efficiency mode and isolation mode for risk management.",
+     "desc_zh":"领先的去中心化借贷协议。Aave V3在多条链上提供存借池，具有效率模式和隔离模式进行风险管理。"},
+    {"slug":"uniswap-v3","name":"Uniswap V3","name_zh":"Uniswap V3","cat":"DEX","url":"https://uniswap.org",
+     "desc":"The most widely used decentralized exchange. Uniswap V3 introduced concentrated liquidity, allowing LPs to earn more fees with less capital.",
+     "desc_zh":"最广泛使用的去中心化交易所。Uniswap V3引入集中流动性，让LP以更少资本赚取更多手续费。"},
+    {"slug":"curve-dex","name":"Curve Finance","name_zh":"Curve Finance","cat":"DEX","url":"https://curve.fi",
+     "desc":"Specialized DEX optimized for stablecoin and pegged asset swaps with minimal slippage. Core infrastructure for DeFi yield generation.",
+     "desc_zh":"专注于稳定币和锚定资产交换的DEX，滑点极低。DeFi收益生成的核心基础设施。"},
+    {"slug":"lido","name":"Lido","name_zh":"Lido","cat":"Liquid Staking","url":"https://lido.fi",
+     "desc":"Largest liquid staking protocol for Ethereum. Stake ETH and receive stETH, which can be used across DeFi while earning staking rewards.",
+     "desc_zh":"最大的以太坊流动性质押协议。质押ETH获得stETH，可在DeFi中使用同时赚取质押奖励。"},
+    {"slug":"compound-v3","name":"Compound V3","name_zh":"Compound V3","cat":"Lending","url":"https://compound.finance",
+     "desc":"Pioneer of DeFi lending. Compound V3 (Comet) features a simplified single-borrowable-asset model for improved risk management.",
+     "desc_zh":"DeFi借贷先驱。Compound V3采用简化的单一可借资产模型，改善风险管理。"},
+    {"slug":"convex-finance","name":"Convex Finance","name_zh":"Convex Finance","cat":"Yield","url":"https://convexfinance.com",
+     "desc":"Boosts Curve LP yields by pooling CRV voting power. Convex is a core yield optimization layer for Curve liquidity providers.",
+     "desc_zh":"通过汇集CRV投票权增强Curve LP收益。Convex是Curve流动性提供者的核心收益优化层。"},
+    {"slug":"pancakeswap-amm-v3","name":"PancakeSwap V3","name_zh":"PancakeSwap V3","cat":"DEX","url":"https://pancakeswap.finance",
+     "desc":"Leading DEX on BNB Chain with concentrated liquidity. Also deployed on Ethereum, Arbitrum, and other chains.",
+     "desc_zh":"BNB Chain上领先的DEX，具有集中流动性。也部署在以太坊、Arbitrum等链上。"},
+    {"slug":"gmx","name":"GMX","name_zh":"GMX","cat":"Perps DEX","url":"https://gmx.io",
+     "desc":"Decentralized perpetual exchange on Arbitrum and Avalanche. GLP liquidity providers earn fees from leverage trading.",
+     "desc_zh":"Arbitrum和Avalanche上的去中心化永续交易所。GLP流动性提供者从杠杆交易中赚取手续费。"},
+    {"slug":"raydium","name":"Raydium","name_zh":"Raydium","cat":"DEX","url":"https://raydium.io",
+     "desc":"Leading AMM on Solana with concentrated liquidity and integration with Serum order book for deep liquidity.",
+     "desc_zh":"Solana上领先的AMM，具有集中流动性并与Serum订单簿集成以获得深度流动性。"},
+    {"slug":"morpho","name":"Morpho","name_zh":"Morpho","cat":"Lending","url":"https://morpho.org",
+     "desc":"Lending protocol that optimizes rates by matching lenders and borrowers peer-to-peer on top of Aave and Compound.",
+     "desc_zh":"借贷协议，通过在Aave和Compound上进行点对点匹配来优化利率。"},
+    {"slug":"pendle","name":"Pendle","name_zh":"Pendle","cat":"Yield","url":"https://pendle.finance",
+     "desc":"Yield tokenization protocol allowing users to trade future yield. Enables fixed-rate strategies and yield speculation.",
+     "desc_zh":"收益代币化协议，允许用户交易未来收益。支持固定利率策略和收益投机。"},
+    {"slug":"yearn-finance","name":"Yearn Finance","name_zh":"Yearn Finance","cat":"Yield Aggregator","url":"https://yearn.fi",
+     "desc":"Automated yield optimization vaults that find and execute the best yield strategies across DeFi protocols.",
+     "desc_zh":"自动化收益优化金库，在DeFi协议中寻找并执行最佳收益策略。"},
+    {"slug":"balancer-v2","name":"Balancer V2","name_zh":"Balancer V2","cat":"DEX","url":"https://balancer.fi",
+     "desc":"Flexible DEX supporting weighted pools, stable pools, and boosted pools. Key infrastructure for portfolio-like liquidity positions.",
+     "desc_zh":"灵活的DEX，支持加权池、稳定池和增强池。类似投资组合的流动性头寸关键基础设施。"},
+    {"slug":"maker","name":"Maker (Sky)","name_zh":"Maker (Sky)","cat":"CDP","url":"https://makerdao.com",
+     "desc":"Creator of DAI stablecoin. MakerDAO allows users to mint DAI by depositing collateral, with the DAI Savings Rate (DSR) offering yield.",
+     "desc_zh":"DAI稳定币的创造者。MakerDAO允许用户存入抵押品铸造DAI，DAI储蓄率提供收益。"},
+    {"slug":"rocket-pool","name":"Rocket Pool","name_zh":"Rocket Pool","cat":"Liquid Staking","url":"https://rocketpool.net",
+     "desc":"Decentralized Ethereum staking protocol. Stake any amount of ETH and receive rETH, a liquid staking token.",
+     "desc_zh":"去中心化以太坊质押协议。质押任意数量ETH获得rETH流动性质押代币。"},
+]
+
+DEFI_GUIDES = [
+    {"slug":"liquidity-pools","title":"What Are Liquidity Pools?","title_zh":"什么是流动性池？",
+     "desc":"Learn how liquidity pools work, how LPs earn fees, and the mechanics behind automated market makers (AMMs).",
+     "desc_zh":"了解流动性池的工作原理，LP如何赚取手续费，以及自动做市商(AMM)背后的机制。",
+     "icon":"💧"},
+    {"slug":"impermanent-loss","title":"Understanding Impermanent Loss","title_zh":"理解无常损失",
+     "desc":"A complete guide to impermanent loss: what it is, when it occurs, how to calculate it, and strategies to minimize its impact.",
+     "desc_zh":"无常损失完全指南：什么是无常损失，何时发生，如何计算，以及减少其影响的策略。",
+     "icon":"📉"},
+    {"slug":"yield-farming","title":"Yield Farming Strategies","title_zh":"收益农场策略",
+     "desc":"Explore yield farming strategies from conservative stablecoin pools to aggressive leveraged farming. Risk assessment and optimization tips.",
+     "desc_zh":"探索从保守的稳定币池到激进的杠杆农场的收益策略。风险评估和优化技巧。",
+     "icon":"🌾"},
+    {"slug":"stablecoin-pools","title":"Stablecoin Pool Guide","title_zh":"稳定币池指南",
+     "desc":"Why stablecoin pools are popular for risk-averse yield seekers. Compare returns across Curve, Aave, and other platforms.",
+     "desc_zh":"为什么稳定币池受到风险厌恶型收益寻求者的欢迎。比较Curve、Aave等平台的回报。",
+     "icon":"🛡️"},
+]
+
+AFFILIATE_LINKS = {
+    'Binance': 'https://www.binance.com/en/register?ref=ZX2024',
+    'OKX': 'https://www.okx.com/join/ZX2024',
+    'Bybit': 'https://www.bybit.com/register?affiliate_id=ZX2024',
+}
+
+# ============================================================
+# DEFI GENERATOR FUNCTIONS
+# ============================================================
+
+def defi_head(title, desc, path, lang='en'):
+    """Extended head with DeFi CSS"""
+    h = head(title, desc, path, lang)
+    h += f'<style>{DEFI_CSS}</style>'
+    return h
+
+def defi_filters(lang='en'):
+    is_zh = lang=='zh'
+    return f'''<div class="df-filters">
+<select class="df-sel" id="df-chain"><option value="">{"所有链" if is_zh else "All Chains"}</option></select>
+<select class="df-sel" id="df-proto"><option value="">{"所有协议" if is_zh else "All Protocols"}</option></select>
+<select class="df-sel" id="df-tvl">
+<option value="100000">TVL &gt; $100K</option>
+<option value="1000000">TVL &gt; $1M</option>
+<option value="10000000" selected>TVL &gt; $10M</option>
+<option value="100000000">TVL &gt; $100M</option>
+<option value="0">{"全部" if is_zh else "All TVL"}</option>
+</select>
+<input type="text" class="df-search" id="df-search" placeholder="{"搜索池名/代币..." if is_zh else "Search pool/token..."}">
+<label class="df-tog"><input type="checkbox" id="df-stable"> {"仅稳定币" if is_zh else "Stablecoins"}</label>
+<label class="df-tog"><input type="checkbox" id="df-reliable"> {"仅可靠" if is_zh else "Reliable Only"}</label>
+</div>'''
+
+def defi_table(lang='en'):
+    is_zh = lang=='zh'
+    return f'''<div class="tw"><table class="df-table"><thead><tr>
+<th data-sort="symbol">{"代币对" if is_zh else "Pool"}<span class="sort-arrow"></span></th>
+<th data-sort="project">{"协议" if is_zh else "Protocol"}<span class="sort-arrow"></span></th>
+<th data-sort="chain">{"链" if is_zh else "Chain"}<span class="sort-arrow"></span></th>
+<th data-sort="apy" class="df-sorted">APY <span class="sort-arrow">↓</span></th>
+<th data-sort="tvlUsd">TVL<span class="sort-arrow"></span></th>
+<th>{"可靠性" if is_zh else "Score"}</th>
+<th style="width:40px">{"对比" if is_zh else "Cmp"}</th>
+</tr></thead><tbody id="df-tbody"></tbody></table></div>
+<div id="df-pag" class="df-pag"></div>'''
+
+def defi_modal():
+    return '<div class="df-modal-overlay" id="df-modal-overlay"><div class="df-modal" id="df-modal"></div></div><div class="df-compare-bar" id="df-compare-bar"></div>'
+
+def defi_cta(lang='en'):
+    is_zh = lang=='zh'
+    return f'''<div class="df-cta">
+<h3>{"开始提供流动性" if is_zh else "Start Providing Liquidity"}</h3>
+<p>{"在安全交易所购买代币，为流动性池提供资金" if is_zh else "Buy tokens on trusted exchanges to fund your liquidity pool positions"}</p>
+<div class="df-cta-links">
+<a href="{AFFILIATE_LINKS['Binance']}" target="_blank" rel="nofollow sponsored">Binance</a>
+<a href="{AFFILIATE_LINKS['OKX']}" target="_blank" rel="nofollow sponsored">OKX</a>
+<a href="{AFFILIATE_LINKS['Bybit']}" target="_blank" rel="nofollow sponsored">Bybit</a>
+</div></div>'''
+
+def defi_disclaimer(lang='en'):
+    is_zh = lang=='zh'
+    return f'''<div class="disc" style="margin-top:32px"><div style="display:flex;gap:14px"><div style="font-size:24px;flex-shrink:0">⚠️</div><div>
+<h3>{"DeFi风险提示" if is_zh else "DeFi Risk Disclaimer"}</h3>
+<p>{"流动性池和DeFi协议涉及重大风险，包括智能合约漏洞、无常损失、价格波动和协议风险。" if is_zh else "Liquidity pools and DeFi protocols carry significant risks including smart contract vulnerabilities, impermanent loss, price volatility, and protocol risk."}</p>
+<p>{"APY数据来自DeFiLlama，仅供参考。过去的收益不代表未来表现。请自行研究(DYOR)并仅投资您能承受损失的金额。" if is_zh else "APY data sourced from DeFiLlama for reference only. Past yields do not indicate future performance. Always DYOR and only invest what you can afford to lose."}</p>
+</div></div></div>'''
+
+def gen_defi_dashboard(lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    path = f"{prefix}/defi/"
+    title = "DeFi收益仪表盘 - 实时APY与TVL数据 | ZX Capital" if is_zh else "DeFi Yield Dashboard - Live APY & TVL Data | ZX Capital"
+    desc = "实时追踪10000+流动性池APY和TVL数据。" if is_zh else "Track APY and TVL across 10,000+ liquidity pools in real-time. Filter by chain, protocol, and reliability."
+
+    h = defi_head(title, desc, path, lang)
+    h += nav(lang)
+    h += f'''<section class="sec" style="max-width:1200px">
+<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <span style="color:var(--t)">DeFi</span></div>'''
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", None)], lang)
+
+    # Ad slot top
+    h += '<div class="df-ad" style="height:90px;margin-bottom:24px">Ad Space</div>'
+
+    h += f'''<h1 style="font-size:36px;font-weight:700;margin-bottom:8px">{"DeFi 收益仪表盘" if is_zh else "DeFi Yield Dashboard"}</h1>
+<p class="sub" style="max-width:600px">{"实时追踪流动性池APY，筛选可靠协议，比较最佳收益机会" if is_zh else "Track live APY across liquidity pools. Filter by reliability. Compare the best yield opportunities."}</p>'''
+
+    # Stats
+    h += f'''<div class="df-stats" id="df-stats">
+<div class="df-stat"><div class="df-stat-l">{"总TVL" if is_zh else "Total TVL"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"平均APY" if is_zh else "Avg APY"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"最高APY" if is_zh else "Top APY"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"池数量" if is_zh else "Pool Count"}</div><div class="df-stat-v">-</div></div>
+</div>'''
+
+    h += defi_filters(lang)
+    h += '<div id="df-app">'
+    h += defi_table(lang)
+    h += '</div>'
+
+    # CTA
+    h += defi_cta(lang)
+
+    # Ad slot mid
+    h += '<div class="df-ad" style="height:250px;margin-bottom:24px">Ad Space</div>'
+
+    # Quick links
+    h += f'<div style="margin-bottom:32px"><h2 style="font-size:22px;margin-bottom:16px">{"按链浏览" if is_zh else "Browse by Chain"}</h2><div class="df-chain-grid">'
+    for ch in DEFI_CHAINS:
+        cn = ch['name_zh'] if is_zh else ch['name']
+        h += f'<a href="{prefix}/defi/chain/{ch["slug"].lower()}.html" class="card" style="text-decoration:none"><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">{cn}</h3><p style="font-size:12px;color:var(--td);line-height:1.5">{(ch["desc_zh"] if is_zh else ch["desc"])[:80]}...</p></a>'
+    h += '</div></div>'
+
+    h += f'<div style="margin-bottom:32px"><h2 style="font-size:22px;margin-bottom:16px">{"按协议浏览" if is_zh else "Browse by Protocol"}</h2><div class="df-chain-grid">'
+    for pr in DEFI_PROTOCOLS[:8]:
+        pn = pr['name_zh'] if is_zh else pr['name']
+        h += f'<a href="{prefix}/defi/protocol/{pr["slug"]}.html" class="card" style="text-decoration:none"><div style="display:flex;justify-content:space-between;align-items:start"><h3 style="font-size:16px;font-weight:700">{pn}</h3><span class="tag" style="font-size:10px">{pr["cat"]}</span></div><p style="font-size:12px;color:var(--td);line-height:1.5;margin-top:6px">{(pr["desc_zh"] if is_zh else pr["desc"])[:80]}...</p></a>'
+    h += f'</div><div style="margin-top:12px;text-align:center"><a href="{prefix}/defi/protocol/" class="bo" style="padding:10px 24px;font-size:13px">{"查看全部协议 →" if is_zh else "View All Protocols →"}</a></div></div>'
+
+    # Guides
+    h += f'<div style="margin-bottom:32px"><h2 style="font-size:22px;margin-bottom:16px">{"DeFi学习指南" if is_zh else "DeFi Learning Guides"}</h2><div class="df-guide-grid">'
+    for g in DEFI_GUIDES:
+        gt = g['title_zh'] if is_zh else g['title']
+        gd = g['desc_zh'] if is_zh else g['desc']
+        h += f'<a href="{prefix}/defi/guide/{g["slug"]}.html" class="card" style="text-decoration:none"><div style="font-size:28px;margin-bottom:10px">{g["icon"]}</div><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">{gt}</h3><p style="font-size:12px;color:var(--td);line-height:1.5">{gd}</p></a>'
+    h += '</div></div>'
+
+    h += defi_disclaimer(lang)
+    h += '</section>'
+    h += defi_modal()
+    h += footer(lang)
+
+    # Structured data
+    ld = {"@context":"https://schema.org","@type":"WebApplication","name":"DeFi Yield Dashboard","url":f"{DOMAIN}/defi/","description":"Track APY across 10,000+ DeFi liquidity pools","applicationCategory":"FinanceApplication","operatingSystem":"Web"}
+    h += f'<script type="application/ld+json">{json.dumps(ld)}</script>'
+    h += f'<script>{DEFI_JS}</script>'
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/index.html", h)
+
+def gen_defi_chain_index(lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    path = f"{prefix}/defi/chain/"
+    title = "DeFi各链收益概览 | ZX Capital" if is_zh else "DeFi Yields by Chain | ZX Capital"
+    desc = "浏览各区块链的DeFi流动性池收益" if is_zh else "Browse DeFi liquidity pool yields across all major blockchains"
+
+    h = defi_head(title, desc, path, lang)
+    h += nav(lang)
+    h += f'<section class="sec">'
+    h += f'<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <a href="{prefix}/defi/">DeFi</a> <span>/</span> <span style="color:var(--t)">{"链" if is_zh else "Chains"}</span></div>'
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", f"{prefix}/defi/"), ("链" if is_zh else "Chains", None)], lang)
+    h += f'<h1 style="font-size:32px;font-weight:700;margin-bottom:8px">{"DeFi各链概览" if is_zh else "DeFi by Chain"}</h1>'
+    h += f'<p class="sub">{"选择区块链查看对应的流动性池和收益数据" if is_zh else "Select a blockchain to view its liquidity pools and yield data"}</p>'
+    h += '<div class="g2">'
+    for ch in DEFI_CHAINS:
+        cn = ch['name_zh'] if is_zh else ch['name']
+        cd = ch['desc_zh'] if is_zh else ch['desc']
+        h += f'<a href="{prefix}/defi/chain/{ch["slug"].lower()}.html" class="card" style="text-decoration:none"><h3 style="font-size:18px;font-weight:700;margin-bottom:8px">{cn}</h3><p style="font-size:13px;color:var(--td);line-height:1.6">{cd}</p></a>'
+    h += '</div></section>'
+    h += footer(lang)
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/chain/index.html", h)
+
+def gen_defi_chain_page(chain, lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    slug = chain['slug'].lower()
+    cn = chain['name_zh'] if is_zh else chain['name']
+    cd = chain['desc_zh'] if is_zh else chain['desc']
+    path = f"{prefix}/defi/chain/{slug}.html"
+    title = f"{cn} DeFi收益 - 最佳流动性池 | ZX Capital" if is_zh else f"{chain['name']} DeFi Pools - Best APY Opportunities | ZX Capital"
+    desc = f"{cn}上的DeFi流动性池和收益数据。" if is_zh else f"Track the best DeFi yields on {chain['name']}. Live APY and TVL data for all {chain['name']} liquidity pools."
+
+    h = defi_head(title, desc, path, lang)
+    h += nav(lang)
+    h += f'''<section class="sec" style="max-width:1200px">
+<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <a href="{prefix}/defi/">DeFi</a> <span>/</span> <a href="{prefix}/defi/chain/">{"链" if is_zh else "Chains"}</a> <span>/</span> <span style="color:var(--t)">{cn}</span></div>'''
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", f"{prefix}/defi/"), ("链" if is_zh else "Chains", f"{prefix}/defi/chain/"), (cn, None)], lang)
+
+    h += '<div class="df-ad" style="height:90px;margin-bottom:24px">Ad Space</div>'
+    h += f'<h1 style="font-size:32px;font-weight:700;margin-bottom:8px">{cn} DeFi {"收益" if is_zh else "Yields"}</h1>'
+    h += f'<div class="card" style="margin-bottom:24px"><p style="color:var(--tm);font-size:14px;line-height:1.7">{cd}</p></div>'
+
+    h += f'''<div class="df-stats" id="df-stats">
+<div class="df-stat"><div class="df-stat-l">{"总TVL" if is_zh else "Total TVL"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"平均APY" if is_zh else "Avg APY"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"最高APY" if is_zh else "Top APY"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"池数量" if is_zh else "Pool Count"}</div><div class="df-stat-v">-</div></div>
+</div>'''
+
+    h += defi_filters(lang)
+    h += f'<div id="df-app" data-chain="{chain["slug"]}">'
+    h += defi_table(lang)
+    h += '</div>'
+    h += defi_cta(lang)
+    h += defi_disclaimer(lang)
+    h += '</section>'
+    h += defi_modal()
+    h += footer(lang)
+    h += f'<script>{DEFI_JS}</script>'
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/chain/{slug}.html", h)
+
+def gen_defi_protocol_index(lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    path = f"{prefix}/defi/protocol/"
+    title = "DeFi协议收益概览 | ZX Capital" if is_zh else "DeFi Yields by Protocol | ZX Capital"
+    desc = "浏览各DeFi协议的流动性池收益" if is_zh else "Browse liquidity pool yields across major DeFi protocols"
+
+    h = defi_head(title, desc, path, lang)
+    h += nav(lang)
+    h += f'<section class="sec">'
+    h += f'<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <a href="{prefix}/defi/">DeFi</a> <span>/</span> <span style="color:var(--t)">{"协议" if is_zh else "Protocols"}</span></div>'
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", f"{prefix}/defi/"), ("协议" if is_zh else "Protocols", None)], lang)
+    h += f'<h1 style="font-size:32px;font-weight:700;margin-bottom:8px">{"DeFi协议概览" if is_zh else "DeFi Protocols"}</h1>'
+    h += f'<p class="sub">{"选择协议查看对应的流动性池和收益数据" if is_zh else "Select a protocol to view its liquidity pools and yield data"}</p>'
+    h += '<div class="g2">'
+    for pr in DEFI_PROTOCOLS:
+        pname = pr['name_zh'] if is_zh else pr['name']
+        pd = pr['desc_zh'] if is_zh else pr['desc']
+        h += f'<a href="{prefix}/defi/protocol/{pr["slug"]}.html" class="card" style="text-decoration:none"><div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px"><h3 style="font-size:18px;font-weight:700">{pname}</h3><span class="tag" style="font-size:10px">{pr["cat"]}</span></div><p style="font-size:13px;color:var(--td);line-height:1.6">{pd}</p></a>'
+    h += '</div></section>'
+    h += footer(lang)
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/protocol/index.html", h)
+
+def gen_defi_protocol_page(proto, lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    pname = proto['name_zh'] if is_zh else proto['name']
+    pd = proto['desc_zh'] if is_zh else proto['desc']
+    path = f"{prefix}/defi/protocol/{proto['slug']}.html"
+    title = f"{pname} 收益 - APY与TVL数据 | ZX Capital" if is_zh else f"{proto['name']} Pools - APY, TVL & Yield Data | ZX Capital"
+    desc = f"{pname}流动性池数据。" if is_zh else f"Track all {proto['name']} liquidity pools with live APY and TVL data."
+
+    h = defi_head(title, desc, path, lang)
+    h += nav(lang)
+    h += f'''<section class="sec" style="max-width:1200px">
+<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <a href="{prefix}/defi/">DeFi</a> <span>/</span> <a href="{prefix}/defi/protocol/">{"协议" if is_zh else "Protocols"}</a> <span>/</span> <span style="color:var(--t)">{pname}</span></div>'''
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", f"{prefix}/defi/"), ("协议" if is_zh else "Protocols", f"{prefix}/defi/protocol/"), (pname, None)], lang)
+
+    h += '<div class="df-ad" style="height:90px;margin-bottom:24px">Ad Space</div>'
+    h += f'<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px"><div><h1 style="font-size:32px;font-weight:700">{pname}</h1><div style="display:flex;gap:10px;align-items:center;margin-top:4px"><span class="tag">{proto["cat"]}</span><a href="{proto["url"]}" target="_blank" rel="nofollow" style="font-size:12px;color:var(--g)">{"访问官网 →" if is_zh else "Visit Protocol →"}</a></div></div></div>'
+    h += f'<div class="card" style="margin-bottom:24px"><p style="color:var(--tm);font-size:14px;line-height:1.7">{pd}</p></div>'
+
+    h += f'''<div class="df-stats" id="df-stats">
+<div class="df-stat"><div class="df-stat-l">{"总TVL" if is_zh else "Total TVL"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"平均APY" if is_zh else "Avg APY"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"最高APY" if is_zh else "Top APY"}</div><div class="df-stat-v">-</div></div>
+<div class="df-stat"><div class="df-stat-l">{"池数量" if is_zh else "Pool Count"}</div><div class="df-stat-v">-</div></div>
+</div>'''
+
+    h += defi_filters(lang)
+    h += f'<div id="df-app" data-protocol="{proto["slug"]}">'
+    h += defi_table(lang)
+    h += '</div>'
+    h += defi_cta(lang)
+    h += defi_disclaimer(lang)
+    h += '</section>'
+    h += defi_modal()
+    h += footer(lang)
+    h += f'<script>{DEFI_JS}</script>'
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/protocol/{proto["slug"]}.html", h)
+
+def gen_defi_guide_index(lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    path = f"{prefix}/defi/guide/"
+    title = "DeFi学习指南 | ZX Capital" if is_zh else "DeFi Learning Guides | ZX Capital"
+    desc = "学习DeFi流动性池、无常损失和收益策略" if is_zh else "Learn about DeFi liquidity pools, impermanent loss, yield farming strategies, and more"
+
+    h = defi_head(title, desc, path, lang)
+    h += nav(lang)
+    h += f'<section class="sec">'
+    h += f'<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <a href="{prefix}/defi/">DeFi</a> <span>/</span> <span style="color:var(--t)">{"指南" if is_zh else "Guides"}</span></div>'
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", f"{prefix}/defi/"), ("指南" if is_zh else "Guides", None)], lang)
+    h += f'<h1 style="font-size:32px;font-weight:700;margin-bottom:8px">{"DeFi学习指南" if is_zh else "DeFi Learning Guides"}</h1>'
+    h += f'<p class="sub">{"深入了解DeFi协议和流动性池策略" if is_zh else "Deep dive into DeFi protocols and liquidity pool strategies"}</p>'
+    h += '<div class="df-guide-grid">'
+    for g in DEFI_GUIDES:
+        gt = g['title_zh'] if is_zh else g['title']
+        gd = g['desc_zh'] if is_zh else g['desc']
+        h += f'<a href="{prefix}/defi/guide/{g["slug"]}.html" class="card" style="text-decoration:none"><div style="font-size:36px;margin-bottom:12px">{g["icon"]}</div><h3 style="font-size:18px;font-weight:700;margin-bottom:8px">{gt}</h3><p style="font-size:13px;color:var(--td);line-height:1.6">{gd}</p></a>'
+    h += '</div></section>'
+    h += footer(lang)
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/guide/index.html", h)
+
+GUIDE_CONTENT = {
+    "liquidity-pools": {
+        "en": """<h2>What Are Liquidity Pools?</h2>
+<p>Liquidity pools are smart contracts that hold pairs of tokens, enabling decentralized trading without traditional order books. They are the backbone of DeFi, powering decentralized exchanges (DEXs) like Uniswap, Curve, and Balancer.</p>
+<h3>How Do They Work?</h3>
+<p>When you provide liquidity, you deposit equal value of two tokens into a pool. For example, in an ETH/USDC pool, you might deposit $500 worth of ETH and $500 of USDC. Traders can swap between these tokens, and the pool uses a mathematical formula (like x*y=k) to determine prices.</p>
+<h3>How Do LPs Earn Money?</h3>
+<p>Liquidity providers (LPs) earn money in several ways:</p>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Trading Fees:</strong> Every swap pays a fee (typically 0.3%) distributed to LPs proportional to their share of the pool.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Reward Tokens:</strong> Many protocols incentivize LPs with additional token rewards (liquidity mining).</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Yield Farming:</strong> LP tokens can be staked in other protocols for additional yield.</li>
+</ul>
+<h3>Key Metrics to Watch</h3>
+<p>When evaluating a pool, pay attention to:</p>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">APY (Annual Percentage Yield):</strong> Your expected annual return.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">TVL (Total Value Locked):</strong> How much capital is in the pool. Higher TVL generally means more stability.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Volume:</strong> Higher trading volume means more fee revenue for LPs.</li>
+</ul>""",
+        "zh": """<h2>什么是流动性池？</h2>
+<p>流动性池是持有代币对的智能合约，实现无需传统订单簿的去中心化交易。它们是DeFi的基础设施，支撑着Uniswap、Curve和Balancer等去中心化交易所（DEX）。</p>
+<h3>它们如何运作？</h3>
+<p>当你提供流动性时，你需要将等值的两种代币存入池中。例如，在ETH/USDC池中，你可能存入价值500美元的ETH和500美元的USDC。交易者可以在这些代币之间兑换，池子使用数学公式（如x*y=k）来确定价格。</p>
+<h3>LP如何赚钱？</h3>
+<p>流动性提供者（LP）通过以下方式赚取收益：</p>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">交易手续费：</strong>每笔交换支付手续费（通常0.3%），按LP份额比例分配。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">奖励代币：</strong>许多协议用额外的代币奖励激励LP（流动性挖矿）。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">收益农场：</strong>LP代币可以在其他协议中质押以获得额外收益。</li>
+</ul>
+<h3>需要关注的关键指标</h3>
+<p>评估池子时，请注意：</p>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">APY（年化收益率）：</strong>你的预期年回报率。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">TVL（总锁仓量）：</strong>池中有多少资金。更高的TVL通常意味着更稳定。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">交易量：</strong>更高的交易量意味着LP获得更多手续费收入。</li>
+</ul>"""
+    },
+    "impermanent-loss": {
+        "en": """<h2>Understanding Impermanent Loss</h2>
+<p>Impermanent loss (IL) is the difference between holding tokens in a liquidity pool versus simply holding them in your wallet. It occurs when the price ratio of pooled tokens changes from when you deposited them.</p>
+<h3>How Does It Happen?</h3>
+<p>AMMs rebalance your position as prices change. If ETH rises 100%, an ETH/USDC LP position gains less than simply holding ETH, because the pool automatically sells ETH as it rises. The "loss" is "impermanent" because it reverses if prices return to the original ratio.</p>
+<h3>IL by Price Change</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0">
+<div class="met"><div class="met-l">25% change</div><div class="met-v neg">-0.6%</div></div>
+<div class="met"><div class="met-l">50% change</div><div class="met-v neg">-2.0%</div></div>
+<div class="met"><div class="met-l">100% change</div><div class="met-v neg">-5.7%</div></div>
+<div class="met"><div class="met-l">200% change</div><div class="met-v neg">-13.4%</div></div>
+</div>
+<h3>How to Minimize IL</h3>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Stablecoin Pairs:</strong> Pools with correlated assets (USDC/USDT) have minimal IL.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">High Fee Pools:</strong> Trading fees can offset IL if volume is sufficient.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Concentrated Liquidity:</strong> Narrower ranges earn more fees but amplify IL.</li>
+</ul>""",
+        "zh": """<h2>理解无常损失</h2>
+<p>无常损失（IL）是指将代币放在流动性池中与简单持有代币之间的价值差异。当池中代币的价格比率相对于你存入时发生变化时，就会产生无常损失。</p>
+<h3>它是如何发生的？</h3>
+<p>AMM在价格变化时会重新平衡你的头寸。如果ETH上涨100%，ETH/USDC LP头寸的收益少于简单持有ETH，因为池子在ETH上涨时自动卖出ETH。这种"损失"是"无常的"，因为如果价格回到原始比率，损失就会消失。</p>
+<h3>不同价格变化下的IL</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0">
+<div class="met"><div class="met-l">25%变化</div><div class="met-v neg">-0.6%</div></div>
+<div class="met"><div class="met-l">50%变化</div><div class="met-v neg">-2.0%</div></div>
+<div class="met"><div class="met-l">100%变化</div><div class="met-v neg">-5.7%</div></div>
+<div class="met"><div class="met-l">200%变化</div><div class="met-v neg">-13.4%</div></div>
+</div>
+<h3>如何减少无常损失</h3>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">稳定币对：</strong>相关资产池（如USDC/USDT）的无常损失极小。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">高手续费池：</strong>如果交易量足够，手续费可以抵消无常损失。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">集中流动性：</strong>更窄的范围赚取更多手续费，但会放大无常损失。</li>
+</ul>"""
+    },
+    "yield-farming": {
+        "en": """<h2>Yield Farming Strategies</h2>
+<p>Yield farming is the practice of maximizing returns by moving assets between DeFi protocols to capture the best yields. From conservative to aggressive, there's a strategy for every risk appetite.</p>
+<h3>Conservative: Stablecoin Lending</h3>
+<p>Supply stablecoins (USDC, USDT, DAI) to lending protocols like Aave or Compound. Typical APY: 2-8%. Low risk, no impermanent loss.</p>
+<h3>Moderate: Blue-Chip LP</h3>
+<p>Provide liquidity in established pools like ETH/USDC on Uniswap or Curve. Typical APY: 5-20%. Moderate risk from IL, but offset by reliable fee generation.</p>
+<h3>Aggressive: Leveraged Farming</h3>
+<p>Use lending protocols to borrow assets and multiply your LP position. Higher yields but amplified risk from IL, liquidation, and smart contract exposure.</p>
+<h3>Risk Management Tips</h3>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Diversify:</strong> Spread across multiple pools and protocols.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Check Audits:</strong> Only use protocols with completed security audits.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Monitor APY:</strong> Yields change rapidly. What was 50% today may be 5% tomorrow.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Use Our Dashboard:</strong> Track pools in real-time to make informed decisions.</li>
+</ul>""",
+        "zh": """<h2>收益农场策略</h2>
+<p>收益农场是通过在DeFi协议之间转移资产来最大化回报的做法。从保守到激进，每种风险偏好都有对应的策略。</p>
+<h3>保守型：稳定币借贷</h3>
+<p>将稳定币（USDC、USDT、DAI）存入Aave或Compound等借贷协议。典型APY：2-8%。低风险，无无常损失。</p>
+<h3>中等型：蓝筹LP</h3>
+<p>在Uniswap或Curve上的成熟池（如ETH/USDC）提供流动性。典型APY：5-20%。来自无常损失的中等风险，但被可靠的手续费收入抵消。</p>
+<h3>激进型：杠杆农场</h3>
+<p>使用借贷协议借入资产并放大你的LP头寸。更高的收益，但来自无常损失、清算和智能合约风险也被放大。</p>
+<h3>风险管理建议</h3>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">分散投资：</strong>分散到多个池和协议中。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">检查审计：</strong>只使用已完成安全审计的协议。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">监控APY：</strong>收益变化很快，今天50%的APY明天可能只有5%。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">使用我们的仪表盘：</strong>实时追踪池数据做出明智决策。</li>
+</ul>"""
+    },
+    "stablecoin-pools": {
+        "en": """<h2>Stablecoin Pool Guide</h2>
+<p>Stablecoin pools are among the safest yield opportunities in DeFi. By pairing stablecoins (USDC, USDT, DAI, FRAX), you minimize impermanent loss while earning trading fees and protocol incentives.</p>
+<h3>Why Stablecoin Pools?</h3>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Near-Zero IL:</strong> Since both tokens maintain ~$1, price divergence is minimal.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">Predictable Returns:</strong> APY is more stable compared to volatile asset pools.</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">High Demand:</strong> Stablecoin swaps are among the most common DeFi transactions.</li>
+</ul>
+<h3>Top Platforms for Stablecoin Yields</h3>
+<p><strong>Curve Finance</strong> is the dominant platform for stablecoin pools, offering the deepest liquidity and lowest slippage. Additional CRV and CVX rewards boost yields significantly.</p>
+<p><strong>Aave</strong> and <strong>Compound</strong> offer single-sided stablecoin lending, eliminating IL entirely. Simply deposit and earn interest from borrowers.</p>
+<h3>Risks to Consider</h3>
+<p>Even stablecoin pools carry risks: depeg events (as seen with UST), smart contract bugs, and regulatory changes affecting stablecoin issuers. Always diversify across multiple stablecoins and protocols.</p>""",
+        "zh": """<h2>稳定币池指南</h2>
+<p>稳定币池是DeFi中最安全的收益机会之一。通过配对稳定币（USDC、USDT、DAI、FRAX），你可以最大限度地减少无常损失，同时赚取交易费和协议激励。</p>
+<h3>为什么选择稳定币池？</h3>
+<ul style="margin:12px 0;padding-left:24px;color:var(--tm)">
+<li style="margin-bottom:8px"><strong style="color:var(--t)">接近零的IL：</strong>由于两种代币都维持在约1美元，价格偏离极小。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">可预测的回报：</strong>APY比波动性资产池更稳定。</li>
+<li style="margin-bottom:8px"><strong style="color:var(--t)">高需求：</strong>稳定币交换是最常见的DeFi交易之一。</li>
+</ul>
+<h3>稳定币收益顶级平台</h3>
+<p><strong>Curve Finance</strong>是稳定币池的主导平台，提供最深的流动性和最低的滑点。额外的CRV和CVX奖励显著提升收益。</p>
+<p><strong>Aave</strong>和<strong>Compound</strong>提供单边稳定币借贷，完全消除无常损失。只需存入即可从借款人那里赚取利息。</p>
+<h3>需要考虑的风险</h3>
+<p>即使是稳定币池也有风险：脱锚事件（如UST）、智能合约漏洞以及影响稳定币发行方的监管变化。始终在多种稳定币和协议之间分散投资。</p>"""
+    },
+}
+
+def gen_defi_guide(guide, lang='en'):
+    prefix = '/zh' if lang=='zh' else ''
+    is_zh = lang=='zh'
+    gt = guide['title_zh'] if is_zh else guide['title']
+    gd = guide['desc_zh'] if is_zh else guide['desc']
+    path = f"{prefix}/defi/guide/{guide['slug']}.html"
+    title = f"{gt} | ZX Capital"
+
+    content = GUIDE_CONTENT.get(guide['slug'], {}).get(lang, '')
+
+    h = defi_head(title, gd, path, lang)
+    h += nav(lang)
+    h += f'''<section class="sec" style="max-width:800px">
+<div class="bc"><a href="{prefix}/">{"首页" if is_zh else "Home"}</a> <span>/</span> <a href="{prefix}/defi/">DeFi</a> <span>/</span> <a href="{prefix}/defi/guide/">{"指南" if is_zh else "Guides"}</a> <span>/</span> <span style="color:var(--t)">{gt}</span></div>'''
+    h += breadcrumb_json([("首页" if is_zh else "Home", f"{prefix}/"), ("DeFi", f"{prefix}/defi/"), ("指南" if is_zh else "Guides", f"{prefix}/defi/guide/"), (gt, None)], lang)
+
+    h += f'<div style="font-size:48px;margin-bottom:16px">{guide["icon"]}</div>'
+    h += f'<h1 style="font-size:32px;font-weight:700;margin-bottom:8px">{gt}</h1>'
+    h += f'<p class="sub">{gd}</p>'
+
+    h += f'<div class="card" style="margin-bottom:32px"><div style="color:var(--tm);font-size:14px;line-height:1.8">{content}</div></div>'
+
+    # CTA
+    h += defi_cta(lang)
+
+    # Related guides
+    h += f'<div style="margin-top:32px"><h3 style="font-size:18px;margin-bottom:14px">{"更多指南" if is_zh else "More Guides"}</h3><div class="df-guide-grid">'
+    for g in DEFI_GUIDES:
+        if g['slug'] == guide['slug']:
+            continue
+        gg_t = g['title_zh'] if is_zh else g['title']
+        h += f'<a href="{prefix}/defi/guide/{g["slug"]}.html" class="card" style="text-decoration:none"><div style="font-size:24px;margin-bottom:8px">{g["icon"]}</div><h4 style="font-size:15px;font-weight:700">{gg_t}</h4></a>'
+    h += '</div></div>'
+
+    # Link to dashboard
+    h += f'<div style="text-align:center;margin-top:32px"><a href="{prefix}/defi/" class="bp">{"查看DeFi仪表盘 →" if is_zh else "Explore DeFi Dashboard →"}</a></div>'
+
+    h += '</section>'
+    h += footer(lang)
+    h += '</body></html>'
+    page(f"{'zh/' if is_zh else ''}defi/guide/{guide["slug"]}.html", h)
+
+# ============================================================
+# END DEFI SECTION
+# ============================================================
+
 def gen_index_page(category, items, lang='en'):
     prefix = '/zh' if lang=='zh' else ''
     path = f"{prefix}/{category}/"
@@ -751,6 +1727,7 @@ def gen_homepage(lang='en'):
         (f"{prefix}/calculator/compound.html","📈","复利计算器" if is_zh else "Compound Interest","可视化复利效应" if is_zh else "Visualize compounding power"),
         (f"{prefix}/calculator/fire.html","🔥","FIRE计算器" if is_zh else "FIRE Calculator","财务自由之路" if is_zh else "Path to financial independence"),
         (f"{prefix}/calculator/cost-of-living.html","🌍","生活成本比较" if is_zh else "Cost of Living","比较500+城市" if is_zh else "Compare 500+ cities"),
+        (f"{prefix}/defi/","💧","DeFi收益仪表盘" if is_zh else "DeFi Yield Dashboard","实时追踪10000+流动性池APY" if is_zh else "Track APY across 10,000+ pools"),
     ]
     h += f'<section class="sec"><h2>{"投资工具" if is_zh else "Investment Tools"}</h2><p class="sub">{"专业计算器和模拟器" if is_zh else "Professional calculators and simulators"}</p><div class="g2">'
     for url,icon,tl,sub in tools:
@@ -929,7 +1906,15 @@ def gen_sitemap():
         for calc in ['portfolio','compound','fire','cost-of-living']:
             add(f'{p}/calculator/{calc}.html', 'monthly')
         add(f'{p}/about.html', 'monthly', '0.6')
-    
+        # DeFi pages
+        add(f'{p}/defi/', 'daily', '0.9')
+        add(f'{p}/defi/chain/', 'daily', '0.8')
+        for ch in DEFI_CHAINS: add(f'{p}/defi/chain/{ch["slug"].lower()}.html', 'daily')
+        add(f'{p}/defi/protocol/', 'daily', '0.8')
+        for pr in DEFI_PROTOCOLS: add(f'{p}/defi/protocol/{pr["slug"]}.html', 'daily')
+        add(f'{p}/defi/guide/', 'weekly', '0.7')
+        for g in DEFI_GUIDES: add(f'{p}/defi/guide/{g["slug"]}.html', 'monthly', '0.7')
+
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(urls) + '\n</urlset>'
     page('sitemap.xml', xml)
 
@@ -983,8 +1968,8 @@ python3 generate_site.py
 # ============================================================
 if __name__ == '__main__':
     if os.path.exists(OUT):
-        shutil.rmtree(OUT)
-    os.makedirs(OUT)
+        shutil.rmtree(OUT, ignore_errors=True)
+    os.makedirs(OUT, exist_ok=True)
     
     total_pages = 0
     
@@ -1025,6 +2010,26 @@ if __name__ == '__main__':
         gen_about(lang)
         total_pages += 1
         print(f"  ✓ About page")
+
+        # DeFi pages
+        gen_defi_dashboard(lang)
+        total_pages += 1
+        gen_defi_chain_index(lang)
+        total_pages += 1
+        for ch in DEFI_CHAINS:
+            gen_defi_chain_page(ch, lang)
+            total_pages += 1
+        gen_defi_protocol_index(lang)
+        total_pages += 1
+        for pr in DEFI_PROTOCOLS:
+            gen_defi_protocol_page(pr, lang)
+            total_pages += 1
+        gen_defi_guide_index(lang)
+        total_pages += 1
+        for g in DEFI_GUIDES:
+            gen_defi_guide(g, lang)
+            total_pages += 1
+        print(f"  ✓ DeFi pages ({1 + 1 + len(DEFI_CHAINS) + 1 + len(DEFI_PROTOCOLS) + 1 + len(DEFI_GUIDES)} pages)")
     
     gen_sitemap()
     gen_static()
