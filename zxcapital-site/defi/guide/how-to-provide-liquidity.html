@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Provide Liquidity (Step-by-Step) | ZX Capital</title><meta name="description" content="A complete visual step-by-step guide: from setting up a wallet to earning your first LP fees. Covers both passive lending and active concentrated liquidity.">
+<link rel="canonical" href="https://zxcapitalgroup.com/defi/guide/how-to-provide-liquidity.html">
+<link rel="alternate" hreflang="en" href="https://zxcapitalgroup.com/defi/guide/how-to-provide-liquidity.html">
+<link rel="alternate" hreflang="zh" href="https://zxcapitalgroup.com/zh/defi/guide/how-to-provide-liquidity.html">
+<link rel="alternate" hreflang="x-default" href="https://zxcapitalgroup.com/defi/guide/how-to-provide-liquidity.html">
+<meta property="og:title" content="How to Provide Liquidity (Step-by-Step) | ZX Capital"><meta property="og:description" content="A complete visual step-by-step guide: from setting up a wallet to earning your first LP fees. Covers both passive lending and active concentrated liquidity.">
+<meta property="og:url" content="https://zxcapitalgroup.com/defi/guide/how-to-provide-liquidity.html"><meta property="og:type" content="website"><meta property="og:site_name" content="ZX Capital">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="How to Provide Liquidity (Step-by-Step) | ZX Capital"><meta name="twitter:description" content="A complete visual step-by-step guide: from setting up a wallet to earning your first LP fees. Covers both passive lending and active concentrated liquidity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#06080d;--bg2:#080b12;--card:#0d1117;--bdr:#161d2a;--g:#00dc82;--gd:#00b36b;--r:#ff4d6a;--amb:#f0a050;--t:#e2e8f0;--tm:#94a3b8;--td:#64748b;--tb:#f1f5f9}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}.mono{font-family:'Space Mono','Courier New',monospace}.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,8,13,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr)}.nav-in{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--tb)}.logo-i{width:34px;height:34px;border-radius:7px;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--bg);font-family:'Space Mono',monospace}
+.nlinks{display:flex;gap:24px;align-items:center}.nlinks a{color:var(--tm);font-size:13px;font-weight:500;transition:color .2s}.nlinks a:hover,.nlinks a.on{color:var(--g)}
+.lbtn{background:var(--bdr);color:var(--tm);border:none;padding:5px 12px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Mono',monospace;text-decoration:none}
+.mbtn{display:none;background:none;border:none;color:var(--t);font-size:22px;cursor:pointer}.mmenu{display:none;background:var(--bg2);border-top:1px solid var(--bdr);padding:12px 20px}.mmenu a{display:block;padding:10px 0;color:var(--tm);font-size:14px}
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 20px 60px}.hero-bg{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.03) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
+.hero-glow{position:absolute;top:15%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,220,130,.07),transparent 70%);pointer-events:none;animation:glow 4s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:.5}50%{opacity:1}}
+.hero h1{font-size:clamp(32px,6vw,56px);font-weight:700;line-height:1.12;letter-spacing:-.025em;background:linear-gradient(135deg,#f1f5f9,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:20px 0}
+.hero p{font-size:17px;color:var(--td);max-width:560px;margin:0 auto 32px}
+.bp{display:inline-block;background:linear-gradient(135deg,var(--g),var(--gd));color:var(--bg);padding:13px 30px;border-radius:8px;font-weight:700;font-size:14px;transition:all .3s;border:none;cursor:pointer}.bp:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,220,130,.3)}
+.bo{display:inline-block;background:transparent;color:var(--t);border:1px solid var(--bdr);padding:13px 30px;border-radius:8px;font-weight:500;font-size:14px;transition:all .3s}.bo:hover{border-color:var(--g);color:var(--g)}
+.tag{display:inline-block;background:rgba(0,220,130,.12);color:var(--g);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.04em}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;transition:all .3s}.card:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,220,130,.06)}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-top:32px;border-top:1px solid var(--bdr);margin-top:48px}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr)}table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--card);color:var(--td);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:13px 16px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap}
+td{padding:13px 16px;border-bottom:1px solid var(--bg);white-space:nowrap}tr:hover td{background:var(--card)}.tk{font-family:'Space Mono',monospace;color:var(--g);font-weight:700}.pos{color:var(--g)}.neg{color:var(--r)}
+.met{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:18px 20px}.met-l{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}.met-v{font-size:20px;font-weight:700;font-family:'Space Mono',monospace}
+.bar-t{height:6px;background:var(--bdr);border-radius:3px;margin-top:4px}.bar-f{height:100%;border-radius:3px;background:var(--g)}
+.sec{padding:70px 20px;max-width:1100px;margin:0 auto}.sec-a{background:var(--bg2);padding:70px 0}.sec h2{font-size:32px;font-weight:700;margin-bottom:8px}.sub{color:var(--td);margin-bottom:32px}
+.bc{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--td);margin-bottom:24px;flex-wrap:wrap}.bc a{color:var(--tm)}.bc a:hover{color:var(--g)}
+.disc{background:var(--card);border:1px solid #2a1c1c;border-radius:14px;padding:28px 32px;max-width:900px;margin:0 auto}.disc h3{font-size:15px;font-weight:700;color:var(--amb);margin-bottom:12px}.disc p{font-size:12px;color:var(--td);line-height:1.7;margin-bottom:8px}
+.dh{display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap}.di{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,rgba(0,220,130,.15),var(--card));border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--g)}.dp{margin-left:auto;text-align:right}
+footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--bg)}.fi{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}.fb{display:flex;align-items:center;gap:8px}.fc{color:var(--td);font-size:11px}
+.calc-box{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:32px}.calc-box label{display:block;font-size:12px;color:var(--td);margin-bottom:6px;font-weight:500}
+.calc-box input,.calc-box select{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;color:var(--t);font-size:15px;font-family:'Space Mono',monospace;outline:none;margin-bottom:16px}
+.calc-box select{font-family:'DM Sans',sans-serif;cursor:pointer}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:24px}
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fu{animation:fadeup .6s ease both}.fd1{animation-delay:.1s}.fd2{animation-delay:.2s}.fd3{animation-delay:.3s}
+@media(max-width:768px){.nlinks{display:none!important}.mbtn{display:flex!important}.g4,.sg{grid-template-columns:repeat(2,1fr)}.dh{flex-direction:column;align-items:flex-start}.dp{margin-left:0;text-align:left}.hero h1{font-size:32px!important}.mmenu.open{display:block!important}}
+@media(max-width:500px){td,th{padding:10px;font-size:12px}.g3{grid-template-columns:repeat(2,1fr)}}</style></head><body><style>
+.df-wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.df-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.df-stat{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:18px 20px}
+.df-stat-l{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.df-stat-v{font-size:22px;font-weight:700;font-family:'Space Mono',monospace}
+.df-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.df-sel{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:9px 14px;color:var(--t);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;min-width:140px}
+.df-sel:focus{border-color:var(--g)}
+.df-search{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:9px 14px;color:var(--t);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;flex:1;min-width:180px}
+.df-search:focus{border-color:var(--g)}
+.df-search::placeholder{color:var(--td)}
+.df-tog{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tm);cursor:pointer;white-space:nowrap;user-select:none}
+.df-tog input{accent-color:var(--g);width:16px;height:16px;cursor:pointer}
+.df-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.02em;margin-right:4px}
+.df-badge-green{background:rgba(0,220,130,.15);color:var(--g)}
+.df-badge-blue{background:rgba(59,130,246,.15);color:#3b82f6}
+.df-badge-gold{background:rgba(240,160,80,.15);color:var(--amb)}
+.df-badge-red{background:rgba(255,77,106,.15);color:var(--r)}
+.df-badge-purple{background:rgba(168,85,247,.15);color:#a855f7}
+.df-table{width:100%;border-collapse:collapse;font-size:13px}
+.df-table th{background:var(--card);color:var(--td);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:13px 14px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s}
+.df-table th:hover{color:var(--g)}
+.df-table th.df-sorted{color:var(--g)}
+.df-table td{padding:12px 14px;border-bottom:1px solid rgba(22,29,42,.5);white-space:nowrap}
+.df-table tr{transition:background .15s}.df-table tr:hover td{background:var(--card)}
+.df-table tr.df-selected{background:rgba(0,220,130,.04)}
+.df-pag{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:20px}
+.df-pag button{background:var(--card);border:1px solid var(--bdr);border-radius:6px;padding:7px 14px;color:var(--tm);font-size:12px;cursor:pointer;transition:all .2s}
+.df-pag button:hover:not(:disabled){border-color:var(--g);color:var(--g)}
+.df-pag button:disabled{opacity:.4;cursor:default}
+.df-pag span{font-size:12px;color:var(--td)}
+.df-skel{background:linear-gradient(90deg,var(--card) 25%,var(--bdr) 50%,var(--card) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px;height:16px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.df-empty{text-align:center;padding:60px 20px;color:var(--td)}
+.df-apy-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--bdr)}
+.df-apy-base{background:var(--g);height:100%}.df-apy-reward{background:var(--amb);height:100%}
+.df-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:all .25s}
+.df-modal-overlay.open{opacity:1;visibility:visible}
+.df-modal{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative}
+.df-modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--td);font-size:20px;cursor:pointer}
+.df-modal-close:hover{color:var(--t)}
+.df-rel-dots{display:flex;gap:4px}.df-rel-dot{width:10px;height:10px;border-radius:50%;background:var(--bdr)}.df-rel-dot.on{background:var(--g)}
+.df-compare-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bdr);padding:12px 20px;z-index:150;display:none;align-items:center;justify-content:center;gap:16px}
+.df-compare-bar.show{display:flex}
+.df-chart-svg{width:100%;height:160px}
+.df-ad{background:var(--card);border:1px solid var(--bdr);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--td);font-size:11px;overflow:hidden}
+.df-cta{background:linear-gradient(135deg,rgba(0,220,130,.08),rgba(0,179,107,.08));border:1px solid rgba(0,220,130,.2);border-radius:14px;padding:28px 32px;text-align:center;margin:32px 0}
+.df-cta h3{font-size:20px;font-weight:700;margin-bottom:8px}.df-cta p{color:var(--td);font-size:13px;margin-bottom:16px}
+.df-cta-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.df-cta-links a{display:inline-block;background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--t);transition:all .2s}
+.df-cta-links a:hover{border-color:var(--g);color:var(--g);transform:translateY(-1px)}
+.df-guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.df-chain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+@media(max-width:768px){.df-stats{grid-template-columns:repeat(2,1fr)}.df-filters{flex-direction:column}.df-sel,.df-search{width:100%}.df-table td:nth-child(3),.df-table th:nth-child(3){display:none}}
+@media(max-width:500px){.df-stats{grid-template-columns:1fr 1fr}.df-table{font-size:11px}.df-table td,.df-table th{padding:8px 10px}.df-modal{padding:20px}}
+</style><nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><span class="logo-i">ZX</span>ZX Capital</a>
+<div class="nlinks"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></div>
+<div style="display:flex;gap:10px;align-items:center"><a href="/zh/" class="lbtn">中文</a><button class="mbtn" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menu">☰</button></div>
+</div><div id="mm" class="mmenu"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></div></nav><section class="sec" style="max-width:800px">
+<div class="bc"><a href="/">Home</a> <span>/</span> <a href="/defi/">DeFi</a> <span>/</span> <a href="/defi/guide/">Guides</a> <span>/</span> <span style="color:var(--t)">How to Provide Liquidity (Step-by-Step)</span></div><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://zxcapitalgroup.com/"}, {"@type": "ListItem", "position": 2, "name": "DeFi", "item": "https://zxcapitalgroup.com/defi/"}, {"@type": "ListItem", "position": 3, "name": "Guides", "item": "https://zxcapitalgroup.com/defi/guide/"}, {"@type": "ListItem", "position": 4, "name": "How to Provide Liquidity (Step-by-Step)"}]}</script><div style="font-size:48px;margin-bottom:16px">📋</div><h1 style="font-size:32px;font-weight:700;margin-bottom:8px">How to Provide Liquidity (Step-by-Step)</h1><p class="sub">A complete visual step-by-step guide: from setting up a wallet to earning your first LP fees. Covers both passive lending and active concentrated liquidity.</p><div class="card" style="margin-bottom:32px"><div style="color:var(--tm);font-size:14px;line-height:1.8"><h2>How to Provide Liquidity & Earn Yield</h2>
+<p>This guide walks you through every step — from zero to earning your first DeFi yield. We cover two paths: <strong>Path A (Passive/Easy)</strong> for beginners and <strong>Path B (Active/Advanced)</strong> for higher returns.</p>
+
+<div style="background:rgba(0,220,130,.06);border:1px solid rgba(0,220,130,.2);border-radius:12px;padding:24px;margin:20px 0">
+<h3 style="color:var(--g);margin-bottom:12px">Your Earnings Explained</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div class="met"><div class="met-l">What You Earn</div><div class="met-v" style="font-size:16px">Trading fees (WETH + USDC) or Interest (USDC)</div></div>
+<div class="met"><div class="met-l">Paid In</div><div class="met-v" style="font-size:16px">Same tokens you deposited</div></div>
+<div class="met"><div class="met-l">Where It Goes</div><div class="met-v" style="font-size:16px">Auto-accumulates in your position</div></div>
+<div class="met"><div class="met-l">How to Collect</div><div class="met-v" style="font-size:16px">"Collect Fees" or "Withdraw" button</div></div>
+</div>
+</div>
+
+<h2 style="margin-top:36px">Step 0: Prerequisites</h2>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:18px;flex-shrink:0">1</div>
+<div>
+<h3 style="margin-bottom:6px">Install MetaMask Wallet</h3>
+<p style="color:var(--tm)">Go to <strong>metamask.io</strong> → Download browser extension → Create a new wallet → <span style="color:var(--r);font-weight:700">Write down your seed phrase on paper (NEVER share it!)</span></p>
+<div class="met" style="margin-top:8px;border-left:3px solid var(--g)"><div class="met-l">What is MetaMask?</div><div style="font-size:13px;color:var(--tm)">A browser wallet that lets you interact with DeFi. Think of it as your "DeFi bank account". Your crypto keys stay on your device.</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:18px;flex-shrink:0">2</div>
+<div>
+<h3 style="margin-bottom:6px">Get Funds on the Right Chain</h3>
+<p style="color:var(--tm)">Buy ETH or USDC on an exchange (Coinbase, Binance) → Withdraw to your MetaMask wallet address → Make sure you pick the correct network (e.g. Base, Ethereum, Arbitrum).</p>
+<div class="met" style="margin-top:8px;border-left:3px solid var(--amb)"><div class="met-l">Important</div><div style="font-size:13px;color:var(--tm)">Always start with a small amount ($50-100) to learn the process. You need a small amount of ETH on every chain for gas fees (transaction costs).</div></div>
+</div>
+</div>
+
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:28px;margin:32px 0">
+<h2 style="font-size:22px;margin-bottom:4px;color:var(--g)">Choose Your Path</h2>
+<p style="color:var(--td);margin-bottom:20px">Pick based on your experience and how much time you want to spend</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="background:var(--bg);border:1px solid rgba(59,130,246,.3);border-radius:12px;padding:20px">
+<div style="font-size:28px;margin-bottom:8px">🛡️</div>
+<h3 style="color:#3b82f6;margin-bottom:8px">Path A: Passive Lending</h3>
+<p style="font-size:13px;color:var(--tm);margin-bottom:12px">Deposit one token, earn interest. No management needed.</p>
+<div style="font-size:12px;color:var(--td)">
+<div>✅ No impermanent loss</div>
+<div>✅ Set and forget</div>
+<div>✅ APY: 2-10%</div>
+<div>✅ Best for beginners</div>
+</div>
+</div>
+<div style="background:var(--bg);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:20px">
+<div style="font-size:28px;margin-bottom:8px">⚡</div>
+<h3 style="color:#a855f7;margin-bottom:8px">Path B: Concentrated LP</h3>
+<p style="font-size:13px;color:var(--tm);margin-bottom:12px">Provide two tokens in a price range. Higher yield, more work.</p>
+<div style="font-size:12px;color:var(--td)">
+<div>⚠️ Impermanent loss risk</div>
+<div>⚠️ Need to monitor & adjust</div>
+<div>✅ APY: 20-100%+</div>
+<div>✅ For experienced users</div>
+</div>
+</div>
+</div>
+</div>
+
+<h2 style="margin-top:36px;color:#3b82f6">Path A: Passive Lending (Aave)</h2>
+<p>The easiest way to earn DeFi yield. Deposit USDC on Aave, earn interest from borrowers. Zero management.</p>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A1</div>
+<div>
+<h3 style="margin-bottom:6px">Go to Aave</h3>
+<p style="color:var(--tm)">Open <strong>app.aave.com</strong> → Click <strong>"Connect Wallet"</strong> (top right) → Select MetaMask → Approve the connection in MetaMask popup.</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A2</div>
+<div>
+<h3 style="margin-bottom:6px">Choose Network & Asset</h3>
+<p style="color:var(--tm)">Select a network from the top bar (Ethereum, Arbitrum, Base, etc.) → Find <strong>USDC</strong> in the asset list → Check the <strong>"Supply APY"</strong> column — this is what you'll earn.</p>
+<div class="met" style="margin-top:8px;border-left:3px solid #3b82f6"><div class="met-l">Tip</div><div style="font-size:13px;color:var(--tm)">Arbitrum and Base have lower gas fees than Ethereum mainnet. Same APY, cheaper to use.</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A3</div>
+<div>
+<h3 style="margin-bottom:6px">Supply (Deposit)</h3>
+<p style="color:var(--tm)">Click <strong>"Supply"</strong> next to USDC → Enter the amount → Click <strong>"Approve USDC"</strong> (first time only, lets Aave access your tokens) → Confirm in MetaMask → Then click <strong>"Supply USDC"</strong> → Confirm again in MetaMask.</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A4</div>
+<div>
+<h3 style="margin-bottom:6px">Done! Watch Your Balance Grow</h3>
+<p style="color:var(--tm)">Your dashboard now shows your deposit. The balance <strong>increases every second</strong> automatically. No action needed.</p>
+</div>
+</div>
+
+<div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:20px;margin:16px 0">
+<h3 style="color:#3b82f6;font-size:15px;margin-bottom:10px">How Passive Earnings Work</h3>
+<div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--tm);line-height:2;background:var(--bg);border-radius:8px;padding:16px">
+You deposit:&nbsp;&nbsp;&nbsp;1,000.000000 USDC<br>
+After 1 day:&nbsp;&nbsp;&nbsp;1,000.013699 USDC&nbsp;&nbsp;(+$0.014)<br>
+After 1 week:&nbsp;&nbsp;1,000.095890 USDC&nbsp;&nbsp;(+$0.096)<br>
+After 1 month:&nbsp;1,000.410959 USDC&nbsp;&nbsp;(+$0.41)<br>
+After 1 year:&nbsp;&nbsp;1,005.000000 USDC&nbsp;&nbsp;(+$5.00 at 5% APY)
+</div>
+<p style="font-size:12px;color:var(--td);margin-top:8px">* Interest accrues every block (~2 seconds). You can withdraw anytime — no lock-up period.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A5</div>
+<div>
+<h3 style="margin-bottom:6px">How to Withdraw</h3>
+<p style="color:var(--tm)">Go back to Aave dashboard → Click <strong>"Withdraw"</strong> next to USDC → Enter amount (or click "MAX" for everything) → Confirm in MetaMask → USDC (including earned interest) returns to your wallet.</p>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--bdr);margin:40px 0">
+
+<h2 style="color:#a855f7">Path B: Concentrated Liquidity (Uniswap V3)</h2>
+<p>Higher returns, but requires two tokens and active price range management. Example: WETH-USDC on Base.</p>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B1</div>
+<div>
+<h3 style="margin-bottom:6px">Go to Uniswap</h3>
+<p style="color:var(--tm)">Open <strong>app.uniswap.org</strong> → Connect MetaMask → Switch to <strong>Base</strong> network (top-left chain selector).</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B2</div>
+<div>
+<h3 style="margin-bottom:6px">Create New Position</h3>
+<p style="color:var(--tm)">Click <strong>"Pool"</strong> tab → <strong>"+ New Position"</strong> → Select <strong>WETH</strong> and <strong>USDC</strong> → Choose fee tier (0.05% for stables, <strong>0.3% recommended</strong> for ETH/USDC).</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B3</div>
+<div>
+<h3 style="margin-bottom:6px">Set Price Range (Most Important Step!)</h3>
+<p style="color:var(--tm)">This determines your risk and reward. You'll see a price chart with two handles.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="met" style="border-left:3px solid var(--g)"><div class="met-l">Safe Range (±20%)</div><div style="font-size:12px;color:var(--tm)">Lower APY (~20-40%), but stays in range longer. Check weekly.</div></div>
+<div class="met" style="border-left:3px solid var(--r)"><div class="met-l">Aggressive Range (±5%)</div><div style="font-size:12px;color:var(--tm)">Higher APY (~60-120%), but price leaves range fast. Check daily.</div></div>
+</div>
+<div class="met" style="margin-top:12px;border-left:3px solid var(--amb)"><div class="met-l">Example</div><div style="font-size:13px;color:var(--tm)">If ETH = $2,000 and you set range $1,600-$2,400 (±20%), you earn fees on every trade in that range. If ETH drops to $1,500 or rises to $2,500, your position goes inactive and you stop earning.</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B4</div>
+<div>
+<h3 style="margin-bottom:6px">Enter Amounts & Confirm</h3>
+<p style="color:var(--tm)">Enter how much WETH and USDC (the UI auto-calculates the ratio based on your range) → Click <strong>"Approve WETH"</strong> + <strong>"Approve USDC"</strong> (first time) → Click <strong>"Add Liquidity"</strong> → Confirm in MetaMask.</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B5</div>
+<div>
+<h3 style="margin-bottom:6px">Monitor & Collect Fees</h3>
+<p style="color:var(--tm)">Go to <strong>"Pool"</strong> tab → You'll see your position with <strong>"Uncollected fees"</strong> showing earned WETH + USDC → Click <strong>"Collect fees"</strong> to send them to your wallet (without closing the position).</p>
+</div>
+</div>
+
+<div style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:20px;margin:16px 0">
+<h3 style="color:#a855f7;font-size:15px;margin-bottom:10px">How Active LP Earnings Work</h3>
+<div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--tm);line-height:2;background:var(--bg);border-radius:8px;padding:16px">
+You deposit:&nbsp;&nbsp;&nbsp;&nbsp;0.25 WETH ($500) + 500 USDC = $1,000<br>
+Price range:&nbsp;&nbsp;&nbsp;&nbsp;$1,600 - $2,400 (±20%)<br>
+<br>
+After 1 week:&nbsp;&nbsp;&nbsp;Uncollected fees: 0.003 WETH + 4.2 USDC (~$10)<br>
+After 1 month:&nbsp;&nbsp;Uncollected fees: 0.012 WETH + 17.5 USDC (~$42)<br>
+<br>
+⚠️ But your principal changes:<br>
+If ETH +10%:&nbsp;&nbsp;&nbsp;&nbsp;Position = 0.21 WETH + 580 USDC ($1,042 + fees)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs holding = 0.25 WETH + 500 USDC ($1,050)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IL = ~$8 (but fees earned ~$42 offset it)
+</div>
+<p style="font-size:12px;color:var(--td);margin-top:8px">* Fees shown are illustrative. Actual fees depend on daily trading volume and your share of the pool.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B6</div>
+<div>
+<h3 style="margin-bottom:6px">When to Close / Rebalance</h3>
+<p style="color:var(--tm)">Check your position on the Uniswap Pool page:</p>
+<ul style="margin:8px 0;padding-left:20px;color:var(--tm);font-size:13px">
+<li style="margin-bottom:6px"><strong style="color:var(--g)">Green "In Range"</strong> → Position is active, earning fees. Do nothing.</li>
+<li style="margin-bottom:6px"><strong style="color:var(--r)">Red "Out of Range"</strong> → Price moved outside your range. You're NOT earning. Options: wait for price to return, or remove liquidity and create a new position with an updated range.</li>
+</ul>
+<p style="color:var(--tm)">To close: <strong>"Remove Liquidity"</strong> → Choose 100% → Confirm → You receive WETH + USDC (including all fees) back in your wallet.</p>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--bdr);margin:40px 0">
+
+<h2>Quick Comparison</h2>
+<div style="overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);margin:16px 0">
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<thead><tr>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:var(--td)"></th>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:#3b82f6">Path A: Aave Lending</th>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:#a855f7">Path B: Uniswap V3 LP</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Tokens needed</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">1 (e.g. USDC only)</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">2 (e.g. WETH + USDC)</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Typical APY</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--g)">2-10%</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--g)">20-120%</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Impermanent loss</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">None</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--r)">Yes (can be significant)</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Management</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Set & forget</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Check daily/weekly</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Earnings paid in</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Same token (USDC)</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Both tokens (WETH + USDC)</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">How to collect</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Auto in balance / Withdraw</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">"Collect Fees" button</td></tr>
+<tr><td style="padding:10px 16px">Best for</td><td style="padding:10px 16px">Beginners, risk-averse</td><td style="padding:10px 16px">Experienced, active managers</td></tr>
+</tbody></table></div></div></div><div class="df-cta">
+<h3>Start Providing Liquidity</h3>
+<p>Buy tokens on trusted exchanges to fund your liquidity pool positions</p>
+<div class="df-cta-links">
+<a href="https://www.binance.com/en/register?ref=ZX2024" target="_blank" rel="nofollow sponsored">Binance</a>
+<a href="https://www.okx.com/join/ZX2024" target="_blank" rel="nofollow sponsored">OKX</a>
+<a href="https://www.bybit.com/register?affiliate_id=ZX2024" target="_blank" rel="nofollow sponsored">Bybit</a>
+</div></div><div style="margin-top:32px"><h3 style="font-size:18px;margin-bottom:14px">More Guides</h3><div class="df-guide-grid"><a href="/defi/guide/liquidity-pools.html" class="card" style="text-decoration:none"><div style="font-size:24px;margin-bottom:8px">💧</div><h4 style="font-size:15px;font-weight:700">What Are Liquidity Pools?</h4></a><a href="/defi/guide/impermanent-loss.html" class="card" style="text-decoration:none"><div style="font-size:24px;margin-bottom:8px">📉</div><h4 style="font-size:15px;font-weight:700">Understanding Impermanent Loss</h4></a><a href="/defi/guide/yield-farming.html" class="card" style="text-decoration:none"><div style="font-size:24px;margin-bottom:8px">🌾</div><h4 style="font-size:15px;font-weight:700">Yield Farming Strategies</h4></a><a href="/defi/guide/stablecoin-pools.html" class="card" style="text-decoration:none"><div style="font-size:24px;margin-bottom:8px">🛡️</div><h4 style="font-size:15px;font-weight:700">Stablecoin Pool Guide</h4></a></div></div><div style="text-align:center;margin-top:32px"><a href="/defi/" class="bp">Explore DeFi Dashboard →</a></div></section><footer><div class="fi">
+<div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
+<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></nav>
+<div class="fc">© 2026 ZX Capital. All rights reserved.</div></div></footer></body></html>

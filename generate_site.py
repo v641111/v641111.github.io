@@ -1186,6 +1186,10 @@ DEFI_GUIDES = [
      "desc":"Why stablecoin pools are popular for risk-averse yield seekers. Compare returns across Curve, Aave, and other platforms.",
      "desc_zh":"为什么稳定币池受到风险厌恶型收益寻求者的欢迎。比较Curve、Aave等平台的回报。",
      "icon":"🛡️"},
+    {"slug":"how-to-provide-liquidity","title":"How to Provide Liquidity (Step-by-Step)","title_zh":"如何提供流动性（图文教程）",
+     "desc":"A complete visual step-by-step guide: from setting up a wallet to earning your first LP fees. Covers both passive lending and active concentrated liquidity.",
+     "desc_zh":"完整图文教程：从设置钱包到赚取第一笔LP手续费。涵盖被动借贷和主动集中流动性两种方式。",
+     "icon":"📋"},
 ]
 
 AFFILIATE_LINKS = {
@@ -1617,6 +1621,442 @@ GUIDE_CONTENT = {
 <p><strong>Aave</strong>和<strong>Compound</strong>提供单边稳定币借贷，完全消除无常损失。只需存入即可从借款人那里赚取利息。</p>
 <h3>需要考虑的风险</h3>
 <p>即使是稳定币池也有风险：脱锚事件（如UST）、智能合约漏洞以及影响稳定币发行方的监管变化。始终在多种稳定币和协议之间分散投资。</p>"""
+    },
+    "how-to-provide-liquidity": {
+        "en": """<h2>How to Provide Liquidity & Earn Yield</h2>
+<p>This guide walks you through every step — from zero to earning your first DeFi yield. We cover two paths: <strong>Path A (Passive/Easy)</strong> for beginners and <strong>Path B (Active/Advanced)</strong> for higher returns.</p>
+
+<div style="background:rgba(0,220,130,.06);border:1px solid rgba(0,220,130,.2);border-radius:12px;padding:24px;margin:20px 0">
+<h3 style="color:var(--g);margin-bottom:12px">Your Earnings Explained</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div class="met"><div class="met-l">What You Earn</div><div class="met-v" style="font-size:16px">Trading fees (WETH + USDC) or Interest (USDC)</div></div>
+<div class="met"><div class="met-l">Paid In</div><div class="met-v" style="font-size:16px">Same tokens you deposited</div></div>
+<div class="met"><div class="met-l">Where It Goes</div><div class="met-v" style="font-size:16px">Auto-accumulates in your position</div></div>
+<div class="met"><div class="met-l">How to Collect</div><div class="met-v" style="font-size:16px">"Collect Fees" or "Withdraw" button</div></div>
+</div>
+</div>
+
+<h2 style="margin-top:36px">Step 0: Prerequisites</h2>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:18px;flex-shrink:0">1</div>
+<div>
+<h3 style="margin-bottom:6px">Install MetaMask Wallet</h3>
+<p style="color:var(--tm)">Go to <strong>metamask.io</strong> → Download browser extension → Create a new wallet → <span style="color:var(--r);font-weight:700">Write down your seed phrase on paper (NEVER share it!)</span></p>
+<div class="met" style="margin-top:8px;border-left:3px solid var(--g)"><div class="met-l">What is MetaMask?</div><div style="font-size:13px;color:var(--tm)">A browser wallet that lets you interact with DeFi. Think of it as your "DeFi bank account". Your crypto keys stay on your device.</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:18px;flex-shrink:0">2</div>
+<div>
+<h3 style="margin-bottom:6px">Get Funds on the Right Chain</h3>
+<p style="color:var(--tm)">Buy ETH or USDC on an exchange (Coinbase, Binance) → Withdraw to your MetaMask wallet address → Make sure you pick the correct network (e.g. Base, Ethereum, Arbitrum).</p>
+<div class="met" style="margin-top:8px;border-left:3px solid var(--amb)"><div class="met-l">Important</div><div style="font-size:13px;color:var(--tm)">Always start with a small amount ($50-100) to learn the process. You need a small amount of ETH on every chain for gas fees (transaction costs).</div></div>
+</div>
+</div>
+
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:28px;margin:32px 0">
+<h2 style="font-size:22px;margin-bottom:4px;color:var(--g)">Choose Your Path</h2>
+<p style="color:var(--td);margin-bottom:20px">Pick based on your experience and how much time you want to spend</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="background:var(--bg);border:1px solid rgba(59,130,246,.3);border-radius:12px;padding:20px">
+<div style="font-size:28px;margin-bottom:8px">🛡️</div>
+<h3 style="color:#3b82f6;margin-bottom:8px">Path A: Passive Lending</h3>
+<p style="font-size:13px;color:var(--tm);margin-bottom:12px">Deposit one token, earn interest. No management needed.</p>
+<div style="font-size:12px;color:var(--td)">
+<div>✅ No impermanent loss</div>
+<div>✅ Set and forget</div>
+<div>✅ APY: 2-10%</div>
+<div>✅ Best for beginners</div>
+</div>
+</div>
+<div style="background:var(--bg);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:20px">
+<div style="font-size:28px;margin-bottom:8px">⚡</div>
+<h3 style="color:#a855f7;margin-bottom:8px">Path B: Concentrated LP</h3>
+<p style="font-size:13px;color:var(--tm);margin-bottom:12px">Provide two tokens in a price range. Higher yield, more work.</p>
+<div style="font-size:12px;color:var(--td)">
+<div>⚠️ Impermanent loss risk</div>
+<div>⚠️ Need to monitor & adjust</div>
+<div>✅ APY: 20-100%+</div>
+<div>✅ For experienced users</div>
+</div>
+</div>
+</div>
+</div>
+
+<h2 style="margin-top:36px;color:#3b82f6">Path A: Passive Lending (Aave)</h2>
+<p>The easiest way to earn DeFi yield. Deposit USDC on Aave, earn interest from borrowers. Zero management.</p>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A1</div>
+<div>
+<h3 style="margin-bottom:6px">Go to Aave</h3>
+<p style="color:var(--tm)">Open <strong>app.aave.com</strong> → Click <strong>"Connect Wallet"</strong> (top right) → Select MetaMask → Approve the connection in MetaMask popup.</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A2</div>
+<div>
+<h3 style="margin-bottom:6px">Choose Network & Asset</h3>
+<p style="color:var(--tm)">Select a network from the top bar (Ethereum, Arbitrum, Base, etc.) → Find <strong>USDC</strong> in the asset list → Check the <strong>"Supply APY"</strong> column — this is what you'll earn.</p>
+<div class="met" style="margin-top:8px;border-left:3px solid #3b82f6"><div class="met-l">Tip</div><div style="font-size:13px;color:var(--tm)">Arbitrum and Base have lower gas fees than Ethereum mainnet. Same APY, cheaper to use.</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A3</div>
+<div>
+<h3 style="margin-bottom:6px">Supply (Deposit)</h3>
+<p style="color:var(--tm)">Click <strong>"Supply"</strong> next to USDC → Enter the amount → Click <strong>"Approve USDC"</strong> (first time only, lets Aave access your tokens) → Confirm in MetaMask → Then click <strong>"Supply USDC"</strong> → Confirm again in MetaMask.</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A4</div>
+<div>
+<h3 style="margin-bottom:6px">Done! Watch Your Balance Grow</h3>
+<p style="color:var(--tm)">Your dashboard now shows your deposit. The balance <strong>increases every second</strong> automatically. No action needed.</p>
+</div>
+</div>
+
+<div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:20px;margin:16px 0">
+<h3 style="color:#3b82f6;font-size:15px;margin-bottom:10px">How Passive Earnings Work</h3>
+<div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--tm);line-height:2;background:var(--bg);border-radius:8px;padding:16px">
+You deposit:&nbsp;&nbsp;&nbsp;1,000.000000 USDC<br>
+After 1 day:&nbsp;&nbsp;&nbsp;1,000.013699 USDC&nbsp;&nbsp;(+$0.014)<br>
+After 1 week:&nbsp;&nbsp;1,000.095890 USDC&nbsp;&nbsp;(+$0.096)<br>
+After 1 month:&nbsp;1,000.410959 USDC&nbsp;&nbsp;(+$0.41)<br>
+After 1 year:&nbsp;&nbsp;1,005.000000 USDC&nbsp;&nbsp;(+$5.00 at 5% APY)
+</div>
+<p style="font-size:12px;color:var(--td);margin-top:8px">* Interest accrues every block (~2 seconds). You can withdraw anytime — no lock-up period.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A5</div>
+<div>
+<h3 style="margin-bottom:6px">How to Withdraw</h3>
+<p style="color:var(--tm)">Go back to Aave dashboard → Click <strong>"Withdraw"</strong> next to USDC → Enter amount (or click "MAX" for everything) → Confirm in MetaMask → USDC (including earned interest) returns to your wallet.</p>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--bdr);margin:40px 0">
+
+<h2 style="color:#a855f7">Path B: Concentrated Liquidity (Uniswap V3)</h2>
+<p>Higher returns, but requires two tokens and active price range management. Example: WETH-USDC on Base.</p>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B1</div>
+<div>
+<h3 style="margin-bottom:6px">Go to Uniswap</h3>
+<p style="color:var(--tm)">Open <strong>app.uniswap.org</strong> → Connect MetaMask → Switch to <strong>Base</strong> network (top-left chain selector).</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B2</div>
+<div>
+<h3 style="margin-bottom:6px">Create New Position</h3>
+<p style="color:var(--tm)">Click <strong>"Pool"</strong> tab → <strong>"+ New Position"</strong> → Select <strong>WETH</strong> and <strong>USDC</strong> → Choose fee tier (0.05% for stables, <strong>0.3% recommended</strong> for ETH/USDC).</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B3</div>
+<div>
+<h3 style="margin-bottom:6px">Set Price Range (Most Important Step!)</h3>
+<p style="color:var(--tm)">This determines your risk and reward. You'll see a price chart with two handles.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="met" style="border-left:3px solid var(--g)"><div class="met-l">Safe Range (±20%)</div><div style="font-size:12px;color:var(--tm)">Lower APY (~20-40%), but stays in range longer. Check weekly.</div></div>
+<div class="met" style="border-left:3px solid var(--r)"><div class="met-l">Aggressive Range (±5%)</div><div style="font-size:12px;color:var(--tm)">Higher APY (~60-120%), but price leaves range fast. Check daily.</div></div>
+</div>
+<div class="met" style="margin-top:12px;border-left:3px solid var(--amb)"><div class="met-l">Example</div><div style="font-size:13px;color:var(--tm)">If ETH = $2,000 and you set range $1,600-$2,400 (±20%), you earn fees on every trade in that range. If ETH drops to $1,500 or rises to $2,500, your position goes inactive and you stop earning.</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B4</div>
+<div>
+<h3 style="margin-bottom:6px">Enter Amounts & Confirm</h3>
+<p style="color:var(--tm)">Enter how much WETH and USDC (the UI auto-calculates the ratio based on your range) → Click <strong>"Approve WETH"</strong> + <strong>"Approve USDC"</strong> (first time) → Click <strong>"Add Liquidity"</strong> → Confirm in MetaMask.</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B5</div>
+<div>
+<h3 style="margin-bottom:6px">Monitor & Collect Fees</h3>
+<p style="color:var(--tm)">Go to <strong>"Pool"</strong> tab → You'll see your position with <strong>"Uncollected fees"</strong> showing earned WETH + USDC → Click <strong>"Collect fees"</strong> to send them to your wallet (without closing the position).</p>
+</div>
+</div>
+
+<div style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:20px;margin:16px 0">
+<h3 style="color:#a855f7;font-size:15px;margin-bottom:10px">How Active LP Earnings Work</h3>
+<div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--tm);line-height:2;background:var(--bg);border-radius:8px;padding:16px">
+You deposit:&nbsp;&nbsp;&nbsp;&nbsp;0.25 WETH ($500) + 500 USDC = $1,000<br>
+Price range:&nbsp;&nbsp;&nbsp;&nbsp;$1,600 - $2,400 (±20%)<br>
+<br>
+After 1 week:&nbsp;&nbsp;&nbsp;Uncollected fees: 0.003 WETH + 4.2 USDC (~$10)<br>
+After 1 month:&nbsp;&nbsp;Uncollected fees: 0.012 WETH + 17.5 USDC (~$42)<br>
+<br>
+⚠️ But your principal changes:<br>
+If ETH +10%:&nbsp;&nbsp;&nbsp;&nbsp;Position = 0.21 WETH + 580 USDC ($1,042 + fees)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs holding = 0.25 WETH + 500 USDC ($1,050)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IL = ~$8 (but fees earned ~$42 offset it)
+</div>
+<p style="font-size:12px;color:var(--td);margin-top:8px">* Fees shown are illustrative. Actual fees depend on daily trading volume and your share of the pool.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B6</div>
+<div>
+<h3 style="margin-bottom:6px">When to Close / Rebalance</h3>
+<p style="color:var(--tm)">Check your position on the Uniswap Pool page:</p>
+<ul style="margin:8px 0;padding-left:20px;color:var(--tm);font-size:13px">
+<li style="margin-bottom:6px"><strong style="color:var(--g)">Green "In Range"</strong> → Position is active, earning fees. Do nothing.</li>
+<li style="margin-bottom:6px"><strong style="color:var(--r)">Red "Out of Range"</strong> → Price moved outside your range. You're NOT earning. Options: wait for price to return, or remove liquidity and create a new position with an updated range.</li>
+</ul>
+<p style="color:var(--tm)">To close: <strong>"Remove Liquidity"</strong> → Choose 100% → Confirm → You receive WETH + USDC (including all fees) back in your wallet.</p>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--bdr);margin:40px 0">
+
+<h2>Quick Comparison</h2>
+<div style="overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);margin:16px 0">
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<thead><tr>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:var(--td)"></th>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:#3b82f6">Path A: Aave Lending</th>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:#a855f7">Path B: Uniswap V3 LP</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Tokens needed</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">1 (e.g. USDC only)</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">2 (e.g. WETH + USDC)</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Typical APY</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--g)">2-10%</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--g)">20-120%</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Impermanent loss</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">None</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--r)">Yes (can be significant)</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Management</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Set & forget</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Check daily/weekly</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Earnings paid in</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Same token (USDC)</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Both tokens (WETH + USDC)</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">How to collect</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">Auto in balance / Withdraw</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">"Collect Fees" button</td></tr>
+<tr><td style="padding:10px 16px">Best for</td><td style="padding:10px 16px">Beginners, risk-averse</td><td style="padding:10px 16px">Experienced, active managers</td></tr>
+</tbody></table></div>""",
+        "zh": """<h2>如何提供流动性并赚取收益</h2>
+<p>本指南带你从零开始，一步步赚取第一笔 DeFi 收益。我们提供两条路径：<strong>路径 A（被动/简单）</strong>适合新手，<strong>路径 B（主动/进阶）</strong>适合追求高收益的用户。</p>
+
+<div style="background:rgba(0,220,130,.06);border:1px solid rgba(0,220,130,.2);border-radius:12px;padding:24px;margin:20px 0">
+<h3 style="color:var(--g);margin-bottom:12px">你的收益说明</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div class="met"><div class="met-l">赚的是什么</div><div class="met-v" style="font-size:16px">交易手续费(WETH+USDC) 或 利息(USDC)</div></div>
+<div class="met"><div class="met-l">以什么形式发放</div><div class="met-v" style="font-size:16px">和你存入的相同代币</div></div>
+<div class="met"><div class="met-l">收益在哪里</div><div class="met-v" style="font-size:16px">自动累积在你的头寸中</div></div>
+<div class="met"><div class="met-l">如何领取</div><div class="met-v" style="font-size:16px">点击"领取手续费"或"取款"按钮</div></div>
+</div>
+</div>
+
+<h2 style="margin-top:36px">第 0 步：准备工作</h2>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:18px;flex-shrink:0">1</div>
+<div>
+<h3 style="margin-bottom:6px">安装 MetaMask 钱包</h3>
+<p style="color:var(--tm)">访问 <strong>metamask.io</strong> → 下载浏览器扩展 → 创建新钱包 → <span style="color:var(--r);font-weight:700">用纸写下助记词（绝对不要分享给任何人！）</span></p>
+<div class="met" style="margin-top:8px;border-left:3px solid var(--g)"><div class="met-l">MetaMask 是什么？</div><div style="font-size:13px;color:var(--tm)">一个浏览器钱包，让你与 DeFi 协议交互。可以理解为你的"DeFi 银行账户"，私钥保存在你自己的设备上。</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:18px;flex-shrink:0">2</div>
+<div>
+<h3 style="margin-bottom:6px">把资金转到正确的链上</h3>
+<p style="color:var(--tm)">在交易所（Coinbase、Binance）购买 ETH 或 USDC → 提现到你的 MetaMask 钱包地址 → 确保选择正确的网络（如 Base、Ethereum、Arbitrum）。</p>
+<div class="met" style="margin-top:8px;border-left:3px solid var(--amb)"><div class="met-l">重要提示</div><div style="font-size:13px;color:var(--tm)">先用小金额（$50-100）学习流程。每条链上都需要少量 ETH 作为 Gas 费（交易手续费）。</div></div>
+</div>
+</div>
+
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:28px;margin:32px 0">
+<h2 style="font-size:22px;margin-bottom:4px;color:var(--g)">选择你的路径</h2>
+<p style="color:var(--td);margin-bottom:20px">根据你的经验和愿意投入的时间来选择</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="background:var(--bg);border:1px solid rgba(59,130,246,.3);border-radius:12px;padding:20px">
+<div style="font-size:28px;margin-bottom:8px">🛡️</div>
+<h3 style="color:#3b82f6;margin-bottom:8px">路径 A：被动借贷</h3>
+<p style="font-size:13px;color:var(--tm);margin-bottom:12px">存入一种代币，赚取利息。无需管理。</p>
+<div style="font-size:12px;color:var(--td)">
+<div>✅ 无无常损失</div>
+<div>✅ 存了就不用管</div>
+<div>✅ APY：2-10%</div>
+<div>✅ 最适合新手</div>
+</div>
+</div>
+<div style="background:var(--bg);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:20px">
+<div style="font-size:28px;margin-bottom:8px">⚡</div>
+<h3 style="color:#a855f7;margin-bottom:8px">路径 B：集中流动性LP</h3>
+<p style="font-size:13px;color:var(--tm);margin-bottom:12px">提供两种代币设定价格范围。收益更高，需要管理。</p>
+<div style="font-size:12px;color:var(--td)">
+<div>⚠️ 有无常损失风险</div>
+<div>⚠️ 需要监控和调整</div>
+<div>✅ APY：20-100%+</div>
+<div>✅ 适合有经验的用户</div>
+</div>
+</div>
+</div>
+</div>
+
+<h2 style="margin-top:36px;color:#3b82f6">路径 A：被动借贷（Aave）</h2>
+<p>最简单的 DeFi 赚取收益方式。在 Aave 上存入 USDC，从借款人那里赚取利息。零管理。</p>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A1</div>
+<div>
+<h3 style="margin-bottom:6px">打开 Aave</h3>
+<p style="color:var(--tm)">打开 <strong>app.aave.com</strong> → 点击右上角 <strong>"Connect Wallet"</strong> → 选择 MetaMask → 在 MetaMask 弹窗中批准连接。</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A2</div>
+<div>
+<h3 style="margin-bottom:6px">选择网络和资产</h3>
+<p style="color:var(--tm)">从顶部栏选择网络（Ethereum、Arbitrum、Base等）→ 找到 <strong>USDC</strong> → 查看 <strong>"Supply APY"</strong> 列 — 这就是你将获得的收益率。</p>
+<div class="met" style="margin-top:8px;border-left:3px solid #3b82f6"><div class="met-l">提示</div><div style="font-size:13px;color:var(--tm)">Arbitrum 和 Base 的 Gas 费比以太坊主网低得多。收益率相同，使用成本更低。</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A3</div>
+<div>
+<h3 style="margin-bottom:6px">存入（Supply）</h3>
+<p style="color:var(--tm)">点击 USDC 旁边的 <strong>"Supply"</strong> → 输入金额 → 点击 <strong>"Approve USDC"</strong>（首次需要，授权 Aave 访问你的代币）→ 在 MetaMask 中确认 → 然后点击 <strong>"Supply USDC"</strong> → 再次在 MetaMask 中确认。</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A4</div>
+<div>
+<h3 style="margin-bottom:6px">完成！看着余额自动增长</h3>
+<p style="color:var(--tm)">你的仪表盘现在显示你的存款。余额<strong>每秒自动增加</strong>。无需任何操作。</p>
+</div>
+</div>
+
+<div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:20px;margin:16px 0">
+<h3 style="color:#3b82f6;font-size:15px;margin-bottom:10px">被动收益工作原理</h3>
+<div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--tm);line-height:2;background:var(--bg);border-radius:8px;padding:16px">
+你存入：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000.000000 USDC<br>
+1天后：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000.013699 USDC&nbsp;&nbsp;(+$0.014)<br>
+1周后：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000.095890 USDC&nbsp;&nbsp;(+$0.096)<br>
+1个月后：&nbsp;&nbsp;&nbsp;&nbsp;1,000.410959 USDC&nbsp;&nbsp;(+$0.41)<br>
+1年后：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,005.000000 USDC&nbsp;&nbsp;(+$5.00 按5% APY)
+</div>
+<p style="font-size:12px;color:var(--td);margin-top:8px">* 利息每个区块（约2秒）累积。随时可以提取——没有锁定期。</p>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">A5</div>
+<div>
+<h3 style="margin-bottom:6px">如何提取</h3>
+<p style="color:var(--tm)">回到 Aave 仪表盘 → 点击 USDC 旁边的 <strong>"Withdraw"</strong> → 输入金额（或点"MAX"提取全部）→ 在 MetaMask 中确认 → USDC（包括赚取的利息）返回你的钱包。</p>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--bdr);margin:40px 0">
+
+<h2 style="color:#a855f7">路径 B：集中流动性（Uniswap V3）</h2>
+<p>更高的回报，但需要两种代币和主动管理价格范围。示例：Base 链上的 WETH-USDC。</p>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B1</div>
+<div>
+<h3 style="margin-bottom:6px">打开 Uniswap</h3>
+<p style="color:var(--tm)">打开 <strong>app.uniswap.org</strong> → 连接 MetaMask → 切换到 <strong>Base</strong> 网络（左上角链选择器）。</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B2</div>
+<div>
+<h3 style="margin-bottom:6px">创建新头寸</h3>
+<p style="color:var(--tm)">点击 <strong>"Pool"</strong> 标签 → <strong>"+ New Position"</strong> → 选择 <strong>WETH</strong> 和 <strong>USDC</strong> → 选择手续费等级（稳定币选 0.05%，<strong>ETH/USDC 推荐 0.3%</strong>）。</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B3</div>
+<div>
+<h3 style="margin-bottom:6px">设置价格范围（最重要的一步！）</h3>
+<p style="color:var(--tm)">这决定了你的风险和收益。你会看到一个价格图表和两个拖动手柄。</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="met" style="border-left:3px solid var(--g)"><div class="met-l">安全范围（±20%）</div><div style="font-size:12px;color:var(--tm)">APY 较低（约20-40%），但在范围内停留更久。每周检查一次。</div></div>
+<div class="met" style="border-left:3px solid var(--r)"><div class="met-l">激进范围（±5%）</div><div style="font-size:12px;color:var(--tm)">APY 更高（约60-120%），但价格容易离开范围。每天检查。</div></div>
+</div>
+<div class="met" style="margin-top:12px;border-left:3px solid var(--amb)"><div class="met-l">举例</div><div style="font-size:13px;color:var(--tm)">如果 ETH = $2,000，你设置范围 $1,600-$2,400（±20%），你就能从这个范围内的每笔交易中赚取手续费。如果 ETH 跌到 $1,500 或涨到 $2,500，你的头寸就会停止赚钱。</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B4</div>
+<div>
+<h3 style="margin-bottom:6px">输入金额并确认</h3>
+<p style="color:var(--tm)">输入 WETH 和 USDC 的数量（界面会根据你的范围自动计算比例）→ 点击 <strong>"Approve WETH"</strong> + <strong>"Approve USDC"</strong>（首次需要）→ 点击 <strong>"Add Liquidity"</strong> → 在 MetaMask 中确认。</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B5</div>
+<div>
+<h3 style="margin-bottom:6px">监控和领取手续费</h3>
+<p style="color:var(--tm)">进入 <strong>"Pool"</strong> 标签 → 你会看到你的头寸显示 <strong>"Uncollected fees"（未领取手续费）</strong>，里面是你赚到的 WETH + USDC → 点击 <strong>"Collect fees"</strong> 将手续费发送到你的钱包（不关闭头寸）。</p>
+</div>
+</div>
+
+<div style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:20px;margin:16px 0">
+<h3 style="color:#a855f7;font-size:15px;margin-bottom:10px">主动LP收益工作原理</h3>
+<div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--tm);line-height:2;background:var(--bg);border-radius:8px;padding:16px">
+你存入：&nbsp;&nbsp;&nbsp;&nbsp;0.25 WETH ($500) + 500 USDC = $1,000<br>
+价格范围：&nbsp;&nbsp;$1,600 - $2,400 (±20%)<br>
+<br>
+1周后：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未领取手续费: 0.003 WETH + 4.2 USDC (~$10)<br>
+1个月后：&nbsp;&nbsp;&nbsp;未领取手续费: 0.012 WETH + 17.5 USDC (~$42)<br>
+<br>
+⚠️ 但你的本金会变化：<br>
+如果ETH涨10%：头寸 = 0.21 WETH + 580 USDC ($1,042 + 手续费)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对比持有 = 0.25 WETH + 500 USDC ($1,050)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无常损失 ≈ $8（但手续费 ~$42 可以抵消）
+</div>
+<p style="font-size:12px;color:var(--td);margin-top:8px">* 手续费数据为示意。实际手续费取决于每日交易量和你在池中的份额。</p>
+</div>
+
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:16px 0">
+<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:18px;flex-shrink:0">B6</div>
+<div>
+<h3 style="margin-bottom:6px">何时关闭/调仓</h3>
+<p style="color:var(--tm)">在 Uniswap Pool 页面查看你的头寸：</p>
+<ul style="margin:8px 0;padding-left:20px;color:var(--tm);font-size:13px">
+<li style="margin-bottom:6px"><strong style="color:var(--g)">绿色 "In Range"</strong> → 头寸活跃，正在赚取手续费。不需要操作。</li>
+<li style="margin-bottom:6px"><strong style="color:var(--r)">红色 "Out of Range"</strong> → 价格超出了你的范围。你没有在赚钱。选择：等待价格回到范围内，或者撤出流动性并创建新的范围。</li>
+</ul>
+<p style="color:var(--tm)">关闭头寸：<strong>"Remove Liquidity"</strong> → 选择 100% → 确认 → 你将收到 WETH + USDC（包含所有手续费）回到钱包。</p>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--bdr);margin:40px 0">
+
+<h2>快速对比</h2>
+<div style="overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);margin:16px 0">
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<thead><tr>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:var(--td)"></th>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:#3b82f6">路径A：Aave借贷</th>
+<th style="background:var(--card);padding:12px 16px;text-align:left;border-bottom:1px solid var(--bdr);color:#a855f7">路径B：Uniswap V3 LP</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">需要的代币</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">1种（如只需USDC）</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">2种（如WETH + USDC）</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">典型APY</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--g)">2-10%</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--g)">20-120%</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">无常损失</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">无</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg);color:var(--r)">有（可能较大）</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">管理需求</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">存了不用管</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">每天/每周检查</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">收益币种</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">相同代币（USDC）</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">两种代币（WETH + USDC）</td></tr>
+<tr><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">如何领取</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">余额自动增长 / 点提取</td><td style="padding:10px 16px;border-bottom:1px solid var(--bg)">点"Collect Fees"按钮</td></tr>
+<tr><td style="padding:10px 16px">适合人群</td><td style="padding:10px 16px">新手、风险厌恶者</td><td style="padding:10px 16px">有经验、愿意主动管理</td></tr>
+</tbody></table></div>"""
     },
 }
 
