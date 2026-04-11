@@ -147,7 +147,7 @@ US.T = {
   stochK:isZH?'%K':'%K',stochD:isZH?'%D':'%D',
   hits:isZH?'命中数':'Hits',winrate:isZH?'预估胜率':'Est. Win Rate',
   loading:isZH?'正在加载股票数据...':'Loading stock data...',
-  error:isZH?'数据加载失败，请检查API Key后重试':'Failed to load. Check your API Key.',
+  error:isZH?'数据加载失败，请稍后重试':'Failed to load data. Please try again later.',
   noData:isZH?'暂无符合条件的数据':'No matching stocks',
   refresh:isZH?'刷新数据':'Refresh',prev:isZH?'上一页':'Prev',next:isZH?'下一页':'Next',
   total:isZH?'共':'Total',stocks:isZH?'只':'stocks',
@@ -161,14 +161,28 @@ var _FMP_KEY = 'GVZl63vY5N0bmm0qWgfVds01CoADwbIX';
 US.getKey = function(){return _FMP_KEY};
 
 // ===== Data Fetching (FMP /stable/ endpoints) =====
-var _CACHE_TTL = 86400000; // 24h
+var _Q_TTL = 14400000; // 4h quote cache
+var _H_TTL = 172800000; // 48h history cache
+var _rateLimited = false;
 
 function _stableUrl(path){
   return 'https://financialmodelingprep.com/stable/'+path+(path.indexOf('?')>=0?'&':'?')+'apikey='+_FMP_KEY;
 }
 
+function _isApiError(d){ return d && typeof d==='object' && !Array.isArray(d) && d['Error Message']; }
+
+function _getStaleCache(key){
+  try{var c=localStorage.getItem(key);if(c)return JSON.parse(c)}catch(e){}return null;
+}
+
+function _showRateLimitMsg(){
+  if(_rateLimited)return;_rateLimited=true;
+  var pa=document.getElementById('us-progress-area');
+  if(pa){pa.innerHTML='<div style="padding:10px 14px;background:rgba(240,160,80,.1);border:1px solid rgba(240,160,80,.3);border-radius:10px;font-size:12px;color:var(--amb)">'
+    +(isZH?'⚠ API调用已达今日上限，正在使用本地缓存数据（可能非最新）':'⚠ API daily limit reached. Showing cached data (may not be latest).')+'</div>';pa.style.display='block'}
+}
+
 US.fetchQuotes = function(symbols){
-  // Free tier: single symbol per call. Fetch in parallel batches of 5.
   var batches = [];
   for(var i=0;i<symbols.length;i+=5){batches.push(symbols.slice(i,i+5))}
   var progress = document.getElementById('us-progress-fill');
@@ -178,35 +192,38 @@ US.fetchQuotes = function(symbols){
   return batches.reduce(function(chain, batch){
     return chain.then(function(){
       var fetches = batch.map(function(sym){
-        // Check cache
         try{var c=localStorage.getItem('us_q_'+sym),t=localStorage.getItem('us_q_t_'+sym);
-          if(c&&t&&(Date.now()-parseInt(t))<300000){return Promise.resolve(JSON.parse(c))}}catch(e){}
+          if(c&&t&&(Date.now()-parseInt(t))<_Q_TTL){return Promise.resolve(JSON.parse(c))}}catch(e){}
+        if(_rateLimited){return Promise.resolve(_getStaleCache('us_q_'+sym))}
         return fetch(_stableUrl('quote?symbol='+sym)).then(function(r){return r.json()}).then(function(d){
+          if(_isApiError(d)){_showRateLimitMsg();return _getStaleCache('us_q_'+sym)}
           var q=Array.isArray(d)?d[0]:d;
           if(q&&q.symbol){try{localStorage.setItem('us_q_'+sym,JSON.stringify(q));localStorage.setItem('us_q_t_'+sym,''+Date.now())}catch(e){}}
           return q;
-        }).catch(function(){return null});
+        }).catch(function(){return _getStaleCache('us_q_'+sym)});
       });
       return Promise.all(fetches).then(function(results){
         results.forEach(function(q){if(q&&q.symbol)allQuotes.push(q)});
         done++;
         if(progress)progress.style.width=(done/total*50)+'%';
-        if(progText)progText.textContent=(isZH?'获取报价 ':'Quotes ')+done+'/'+total;
+        if(progText&&!_rateLimited)progText.textContent=(isZH?'获取报价 ':'Quotes ')+done+'/'+total;
       });
     });
   }, Promise.resolve()).then(function(){return allQuotes});
 };
 
 US.fetchHistory = function(symbols){
-  // Check localStorage cache first
   var needed = [], cached = {};
   symbols.forEach(function(s){
     try{var c = localStorage.getItem('us_hist_'+s), t = localStorage.getItem('us_hist_t_'+s);
-      if(c&&t&&(Date.now()-parseInt(t))<_CACHE_TTL){cached[s]=JSON.parse(c);return}}catch(e){}
+      if(c&&t&&(Date.now()-parseInt(t))<_H_TTL){cached[s]=JSON.parse(c);return}}catch(e){}
     needed.push(s);
   });
   if(!needed.length) return Promise.resolve(cached);
-  // Free tier: one symbol per call, fetch sequentially in batches of 5
+  if(_rateLimited){
+    needed.forEach(function(s){var d=_getStaleCache('us_hist_'+s);if(d)cached[s]=d});
+    return Promise.resolve(cached);
+  }
   var batches = [];
   for(var i=0;i<needed.length;i+=5){batches.push(needed.slice(i,i+5))}
   var progress = document.getElementById('us-progress-fill');
@@ -219,18 +236,19 @@ US.fetchHistory = function(symbols){
       var fetches = batch.map(function(sym){
         var url = _stableUrl('historical-price-eod/full?symbol='+sym+'&from='+fromDate+'&to='+toDate);
         return fetch(url).then(function(r){return r.json()}).then(function(data){
+          if(_isApiError(data)){_showRateLimitMsg();var d=_getStaleCache('us_hist_'+sym);if(d)cached[sym]=d;return}
           if(Array.isArray(data)&&data.length){
-            var h = data.slice().reverse(); // oldest first
+            var h = data.slice().reverse();
             cached[sym] = h;
             try{localStorage.setItem('us_hist_'+sym,JSON.stringify(h));
               localStorage.setItem('us_hist_t_'+sym,''+Date.now())}catch(e){}
           }
-        }).catch(function(){});
+        }).catch(function(){var d=_getStaleCache('us_hist_'+sym);if(d)cached[sym]=d});
       });
       return Promise.all(fetches).then(function(){
         done++;
         if(progress)progress.style.width=(50+done/total*50)+'%';
-        if(progText)progText.textContent=(isZH?'历史数据 ':'History ')+done+'/'+total;
+        if(progText&&!_rateLimited)progText.textContent=(isZH?'历史数据 ':'History ')+done+'/'+total;
       });
     });
   }, Promise.resolve()).then(function(){return cached});
@@ -709,7 +727,7 @@ US.reasonText=function(st,s){
 
 // ===== Loading / Error =====
 US.showLoading=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><div class="dots"><span></span><span></span><span></span></div><p style="margin-top:16px;color:var(--td)">'+US.T.loading+'</p></div>'};
-US.showError=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><p style="color:var(--r)">'+US.T.error+'</p></div>'};
+US.showError=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><p style="color:var(--amb)">'+(_rateLimited?(isZH?'API今日调用已达上限，请明天再试或使用已缓存数据':'API daily limit reached. Please try again tomorrow or cached data will be used.'):(isZH?'数据加载失败，请稍后重试':'Failed to load data. Please try again later.'))+'</p></div>'};
 
 // Init stat card info icons
 document.addEventListener('DOMContentLoaded',function(){
