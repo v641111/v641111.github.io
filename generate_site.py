@@ -59,19 +59,19 @@ def pn(v):
 
 def nav(lang='en', prefix=''):
     p = '/zh' if lang=='zh' else ''
-    lbl = {'etf':'ETF','stock':'股票' if lang=='zh' else 'Stocks','crypto':'加密货币' if lang=='zh' else 'Crypto','defi':'DeFi','calc':'工具' if lang=='zh' else 'Tools','about':'关于' if lang=='zh' else 'About'}
+    lbl = {'etf':'ETF','stock':'股票' if lang=='zh' else 'Stocks','crypto':'加密货币' if lang=='zh' else 'Crypto','defi':'DeFi','cb':'可转债' if lang=='zh' else 'CB','us':'美股策略' if lang=='zh' else 'US Tech','calc':'工具' if lang=='zh' else 'Tools','about':'关于' if lang=='zh' else 'About'}
     toggle = f'<a href="/" class="lbtn">EN</a>' if lang=='zh' else f'<a href="/zh/" class="lbtn">中文</a>'
     return f'''<nav class="nav"><div class="nav-in">
 <a href="{p}/" class="logo"><span class="logo-i">ZX</span>ZX Capital</a>
-<div class="nlinks"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/defi/">{lbl['defi']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div>
+<div class="nlinks"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/defi/">{lbl['defi']}</a><a href="{p}/cb/">{lbl['cb']}</a><a href="{p}/us-stock/">{lbl['us']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div>
 <div style="display:flex;gap:10px;align-items:center">{toggle}<button class="mbtn" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menu">☰</button></div>
-</div><div id="mm" class="mmenu"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/defi/">{lbl['defi']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div></nav>'''
+</div><div id="mm" class="mmenu"><a href="{p}/etf/">{lbl['etf']}</a><a href="{p}/stock/">{lbl['stock']}</a><a href="{p}/crypto/">{lbl['crypto']}</a><a href="{p}/defi/">{lbl['defi']}</a><a href="{p}/cb/">{lbl['cb']}</a><a href="{p}/us-stock/">{lbl['us']}</a><a href="{p}/calculator/">{lbl['calc']}</a><a href="{p}/about.html">{lbl['about']}</a></div></nav>'''
 
 def footer(lang='en'):
     p = '/zh' if lang=='zh' else ''
     return f'''<footer><div class="fi">
 <div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
-<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="{p}/etf/">ETF</a><a href="{p}/stock/">{"股票" if lang=="zh" else "Stocks"}</a><a href="{p}/crypto/">{"加密货币" if lang=="zh" else "Crypto"}</a><a href="{p}/defi/">DeFi</a><a href="{p}/calculator/">{"工具" if lang=="zh" else "Tools"}</a><a href="{p}/about.html">{"关于" if lang=="zh" else "About"}</a></nav>
+<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="{p}/etf/">ETF</a><a href="{p}/stock/">{"股票" if lang=="zh" else "Stocks"}</a><a href="{p}/crypto/">{"加密货币" if lang=="zh" else "Crypto"}</a><a href="{p}/defi/">DeFi</a><a href="{p}/cb/">{"可转债" if lang=="zh" else "CB"}</a><a href="{p}/us-stock/">{"美股策略" if lang=="zh" else "US Tech"}</a><a href="{p}/calculator/">{"工具" if lang=="zh" else "Tools"}</a><a href="{p}/about.html">{"关于" if lang=="zh" else "About"}</a></nav>
 <div class="fc">© 2026 ZX Capital. All rights reserved.</div></div></footer>'''
 
 def head(title, desc, path, lang='en'):
@@ -2368,6 +2368,14 @@ def gen_sitemap():
         for pr in DEFI_PROTOCOLS: add(f'{p}/defi/protocol/{pr["slug"]}.html', 'daily')
         add(f'{p}/defi/guide/', 'weekly', '0.7')
         for g in DEFI_GUIDES: add(f'{p}/defi/guide/{g["slug"]}.html', 'monthly', '0.7')
+        # CB pages
+        add(f'{p}/cb/', 'daily', '0.9')
+        for cb_slug in ['tanbing','shuangdi','zhuangu','qiangshu','xiaxiu','huishou','wangge']:
+            add(f'{p}/cb/{cb_slug}.html', 'daily')
+        # US Stock pages
+        add(f'{p}/us-stock/', 'daily', '0.9')
+        for us_slug in ['rsi','golden-cross','macd-rsi','bollinger','volume','oversold','kline']:
+            add(f'{p}/us-stock/{us_slug}.html', 'daily')
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(urls) + '\n</urlset>'
     page('sitemap.xml', xml)

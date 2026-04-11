@@ -221,6 +221,22 @@
   <url><loc>https://zxcapitalgroup.com/defi/guide/yield-farming.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://zxcapitalgroup.com/defi/guide/stablecoin-pools.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://zxcapitalgroup.com/defi/guide/how-to-provide-liquidity.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/tanbing.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/shuangdi.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/zhuangu.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/qiangshu.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/xiaxiu.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/huishou.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/cb/wangge.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/rsi.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/golden-cross.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/macd-rsi.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/bollinger.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/volume.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/oversold.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/us-stock/kline.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://zxcapitalgroup.com/zh/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://zxcapitalgroup.com/zh/etf/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://zxcapitalgroup.com/zh/etf/SPY.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
@@ -442,4 +458,20 @@
   <url><loc>https://zxcapitalgroup.com/zh/defi/guide/yield-farming.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://zxcapitalgroup.com/zh/defi/guide/stablecoin-pools.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://zxcapitalgroup.com/zh/defi/guide/how-to-provide-liquidity.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/tanbing.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/shuangdi.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/zhuangu.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/qiangshu.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/xiaxiu.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/huishou.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/cb/wangge.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/rsi.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/golden-cross.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/macd-rsi.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/bollinger.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/volume.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/oversold.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zxcapitalgroup.com/zh/us-stock/kline.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
 </urlset>

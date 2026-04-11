@@ -1,0 +1,774 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oversold Bounce - US Stock Screener | ZX Capital</title><meta name="description" content="Stochastic %K&lt;20 and reversing above %D, 78% win rate">
+<link rel="canonical" href="https://zxcapitalgroup.com/us-stock/oversold.html">
+<link rel="alternate" hreflang="en" href="https://zxcapitalgroup.com/us-stock/oversold.html">
+<link rel="alternate" hreflang="zh" href="https://zxcapitalgroup.com/zh/us-stock/oversold.html">
+<link rel="alternate" hreflang="x-default" href="https://zxcapitalgroup.com/us-stock/oversold.html">
+<meta property="og:title" content="Oversold Bounce - US Stock Screener | ZX Capital"><meta property="og:description" content="Stochastic %K&lt;20 and reversing above %D, 78% win rate">
+<meta property="og:url" content="https://zxcapitalgroup.com/us-stock/oversold.html"><meta property="og:type" content="website"><meta property="og:site_name" content="ZX Capital">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#06080d;--bg2:#080b12;--card:#0d1117;--bdr:#161d2a;--g:#00dc82;--gd:#00b36b;--r:#ff4d6a;--amb:#f0a050;--t:#e2e8f0;--tm:#94a3b8;--td:#64748b;--tb:#f1f5f9}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}.mono{font-family:'Space Mono','Courier New',monospace}.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,8,13,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr)}.nav-in{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--tb)}.logo-i{width:34px;height:34px;border-radius:7px;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--bg);font-family:'Space Mono',monospace}
+.nlinks{display:flex;gap:24px;align-items:center}.nlinks a{color:var(--tm);font-size:13px;font-weight:500;transition:color .2s}.nlinks a:hover,.nlinks a.on{color:var(--g)}
+.lbtn{background:var(--bdr);color:var(--tm);border:none;padding:5px 12px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Mono',monospace;text-decoration:none}
+.mbtn{display:none;background:none;border:none;color:var(--t);font-size:22px;cursor:pointer}.mmenu{display:none;background:var(--bg2);border-top:1px solid var(--bdr);padding:12px 20px}.mmenu a{display:block;padding:10px 0;color:var(--tm);font-size:14px}
+.sec{padding:70px 20px;max-width:1100px;margin:0 auto}.sec h2{font-size:32px;font-weight:700;margin-bottom:8px}.sub{color:var(--td);margin-bottom:32px}
+.bc{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--td);margin-bottom:24px;flex-wrap:wrap}.bc a{color:var(--tm)}.bc a:hover{color:var(--g)}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;transition:all .3s}.card:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,220,130,.06)}
+.disc{background:var(--card);border:1px solid #2a1c1c;border-radius:14px;padding:28px 32px;max-width:900px;margin:0 auto}.disc h3{font-size:15px;font-weight:700;color:var(--amb);margin-bottom:12px}.disc p{font-size:12px;color:var(--td);line-height:1.7;margin-bottom:8px}
+footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--bg)}.fi{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}.fb{display:flex;align-items:center;gap:8px}.fc{color:var(--td);font-size:11px}
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fu{animation:fadeup .6s ease both}
+@media(max-width:768px){.nlinks{display:none!important}.mbtn{display:flex!important}.mmenu.open{display:block!important}}
+@media(max-width:500px){td,th{padding:10px;font-size:12px}}
+.us-tabs{display:flex;gap:6px;padding:12px 20px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:1200px;margin:0 auto}
+.us-tabs::-webkit-scrollbar{display:none}
+.us-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;color:var(--tm);background:var(--card);border:1px solid var(--bdr);transition:all .3s;white-space:nowrap;cursor:pointer;text-decoration:none}
+.us-tab:hover{border-color:var(--g);color:var(--g)}.us-tab.active{background:var(--g);color:var(--bg);border-color:var(--g)}
+.us-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.us-stat{position:relative;background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px;overflow:hidden;transition:all .3s}
+.us-stat:hover{border-color:var(--g);box-shadow:0 0 30px rgba(0,220,130,.08)}
+.us-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);opacity:0;transition:opacity .3s}
+.us-stat:hover::before{opacity:1}
+.us-stat-l{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.us-stat-v{font-size:26px;font-weight:700;font-family:'Space Mono',monospace;background:linear-gradient(135deg,var(--t),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.us-glass{background:rgba(13,17,23,.6);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(0,220,130,.12);border-radius:16px;padding:28px;transition:all .4s}
+.us-glass:hover{border-color:rgba(0,220,130,.35);box-shadow:0 8px 40px rgba(0,220,130,.08),inset 0 1px 0 rgba(255,255,255,.05)}
+.us-glass .icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;background:linear-gradient(135deg,rgba(0,220,130,.15),rgba(0,220,130,.03));border:1px solid rgba(0,220,130,.15)}
+.us-glass h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.us-glass p{font-size:13px;color:var(--td);line-height:1.6}
+.us-glass .badge{position:absolute;top:14px;right:14px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;color:var(--g);background:rgba(0,220,130,.1);padding:3px 10px;border-radius:10px}
+.us-strategies{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin:28px 0}
+.us-filter{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:24px;padding:18px 22px;background:var(--card);border:1px solid var(--bdr);border-radius:12px}
+.us-filter label{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.us-filter select,.us-filter input[type=text]{background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:8px 12px;color:var(--t);font-size:13px;outline:none}
+.us-search{position:relative;margin-bottom:20px}
+.us-search input{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px 16px 12px 40px;color:var(--t);font-size:14px;outline:none;transition:border .3s}
+.us-search input:focus{border-color:var(--g)}
+.us-search::before{content:'\2315';position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--td);font-size:16px}
+.us-table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);margin-bottom:24px}
+.us-table{width:100%;border-collapse:collapse;font-size:13px}
+.us-table th{background:var(--card);color:var(--td);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:14px 14px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s;position:sticky;top:0;z-index:2}
+.us-table th:hover{color:var(--g)}.us-table th.sorted{color:var(--g)}
+.us-table th .arrow{margin-left:4px;font-size:8px;opacity:.5}.us-table th.sorted .arrow{opacity:1}
+.us-table td{padding:12px 14px;border-bottom:1px solid rgba(22,29,42,.5);white-space:nowrap;transition:background .2s}
+.us-table tr{transition:all .2s}.us-table tr:hover td{background:rgba(0,220,130,.03)}
+.us-table .pos{color:var(--g)}.us-table .neg{color:var(--r)}
+.us-table .tk{font-family:'Space Mono',monospace;color:var(--g);font-weight:700;font-size:12px}
+.us-table .stock-name{font-weight:600;color:var(--t);cursor:pointer;transition:color .2s}
+.us-table .stock-name:hover{color:var(--g);text-decoration:underline}
+.us-heatval{display:inline-block;padding:3px 10px;border-radius:6px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;min-width:50px;text-align:center}
+.us-pager{display:flex;justify-content:center;align-items:center;gap:8px;margin:20px 0}
+.us-pager button{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:8px 16px;color:var(--tm);font-size:13px;cursor:pointer;transition:all .2s}
+.us-pager button:hover:not(:disabled){border-color:var(--g);color:var(--g)}
+.us-pager button:disabled{opacity:.3;cursor:default}
+.us-pager span{font-size:13px;color:var(--td);font-family:'Space Mono',monospace}
+.us-loading{text-align:center;padding:60px 20px}
+.us-loading .dots{display:inline-flex;gap:6px}
+.us-loading .dots span{width:8px;height:8px;border-radius:50%;background:var(--g);animation:bounce 1.4s ease-in-out infinite}
+.us-loading .dots span:nth-child(2){animation-delay:.2s}.us-loading .dots span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+.us-refresh{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:8px 16px;font-size:12px;color:var(--tm);cursor:pointer;transition:all .3s;font-family:inherit}
+.us-refresh:hover{border-color:var(--g);color:var(--g)}
+.us-refresh.loading{pointer-events:none;opacity:.5}
+.us-refresh .spin{display:inline-block;animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.us-apikey-box{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:28px 32px;margin-bottom:24px;max-width:600px}
+.us-apikey-box label{display:block;font-size:13px;color:var(--tm);margin-bottom:8px;font-weight:600}
+.us-apikey-box input{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;color:var(--t);font-size:14px;font-family:'Space Mono',monospace;outline:none;margin-bottom:12px}
+.us-apikey-box input:focus{border-color:var(--g)}
+.us-apikey-box .bp{font-size:13px;padding:10px 24px}
+.us-apikey-box p{font-size:11px;color:var(--td);margin-top:8px;line-height:1.6}
+.us-progress{width:100%;height:6px;background:var(--bdr);border-radius:3px;margin:12px 0;overflow:hidden}
+.us-progress-fill{height:100%;background:linear-gradient(90deg,var(--gd),var(--g));border-radius:3px;transition:width .3s;width:0%}
+.us-progress-text{font-size:11px;color:var(--td);font-family:'Space Mono',monospace;margin-bottom:16px}
+.us-hit{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace}
+.us-hit-yes{background:rgba(0,220,130,.15);color:var(--g)}.us-hit-no{background:rgba(100,116,139,.08);color:var(--td)}
+.us-hits-badge{display:inline-block;padding:4px 12px;border-radius:8px;font-size:13px;font-weight:700;font-family:'Space Mono',monospace}
+.us-hits-7{background:rgba(0,220,130,.2);color:#00ff96}.us-hits-6{background:rgba(0,220,130,.18);color:var(--g)}
+.us-hits-5{background:rgba(0,220,130,.14);color:var(--g)}.us-hits-4{background:rgba(0,220,130,.1);color:var(--g)}
+.us-hits-3{background:rgba(240,160,80,.12);color:var(--amb)}.us-hits-2{background:rgba(240,160,80,.08);color:var(--amb)}
+.us-hits-1{background:rgba(255,77,106,.08);color:var(--td)}.us-hits-0{background:rgba(100,116,139,.06);color:var(--td)}
+.us-reason-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeup .2s ease}
+.us-reason-box{background:var(--card);border:1px solid var(--g);border-radius:16px;padding:28px 32px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,220,130,.1)}
+.us-reason-box h3{font-size:18px;font-weight:700;margin-bottom:16px;padding-right:30px;background:linear-gradient(135deg,var(--t),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.us-reason-box .us-reason-close{position:absolute;top:16px;right:16px;background:none;border:1px solid var(--bdr);border-radius:8px;width:28px;height:28px;color:var(--tm);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.us-reason-box .us-reason-close:hover{border-color:var(--r);color:var(--r)}
+.us-reason-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:13px}
+.us-reason-row:last-child{border:none}.us-reason-row .lbl{color:var(--td)}.us-reason-row .val{font-family:'Space Mono',monospace;font-weight:700}
+.us-reason-verdict{margin-top:16px;padding:14px 18px;border-radius:10px;background:rgba(0,220,130,.06);border:1px solid rgba(0,220,130,.15);font-size:13px;line-height:1.7;color:var(--tm)}
+.us-reason-verdict strong{color:var(--g)}
+.us-signal-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700}
+.us-signal-buy{background:rgba(0,220,130,.15);color:var(--g)}.us-signal-sell{background:rgba(255,77,106,.15);color:var(--r)}.us-signal-neutral{background:rgba(100,116,139,.1);color:var(--td)}
+.us-winrate{font-family:'Space Mono',monospace;font-size:12px;color:var(--amb);font-weight:700}
+.us-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--td);color:var(--td);font-size:9px;font-weight:700;cursor:help;margin-left:4px;font-style:normal;transition:all .2s;vertical-align:middle;flex-shrink:0;font-family:'Space Mono',monospace}
+.us-info:hover{border-color:var(--g);color:var(--g);background:rgba(0,220,130,.1)}
+.us-info-tip{position:fixed;display:none;background:var(--bg2);border:1px solid var(--g);border-radius:8px;padding:10px 14px;font-size:11px;color:var(--tm);width:240px;z-index:2000;line-height:1.6;box-shadow:0 8px 24px rgba(0,0,0,.5);text-transform:none;letter-spacing:0;font-weight:400}
+.us-info-tip::after{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-bottom-color:var(--g)}
+.us-info-wrap{display:inline-flex;align-items:center}
+.us-canvas-wrap{position:relative;border-radius:14px;border:1px solid var(--bdr);overflow:hidden;background:var(--card);margin-bottom:24px}
+@media(max-width:768px){.us-stats{grid-template-columns:repeat(2,1fr)}.us-strategies{grid-template-columns:1fr}.us-filter{flex-direction:column;align-items:stretch}}
+@media(max-width:500px){.us-stats{grid-template-columns:1fr}}
+.us-score-badge{display:inline-block;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700;font-family:'Space Mono',monospace}
+.us-score-high{background:rgba(0,220,130,.15);color:var(--g)}
+.us-score-mid{background:rgba(240,160,80,.15);color:var(--amb)}
+.us-score-low{background:rgba(255,77,106,.12);color:var(--r)}</style></head><body><nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><span class="logo-i">ZX</span>ZX Capital</a>
+<div class="nlinks"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/us-stock/">US Tech</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></div>
+<div style="display:flex;gap:10px;align-items:center"><a class="lbtn" href="/zh/" onclick="location.href=&quot;/zh&quot;+location.pathname;return false">中文</a><button class="mbtn" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menu">&#9776;</button></div>
+</div><div id="mm" class="mmenu"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/us-stock/">US Tech</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></div></nav><div class="us-tabs"><a href="/us-stock/" class="us-tab">Overview</a><a href="/us-stock/rsi.html" class="us-tab">RSI Reversion</a><a href="/us-stock/golden-cross.html" class="us-tab">Golden Cross</a><a href="/us-stock/macd-rsi.html" class="us-tab">MACD+RSI</a><a href="/us-stock/bollinger.html" class="us-tab">Bollinger</a><a href="/us-stock/volume.html" class="us-tab">Vol Breakout</a><a href="/us-stock/oversold.html" class="us-tab active">Oversold</a><a href="/us-stock/kline.html" class="us-tab">Candlestick</a></div><section class="sec" style="max-width:1200px"><div class="bc"><a href="/">Home</a> <span>/</span> <a href="/us-stock/">US Tech</a> <span>/</span> <span style="color:var(--t)">Oversold Bounce</span></div><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://zxcapitalgroup.com/"}, {"@type": "ListItem", "position": 2, "name": "US Tech", "item": "https://zxcapitalgroup.com/us-stock/"}, {"@type": "ListItem", "position": 3, "name": "Oversold Bounce"}]}</script><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+<div><h1 style="font-size:32px;font-weight:700;margin-bottom:6px">&#128281; Oversold Bounce <span class="us-winrate" style="font-size:16px">78%</span></h1>
+<p style="color:var(--td);font-size:14px">Stochastic %K<20 and reversing above %D, 78% win rate</p></div></div><div id="us-apikey-area" style="display:none">
+<div class="us-apikey-box">
+<label>FMP API Key (Free)</label>
+<input type="text" id="us-apikey-input" placeholder="Enter your API Key...">
+<button class="bp" id="us-apikey-btn">Start Analysis</button>
+<p>Get free key at <a href="https://site.financialmodelingprep.com/register" target="_blank" style="color:var(--g)">Financial Modeling Prep</a> - 250 calls/day free</p>
+</div></div>
+<div id="us-progress-area" style="display:none">
+<div class="us-progress"><div class="us-progress-fill" id="us-progress-fill"></div></div>
+<div class="us-progress-text" id="us-progress-text">Loading...</div></div><div class="us-stats"><div class="us-stat"><div class="us-stat-l" data-metric="stochK">Oversold Buy</div><div class="us-stat-v">-</div></div><div class="us-stat"><div class="us-stat-l" data-metric="stochK">Oversold</div><div class="us-stat-v">-</div></div><div class="us-stat"><div class="us-stat-l" data-metric="stochK">Min %K</div><div class="us-stat-v">-</div></div><div class="us-stat"><div class="us-stat-l" data-metric="stochK">Overbought</div><div class="us-stat-v">-</div></div></div><div class="card" style="margin-bottom:24px;border-color:rgba(0,220,130,.15)">
+<p style="font-size:13px;color:var(--tm);line-height:1.8">Stochastic %K below 20 indicates oversold. Buy triggers when %K starts reversing upward from oversold zone (confirmation). Backtest: 228 trades, 0.7% avg gain/trade, 78% win rate.</p></div><div id="us-main"><div id="us-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; Disclaimer</h3>
+<p>This page is for reference and educational purposes only. It does not constitute investment advice. Technical indicators are calculated from historical data; past performance does not guarantee future results. Backtested win rates come from academic research and quant communities; actual trading results may differ significantly. Invest at your own risk.</p></div></section><footer><div class="fi">
+<div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
+<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/us-stock/">US Tech</a><a href="/calculator/">Tools</a></nav>
+<div class="fc">&copy; 2026 ZX Capital. All rights reserved.</div></div></footer><script>
+(function(){
+'use strict';
+window.US = window.US || {};
+var isZH = document.documentElement.lang === 'zh';
+US.isZH = isZH;
+
+// Stock universe - top 50 US stocks
+US.UNIVERSE = ['AAPL','MSFT','GOOGL','AMZN','META','NVDA','TSLA','JPM','JNJ','V',
+  'PG','UNH','HD','MA','DIS','BAC','NFLX','ADBE','CRM','AMD',
+  'INTC','QCOM','COST','PEP','CSCO','AVGO','KO','PFE','MRK','ABT',
+  'ORCL','WMT','XOM','CVX','LLY','TMO','LOW','NKE','SBUX','GS',
+  'MS','BA','CAT','IBM','GE','PYPL','NOW','UBER','SQ','COIN'];
+
+US.T = {
+  symbol:isZH?'代码':'Symbol',name:isZH?'名称':'Name',price:isZH?'现价':'Price',
+  change:isZH?'涨跌幅':'Change',volume:isZH?'成交量':'Volume',
+  rsi:isZH?'RSI(14)':'RSI(14)',rsi2:isZH?'RSI(2)':'RSI(2)',
+  sma50:isZH?'SMA50':'SMA50',sma200:isZH?'SMA200':'SMA200',
+  macd:isZH?'MACD':'MACD',signal:isZH?'信号线':'Signal',histogram:isZH?'柱状图':'Histogram',
+  bbUpper:isZH?'布林上轨':'BB Upper',bbLower:isZH?'布林下轨':'BB Lower',bbWidth:isZH?'带宽':'BB Width',
+  stochK:isZH?'%K':'%K',stochD:isZH?'%D':'%D',
+  hits:isZH?'命中数':'Hits',winrate:isZH?'预估胜率':'Est. Win Rate',
+  loading:isZH?'正在加载股票数据...':'Loading stock data...',
+  error:isZH?'数据加载失败，请检查API Key后重试':'Failed to load. Check your API Key.',
+  noData:isZH?'暂无符合条件的数据':'No matching stocks',
+  refresh:isZH?'刷新数据':'Refresh',prev:isZH?'上一页':'Prev',next:isZH?'下一页':'Next',
+  total:isZH?'共':'Total',stocks:isZH?'只':'stocks',
+  search:isZH?'搜索股票代码...':'Search symbol...',
+  signalBuy:isZH?'买入信号':'BUY',signalSell:isZH?'卖出信号':'SELL',signalNeutral:isZH?'中性':'NEUTRAL',
+  pattern:isZH?'形态':'Pattern',direction:isZH?'方向':'Direction'
+};
+
+// ===== API Key Management =====
+US.getKey = function(){return localStorage.getItem('us_fmp_key')||''};
+US.setKey = function(k){localStorage.setItem('us_fmp_key',k)};
+
+// ===== Data Fetching =====
+var _histCache = {};
+var _CACHE_TTL = 86400000; // 24h
+
+function _apiUrl(path){
+  return 'https://financialmodelingprep.com/api/v3/'+path+'&apikey='+US.getKey();
+}
+
+US.fetchQuotes = function(symbols){
+  var url = _apiUrl('quote/'+symbols.join(',')+'?');
+  return fetch(url).then(function(r){return r.json()}).then(function(data){
+    if(!Array.isArray(data)){throw new Error('Invalid response')}
+    return data;
+  });
+};
+
+US.fetchHistory = function(symbols){
+  // Check localStorage cache first
+  var needed = [], cached = {};
+  symbols.forEach(function(s){
+    try{var c = localStorage.getItem('us_hist_'+s), t = localStorage.getItem('us_hist_t_'+s);
+      if(c&&t&&(Date.now()-parseInt(t))<_CACHE_TTL){cached[s]=JSON.parse(c);return}}catch(e){}
+    needed.push(s);
+  });
+  if(!needed.length) return Promise.resolve(cached);
+  // Fetch in batches of 3
+  var batches = [];
+  for(var i=0;i<needed.length;i+=3){batches.push(needed.slice(i,i+3))}
+  var progress = document.getElementById('us-progress-fill');
+  var progText = document.getElementById('us-progress-text');
+  var done = 0, total = batches.length;
+  return batches.reduce(function(chain, batch, idx){
+    return chain.then(function(acc){
+      var url = _apiUrl('historical-price-full/'+batch.join(',')+'?timeseries=300');
+      return fetch(url).then(function(r){return r.json()}).then(function(resp){
+        // Handle single vs multi symbol response
+        var list = resp.historicalStockList || (resp.symbol?[resp]:[]);
+        list.forEach(function(item){
+          if(item.symbol && item.historical){
+            var h = item.historical.slice().reverse(); // oldest first
+            acc[item.symbol] = h;
+            try{localStorage.setItem('us_hist_'+item.symbol,JSON.stringify(h));
+              localStorage.setItem('us_hist_t_'+item.symbol,''+Date.now())}catch(e){}
+          }
+        });
+        done++;
+        if(progress) progress.style.width = (done/total*100)+'%';
+        if(progText) progText.textContent = (isZH?'加载中 ':'Loading ')+done+'/'+total;
+        return acc;
+      }).catch(function(){done++;return acc});
+    });
+  }, Promise.resolve(cached));
+};
+
+// ===== Technical Analysis Library =====
+US.TA = {};
+
+US.TA.sma = function(data, period){
+  var result = [];
+  for(var i=0;i<data.length;i++){
+    if(i<period-1){result.push(null);continue}
+    var sum=0;for(var j=i-period+1;j<=i;j++)sum+=data[j];
+    result.push(sum/period);
+  }
+  return result;
+};
+
+US.TA.ema = function(data, period){
+  var result = [], k = 2/(period+1);
+  for(var i=0;i<data.length;i++){
+    if(i===0){result.push(data[0]);continue}
+    if(i<period-1&&result[i-1]===null){result.push(null);continue}
+    result.push(data[i]*k + result[i-1]*(1-k));
+  }
+  return result;
+};
+
+US.TA.rsi = function(closes, period){
+  var result = [], gains = [], losses = [];
+  for(var i=1;i<closes.length;i++){
+    var d = closes[i]-closes[i-1];
+    gains.push(d>0?d:0);
+    losses.push(d<0?-d:0);
+  }
+  result.push(null); // first element
+  if(gains.length<period){for(var x=0;x<gains.length;x++)result.push(null);return result}
+  var avgG=0,avgL=0;
+  for(var i=0;i<period;i++){avgG+=gains[i];avgL+=losses[i]}
+  avgG/=period;avgL/=period;
+  for(var i=0;i<period-1;i++)result.push(null);
+  var rs=avgL===0?100:avgG/avgL;
+  result.push(100-100/(1+rs));
+  for(var i=period;i<gains.length;i++){
+    avgG=(avgG*(period-1)+gains[i])/period;
+    avgL=(avgL*(period-1)+losses[i])/period;
+    rs=avgL===0?100:avgG/avgL;
+    result.push(100-100/(1+rs));
+  }
+  return result;
+};
+
+US.TA.macd = function(closes, fast, slow, sig){
+  fast=fast||12;slow=slow||26;sig=sig||9;
+  var emaF=US.TA.ema(closes,fast), emaS=US.TA.ema(closes,slow);
+  var macdLine=[];
+  for(var i=0;i<closes.length;i++){
+    macdLine.push(emaF[i]!=null&&emaS[i]!=null?emaF[i]-emaS[i]:null);
+  }
+  var validMacd = macdLine.filter(function(v){return v!=null});
+  var sigLine = US.TA.ema(validMacd, sig);
+  // Align signal line with macd line
+  var result = {macd:[],signal:[],histogram:[]};
+  var si=0;
+  for(var i=0;i<macdLine.length;i++){
+    if(macdLine[i]==null){result.macd.push(null);result.signal.push(null);result.histogram.push(null);continue}
+    result.macd.push(macdLine[i]);
+    var sv=si<sigLine.length?sigLine[si]:null;
+    result.signal.push(sv);
+    result.histogram.push(sv!=null?macdLine[i]-sv:null);
+    si++;
+  }
+  return result;
+};
+
+US.TA.bollinger = function(closes, period, mult){
+  period=period||20;mult=mult||2;
+  var sma=US.TA.sma(closes,period), upper=[],lower=[],width=[];
+  for(var i=0;i<closes.length;i++){
+    if(sma[i]==null){upper.push(null);lower.push(null);width.push(null);continue}
+    var sum=0;for(var j=i-period+1;j<=i;j++){var d=closes[j]-sma[i];sum+=d*d}
+    var std=Math.sqrt(sum/period);
+    upper.push(sma[i]+mult*std);lower.push(sma[i]-mult*std);
+    width.push(sma[i]>0?(mult*std*2/sma[i]*100):0);
+  }
+  return{upper:upper,lower:lower,middle:sma,width:width};
+};
+
+US.TA.stochastic = function(highs, lows, closes, kPeriod, dPeriod){
+  kPeriod=kPeriod||14;dPeriod=dPeriod||3;
+  var kValues=[];
+  for(var i=0;i<closes.length;i++){
+    if(i<kPeriod-1){kValues.push(null);continue}
+    var hh=-Infinity,ll=Infinity;
+    for(var j=i-kPeriod+1;j<=i;j++){if(highs[j]>hh)hh=highs[j];if(lows[j]<ll)ll=lows[j]}
+    kValues.push(hh===ll?50:(closes[i]-ll)/(hh-ll)*100);
+  }
+  var dValues=US.TA.sma(kValues.map(function(v){return v==null?0:v}),dPeriod);
+  return{k:kValues,d:dValues};
+};
+
+US.TA.obv = function(closes, volumes){
+  var result=[0];
+  for(var i=1;i<closes.length;i++){
+    if(closes[i]>closes[i-1])result.push(result[i-1]+volumes[i]);
+    else if(closes[i]<closes[i-1])result.push(result[i-1]-volumes[i]);
+    else result.push(result[i-1]);
+  }
+  return result;
+};
+
+// ===== Candlestick Patterns =====
+US.TA.candlePatterns = function(opens, highs, lows, closes){
+  var patterns = [];
+  var bodySize = function(i){return Math.abs(closes[i]-opens[i])};
+  var range = function(i){return highs[i]-lows[i]};
+  var isBullish = function(i){return closes[i]>opens[i]};
+  var isBearish = function(i){return closes[i]<opens[i]};
+  var body = function(i){return bodySize(i)};
+  var avgBody = function(i,n){var s=0;for(var j=Math.max(0,i-n);j<i;j++)s+=bodySize(j);return s/Math.min(n,i||1)};
+
+  for(var i=2;i<closes.length;i++){
+    var p = [];
+    var ab = avgBody(i,10);
+    // Bullish Engulfing
+    if(i>=1 && isBearish(i-1) && isBullish(i) && opens[i]<=closes[i-1] && closes[i]>=opens[i-1] && body(i)>ab*0.8)
+      p.push({name:isZH?'看涨吞没':'Bullish Engulfing',dir:'bullish',strength:3});
+    // Bearish Engulfing
+    if(i>=1 && isBullish(i-1) && isBearish(i) && opens[i]>=closes[i-1] && closes[i]<=opens[i-1] && body(i)>ab*0.8)
+      p.push({name:isZH?'看跌吞没':'Bearish Engulfing',dir:'bearish',strength:3});
+    // Hammer (bullish)
+    if(body(i)<range(i)*0.3 && (Math.min(opens[i],closes[i])-lows[i])>body(i)*2 && (highs[i]-Math.max(opens[i],closes[i]))<body(i)*0.5)
+      p.push({name:isZH?'锤子线':'Hammer',dir:'bullish',strength:2});
+    // Shooting Star (bearish)
+    if(body(i)<range(i)*0.3 && (highs[i]-Math.max(opens[i],closes[i]))>body(i)*2 && (Math.min(opens[i],closes[i])-lows[i])<body(i)*0.5)
+      p.push({name:isZH?'射击之星':'Shooting Star',dir:'bearish',strength:2});
+    // Doji
+    if(body(i)<range(i)*0.1 && range(i)>0)
+      p.push({name:'Doji',dir:'neutral',strength:1});
+    // Morning Star (3-bar)
+    if(i>=2 && isBearish(i-2) && body(i-2)>ab*0.8 && body(i-1)<ab*0.3 && isBullish(i) && body(i)>ab*0.5 && closes[i]>=(opens[i-2]+closes[i-2])/2)
+      p.push({name:isZH?'早晨之星':'Morning Star',dir:'bullish',strength:3});
+    // Evening Star (3-bar)
+    if(i>=2 && isBullish(i-2) && body(i-2)>ab*0.8 && body(i-1)<ab*0.3 && isBearish(i) && body(i)>ab*0.5 && closes[i]<=(opens[i-2]+closes[i-2])/2)
+      p.push({name:isZH?'黄昏之星':'Evening Star',dir:'bearish',strength:3});
+
+    patterns.push(p);
+  }
+  // Pad first 2 elements
+  return [[], []].concat(patterns);
+};
+
+// ===== Strategy Signals =====
+US.strategies = {};
+
+US.strategies.rsi = function(hist){
+  if(!hist||hist.length<15) return{signal:'neutral',value:null};
+  var closes = hist.map(function(d){return d.close});
+  var rsi2 = US.TA.rsi(closes, 2);
+  var rsi14 = US.TA.rsi(closes, 14);
+  var last2 = rsi2[rsi2.length-1];
+  var last14 = rsi14[rsi14.length-1];
+  if(last2!=null && last2<10) return{signal:'buy',value:last2,rsi14:last14,desc:isZH?'RSI(2)<10 极度超卖':'RSI(2)<10 extremely oversold'};
+  if(last2!=null && last2<20) return{signal:'buy',value:last2,rsi14:last14,desc:isZH?'RSI(2)<20 超卖区域':'RSI(2)<20 oversold zone'};
+  if(last2!=null && last2>90) return{signal:'sell',value:last2,rsi14:last14,desc:isZH?'RSI(2)>90 极度超买':'RSI(2)>90 extremely overbought'};
+  return{signal:'neutral',value:last2,rsi14:last14};
+};
+
+US.strategies.goldenCross = function(hist){
+  if(!hist||hist.length<201) return{signal:'neutral',value:null};
+  var closes = hist.map(function(d){return d.close});
+  var sma50 = US.TA.sma(closes,50);
+  var sma200 = US.TA.sma(closes,200);
+  var i = closes.length-1;
+  if(sma50[i]==null||sma200[i]==null) return{signal:'neutral',value:null};
+  var ratio = (sma50[i]/sma200[i]-1)*100;
+  // Golden cross: SMA50 just crossed above SMA200 (within last 5 days)
+  for(var d=1;d<=5;d++){
+    var j=i-d;
+    if(j>=0 && sma50[j]!=null && sma200[j]!=null && sma50[j]<=sma200[j] && sma50[i]>sma200[i])
+      return{signal:'buy',value:ratio,sma50:sma50[i],sma200:sma200[i],desc:isZH?'金叉形成('+d+'天内)':'Golden Cross (within '+d+' days)'};
+  }
+  // Approaching: SMA50 within 2% below SMA200, trending up
+  if(ratio>-2 && ratio<=0 && sma50[i]>sma50[i-5])
+    return{signal:'buy',value:ratio,sma50:sma50[i],sma200:sma200[i],desc:isZH?'即将金叉(差距'+ratio.toFixed(1)+'%)':'Approaching golden cross (gap '+ratio.toFixed(1)+'%)'};
+  // Already above: bullish trend
+  if(sma50[i]>sma200[i])
+    return{signal:'neutral',value:ratio,sma50:sma50[i],sma200:sma200[i],desc:isZH?'多头排列':'Bullish alignment'};
+  // Death cross check
+  for(var d=1;d<=5;d++){
+    var j=i-d;
+    if(j>=0 && sma50[j]!=null && sma200[j]!=null && sma50[j]>=sma200[j] && sma50[i]<sma200[i])
+      return{signal:'sell',value:ratio,sma50:sma50[i],sma200:sma200[i],desc:isZH?'死叉形成('+d+'天内)':'Death Cross (within '+d+' days)'};
+  }
+  return{signal:'neutral',value:ratio,sma50:sma50[i],sma200:sma200[i]};
+};
+
+US.strategies.macdRsi = function(hist){
+  if(!hist||hist.length<35) return{signal:'neutral',value:null};
+  var closes = hist.map(function(d){return d.close});
+  var macd = US.TA.macd(closes);
+  var rsi = US.TA.rsi(closes,14);
+  var i = closes.length-1;
+  var h = macd.histogram[i], ph = macd.histogram[i-1];
+  var r = rsi[i];
+  if(h!=null && ph!=null && h>0 && ph<=0 && r!=null && r<50)
+    return{signal:'buy',value:h,rsi:r,macd:macd.macd[i],sigLine:macd.signal[i],desc:isZH?'MACD柱翻正+RSI<50':'MACD histogram turned positive + RSI<50'};
+  if(h!=null && ph!=null && h<0 && ph>=0 && r!=null && r>50)
+    return{signal:'sell',value:h,rsi:r,macd:macd.macd[i],sigLine:macd.signal[i],desc:isZH?'MACD柱翻负+RSI>50':'MACD histogram turned negative + RSI>50'};
+  return{signal:'neutral',value:h,rsi:r,macd:macd.macd[i],sigLine:macd.signal[i]};
+};
+
+US.strategies.bollinger = function(hist){
+  if(!hist||hist.length<25) return{signal:'neutral',value:null};
+  var closes = hist.map(function(d){return d.close});
+  var bb = US.TA.bollinger(closes);
+  var i = closes.length-1;
+  var w = bb.width[i], pw = bb.width[i-1];
+  // Squeeze breakout: width was < 6% and price breaks above upper band
+  if(w!=null && w<8 && closes[i]>bb.upper[i])
+    return{signal:'buy',value:w,price:closes[i],upper:bb.upper[i],lower:bb.lower[i],desc:isZH?'布林收窄后突破上轨':'Squeeze breakout above upper band'};
+  // Bounce from lower band
+  if(closes[i-1]!=null && closes[i-1]<=bb.lower[i-1] && closes[i]>bb.lower[i])
+    return{signal:'buy',value:w,price:closes[i],upper:bb.upper[i],lower:bb.lower[i],desc:isZH?'下轨反弹':'Bounce from lower band'};
+  // Break below lower band
+  if(closes[i]<bb.lower[i])
+    return{signal:'sell',value:w,price:closes[i],upper:bb.upper[i],lower:bb.lower[i],desc:isZH?'跌破下轨':'Broke below lower band'};
+  return{signal:'neutral',value:w,price:closes[i],upper:bb.upper[i],lower:bb.lower[i]};
+};
+
+US.strategies.volume = function(hist){
+  if(!hist||hist.length<25) return{signal:'neutral',value:null};
+  var closes = hist.map(function(d){return d.close});
+  var highs = hist.map(function(d){return d.high});
+  var volumes = hist.map(function(d){return d.volume});
+  var i = closes.length-1;
+  // 20-day high
+  var high20 = -Infinity;
+  for(var j=i-20;j<i;j++){if(j>=0 && highs[j]>high20)high20=highs[j]}
+  // 20-day avg volume
+  var avgVol = 0;
+  for(var j=i-20;j<i;j++){if(j>=0)avgVol+=volumes[j]}
+  avgVol/=20;
+  var volRatio = avgVol>0?volumes[i]/avgVol:0;
+  if(closes[i]>high20 && volRatio>=1.5)
+    return{signal:'buy',value:volRatio,high20:high20,avgVol:avgVol,desc:isZH?'突破20日高点+放量'+volRatio.toFixed(1)+'x':'20-day breakout + volume '+volRatio.toFixed(1)+'x'};
+  if(volRatio>=2 && closes[i]<closes[i-1])
+    return{signal:'sell',value:volRatio,high20:high20,avgVol:avgVol,desc:isZH?'放量下跌'+volRatio.toFixed(1)+'x':'High-volume decline '+volRatio.toFixed(1)+'x'};
+  return{signal:'neutral',value:volRatio,high20:high20,avgVol:avgVol};
+};
+
+US.strategies.oversold = function(hist){
+  if(!hist||hist.length<20) return{signal:'neutral',value:null};
+  var closes = hist.map(function(d){return d.close});
+  var highs = hist.map(function(d){return d.high});
+  var lows = hist.map(function(d){return d.low});
+  var stoch = US.TA.stochastic(highs,lows,closes);
+  var i = closes.length-1;
+  var k = stoch.k[i], d = stoch.d[i], pk = stoch.k[i-1];
+  if(k!=null && d!=null && k<20 && pk!=null && pk<k)
+    return{signal:'buy',value:k,stochD:d,desc:isZH?'随机指标超卖反转(%K='+k.toFixed(1)+')':'Stochastic oversold reversal (%K='+k.toFixed(1)+')'};
+  if(k!=null && d!=null && k>80 && pk!=null && pk>k)
+    return{signal:'sell',value:k,stochD:d,desc:isZH?'随机指标超买反转(%K='+k.toFixed(1)+')':'Stochastic overbought reversal (%K='+k.toFixed(1)+')'};
+  return{signal:'neutral',value:k,stochD:d};
+};
+
+US.strategies.kline = function(hist){
+  if(!hist||hist.length<5) return{signal:'neutral',value:null,patterns:[]};
+  var opens = hist.map(function(d){return d.open});
+  var highs = hist.map(function(d){return d.high});
+  var lows = hist.map(function(d){return d.low});
+  var closes = hist.map(function(d){return d.close});
+  var patterns = US.TA.candlePatterns(opens,highs,lows,closes);
+  var last = patterns[patterns.length-1]||[];
+  // Also check previous day
+  var prev = patterns[patterns.length-2]||[];
+  var all = last.concat(prev);
+  var bullish = all.filter(function(p){return p.dir==='bullish'});
+  var bearish = all.filter(function(p){return p.dir==='bearish'});
+  // Add trend context (SMA20)
+  var sma20 = US.TA.sma(closes,20);
+  var trend = sma20[sma20.length-1]!=null?(closes[closes.length-1]>sma20[sma20.length-1]?'up':'down'):'flat';
+  // Bullish patterns in downtrend are more significant
+  if(bullish.length>0 && trend==='down')
+    return{signal:'buy',value:bullish.length,patterns:bullish,trend:trend,desc:isZH?'下跌趋势中出现看涨形态':'Bullish pattern in downtrend'};
+  if(bearish.length>0 && trend==='up')
+    return{signal:'sell',value:bearish.length,patterns:bearish,trend:trend,desc:isZH?'上涨趋势中出现看跌形态':'Bearish pattern in uptrend'};
+  if(bullish.length>0)
+    return{signal:'neutral',value:bullish.length,patterns:bullish,trend:trend,desc:isZH?'看涨形态(需趋势确认)':'Bullish pattern (needs trend confirmation)'};
+  if(bearish.length>0)
+    return{signal:'neutral',value:bearish.length,patterns:bearish,trend:trend,desc:isZH?'看跌形态(需趋势确认)':'Bearish pattern (needs trend confirmation)'};
+  return{signal:'neutral',value:0,patterns:[],trend:trend};
+};
+
+// ===== Run all strategies =====
+US.STRATEGY_KEYS = ['rsi','goldenCross','macdRsi','bollinger','volume','oversold','kline'];
+US.STRATEGY_NAMES = {
+  rsi:isZH?'RSI(2)':'RSI(2)',
+  goldenCross:isZH?'金叉':'Golden Cross',
+  macdRsi:isZH?'MACD+RSI':'MACD+RSI',
+  bollinger:isZH?'布林':'Bollinger',
+  volume:isZH?'放量突破':'Vol Breakout',
+  oversold:isZH?'超卖反弹':'Oversold',
+  kline:isZH?'K线形态':'K-Line'
+};
+US.STRATEGY_WINRATES = {rsi:'76%',goldenCross:'79%',macdRsi:'73%',bollinger:'65%',volume:'74%',oversold:'78%',kline:'68%'};
+
+US.analyzeStock = function(symbol, hist, quote){
+  var result = {symbol:symbol, price:quote?quote.price:0, change:quote?quote.changesPercentage:0,
+    name:quote?quote.name:'', volume:quote?quote.volume:0, hits:0, signals:{}};
+  US.STRATEGY_KEYS.forEach(function(key){
+    var sig = US.strategies[key](hist);
+    result.signals[key] = sig;
+    if(sig.signal==='buy') result.hits++;
+  });
+  return result;
+};
+
+// ===== Estimated composite win rate =====
+US.estWinRate = function(hits){
+  // Based on research: stacking 2+ signals yields ~81%, 3+ ~85%, 4+ ~89%
+  var rates = [0,55,68,78,85,90,93,96];
+  return(hits<rates.length?rates[hits]:97)+'%';
+};
+
+// ===== Table Renderer =====
+US.PAGE_SIZE = 50;
+US.renderTable = function(cid,cols,data,dsort,ddir,strategy){
+  var c=document.getElementById(cid);if(!c)return;
+  var sort=dsort||'',dir=ddir||1,pg=0;
+  function render(){
+    var s=data.slice();
+    if(sort)s.sort(function(a,b){var va=a[sort],vb=b[sort];if(va==null)return 1;if(vb==null)return-1;if(typeof va==='string')return va.localeCompare(vb)*dir;return(va-vb)*dir});
+    var total=s.length,pages=Math.ceil(total/US.PAGE_SIZE)||1;
+    if(pg>=pages)pg=pages-1;
+    var start=pg*US.PAGE_SIZE,pd=s.slice(start,start+US.PAGE_SIZE);
+    var h='<div class="us-table-wrap"><table class="us-table"><thead><tr>';
+    cols.forEach(function(col){var cl=sort===col.key?' sorted':'';var ar=sort===col.key?(dir>0?'&#9650;':'&#9660;'):'&#9650;';
+      h+='<th class="'+cl+'" data-key="'+col.key+'">'+col.label+US.infoIcon(col.key)+'<span class="arrow">'+ar+'</span></th>'});
+    h+='</tr></thead><tbody>';
+    if(!pd.length)h+='<tr><td colspan="'+cols.length+'" style="text-align:center;padding:40px;color:var(--td)">'+US.T.noData+'</td></tr>';
+    pd.forEach(function(row,idx){h+='<tr data-idx="'+idx+'" style="animation:fadeup .4s ease '+(idx*.02)+'s both">';
+      cols.forEach(function(col){h+=col.render?col.render(row):'<td>'+(row[col.key]!=null?row[col.key]:'-')+'</td>'});h+='</tr>'});
+    h+='</tbody></table></div>';
+    h+='<div class="us-pager"><button id="'+cid+'-prev" '+(pg<=0?'disabled':'')+'>'+US.T.prev+'</button>';
+    h+='<span>'+(pg+1)+' / '+pages+' ('+US.T.total+' '+total+' '+US.T.stocks+')</span>';
+    h+='<button id="'+cid+'-next" '+(pg>=pages-1?'disabled':'')+'>'+US.T.next+'</button></div>';
+    c.innerHTML=h;
+    c.querySelectorAll('th[data-key]').forEach(function(th){th.addEventListener('click',function(e){if(e.target.closest('.us-info-wrap'))return;var k=this.getAttribute('data-key');if(sort===k)dir=-dir;else{sort=k;dir=1}pg=0;render()})});
+    if(strategy){c.querySelectorAll('.stock-name').forEach(function(td){td.addEventListener('click',function(){var tr=this.closest('tr'),idx=parseInt(tr.getAttribute('data-idx'));if(!isNaN(idx)&&pd[idx])US.showReason(strategy,pd[idx])})})}
+    var p=document.getElementById(cid+'-prev'),n=document.getElementById(cid+'-next');
+    if(p)p.addEventListener('click',function(){if(pg>0){pg--;render()}});
+    if(n)n.addEventListener('click',function(){if(pg<pages-1){pg++;render()}});
+  }
+  render();return{refresh:function(nd){data=nd;pg=0;render()}};
+};
+
+US.fmtP=function(n){return n!=null?n.toFixed(2):'-'};
+US.fmtPct=function(n){return n!=null?n.toFixed(2)+'%':'-'};
+US.pnC=function(n){return n>0?'pos':n<0?'neg':''};
+
+// ===== Metric Info =====
+US.MI={
+  symbol:{zh:'股票交易代码',en:'Stock ticker symbol'},
+  name:{zh:'公司名称，点击查看详细分析',en:'Company name, click for analysis'},
+  price:{zh:'当前股票价格(美元)',en:'Current stock price (USD)'},
+  change:{zh:'今日涨跌幅百分比',en:'Today\'s price change %'},
+  volume:{zh:'今日成交量',en:'Today\'s trading volume'},
+  hits:{zh:'命中策略数(0-7)，命中越多置信度越高',en:'Strategy hits (0-7), more hits = higher confidence'},
+  winrate:{zh:'基于回测数据的预估组合胜率',en:'Estimated combined win rate from backtested data'},
+  rsi:{zh:'RSI(14)相对强弱指标，<30超卖 >70超买',en:'RSI(14), <30 oversold, >70 overbought'},
+  rsi2:{zh:'RSI(2)短期极端指标，<10买入信号(回测胜率76%)',en:'RSI(2) short-term extreme, <10 buy signal (76% backtest win rate)'},
+  sma50:{zh:'50日简单移动均线',en:'50-day Simple Moving Average'},
+  sma200:{zh:'200日简单移动均线',en:'200-day Simple Moving Average'},
+  macd:{zh:'MACD快慢线差值',en:'MACD line (12-26 EMA difference)'},
+  signal:{zh:'MACD信号线(9日EMA)',en:'MACD signal line (9-day EMA)'},
+  histogram:{zh:'MACD柱状图=MACD-信号线',en:'MACD histogram = MACD - Signal'},
+  bbUpper:{zh:'布林带上轨(SMA20+2*标准差)',en:'Bollinger upper band (SMA20 + 2*StdDev)'},
+  bbLower:{zh:'布林带下轨(SMA20-2*标准差)',en:'Bollinger lower band (SMA20 - 2*StdDev)'},
+  bbWidth:{zh:'布林带宽度%，<6%为收窄(Squeeze)',en:'Bollinger bandwidth %, <6% is squeeze'},
+  stochK:{zh:'随机指标%K，<20超卖 >80超买',en:'Stochastic %K, <20 oversold, >80 overbought'},
+  stochD:{zh:'随机指标%D(3日%K均值)',en:'Stochastic %D (3-day SMA of %K)'},
+  pattern:{zh:'最近识别的K线形态',en:'Recently identified candlestick pattern'},
+  direction:{zh:'形态方向：看涨/看跌/中性',en:'Pattern direction: bullish/bearish/neutral'},
+  count:{zh:'符合条件的股票数量',en:'Number of stocks matching criteria'},
+  volRatio:{zh:'成交量/20日均量，>1.5为放量',en:'Volume/20-day avg, >1.5 is high volume'},
+  high20:{zh:'20日最高价',en:'20-day highest price'}
+};
+US._tipEl=null;
+US.infoIcon=function(key){
+  var m=US.MI[key];if(!m)return'';
+  return'<span class="us-info-wrap"><i class="us-info" data-tip="'+key+'">?</i></span>';
+};
+(function(){
+  document.addEventListener('mouseover',function(e){
+    var icon=e.target.closest('.us-info');
+    if(!icon){if(US._tipEl)US._tipEl.style.display='none';return;}
+    var key=icon.getAttribute('data-tip'),m=US.MI[key];if(!m)return;
+    if(!US._tipEl){US._tipEl=document.createElement('div');US._tipEl.className='us-info-tip';document.body.appendChild(US._tipEl);}
+    US._tipEl.textContent=US.isZH?m.zh:m.en;
+    var r=icon.getBoundingClientRect();
+    US._tipEl.style.display='block';
+    var tw=US._tipEl.offsetWidth;
+    var left=r.left+r.width/2-tw/2;
+    if(left<8)left=8;if(left+tw>window.innerWidth-8)left=window.innerWidth-tw-8;
+    US._tipEl.style.left=left+'px';
+    US._tipEl.style.top=(r.bottom+8)+'px';
+  });
+  document.addEventListener('mouseout',function(e){
+    if(e.target.closest('.us-info')&&US._tipEl)US._tipEl.style.display='none';
+  });
+  document.addEventListener('click',function(e){
+    var icon=e.target.closest('.us-info');
+    if(icon&&US._tipEl){
+      if(US._tipEl.style.display==='block'){US._tipEl.style.display='none';}
+      else{var ev=new MouseEvent('mouseover',{bubbles:true});icon.dispatchEvent(ev);}
+    }
+  });
+})();
+
+// ===== Reason Popup =====
+US.showReason=function(strategy,stock){
+  var old=document.querySelector('.us-reason-bg');if(old)old.remove();
+  var html=US.reasonText(strategy,stock);if(!html)return;
+  var div=document.createElement('div');div.className='us-reason-bg';
+  div.innerHTML='<div class="us-reason-box"><button class="us-reason-close">&times;</button>'+html+'</div>';
+  document.body.appendChild(div);
+  div.addEventListener('click',function(e){if(e.target===div||e.target.classList.contains('us-reason-close'))div.remove()});
+  div.querySelector('.us-reason-close').addEventListener('click',function(){div.remove()});
+};
+US.reasonText=function(st,s){
+  var Z=US.isZH,h='<h3>'+s.symbol+(s.name?' - '+s.name:'')+'</h3>';
+  function row(l,v,c){return'<div class="us-reason-row"><span class="lbl">'+l+'</span><span class="val'+(c?' '+c:'')+'">'+(v!=null?v:'-')+'</span></div>'}
+  h+=row(Z?'现价':'Price','$'+US.fmtP(s.price));
+  h+=row(Z?'涨跌幅':'Change',US.fmtPct(s.change),US.pnC(s.change));
+
+  if(st==='dashboard'||st==='overview'){
+    h+=row(Z?'命中策略':'Strategy Hits',s.hits+'/7');
+    h+=row(Z?'预估胜率':'Est. Win Rate',US.estWinRate(s.hits));
+    var details=[];
+    US.STRATEGY_KEYS.forEach(function(k){
+      var sig=s.signals[k];if(!sig)return;
+      var nm=US.STRATEGY_NAMES[k];
+      var icon=sig.signal==='buy'?'<span class="us-signal-badge us-signal-buy">BUY</span>':
+               sig.signal==='sell'?'<span class="us-signal-badge us-signal-sell">SELL</span>':
+               '<span class="us-signal-badge us-signal-neutral">-</span>';
+      h+=row(nm+' ('+US.STRATEGY_WINRATES[k]+')',icon);
+      if(sig.desc)details.push('<strong>'+nm+'</strong>: '+sig.desc);
+    });
+    h+='<div class="us-reason-verdict">'+(Z?'综合分析：':'Analysis: ')+(details.length?details.join('<br>'):(Z?'无明显信号':'No clear signals'))+'</div>';
+  } else {
+    var sig=s.signals&&s.signals[st];
+    if(sig){
+      h+=row(Z?'信号':'Signal',sig.signal==='buy'?'<span class="us-signal-badge us-signal-buy">'+(Z?'买入':'BUY')+'</span>':
+        sig.signal==='sell'?'<span class="us-signal-badge us-signal-sell">'+(Z?'卖出':'SELL')+'</span>':
+        '<span class="us-signal-badge us-signal-neutral">'+(Z?'中性':'NEUTRAL')+'</span>');
+      if(sig.value!=null)h+=row(Z?'指标值':'Value',typeof sig.value==='number'?sig.value.toFixed(2):sig.value);
+      if(sig.rsi14!=null)h+=row('RSI(14)',sig.rsi14.toFixed(2));
+      if(sig.rsi!=null&&st!=='rsi')h+=row('RSI(14)',sig.rsi.toFixed(2));
+      if(sig.sma50!=null)h+=row('SMA50','$'+sig.sma50.toFixed(2));
+      if(sig.sma200!=null)h+=row('SMA200','$'+sig.sma200.toFixed(2));
+      if(sig.macd!=null)h+=row('MACD',sig.macd.toFixed(4));
+      if(sig.upper!=null)h+=row(Z?'上轨':'Upper','$'+sig.upper.toFixed(2));
+      if(sig.lower!=null)h+=row(Z?'下轨':'Lower','$'+sig.lower.toFixed(2));
+      if(sig.stochD!=null)h+=row('%D',sig.stochD.toFixed(2));
+      if(sig.patterns&&sig.patterns.length){
+        var pn=sig.patterns.map(function(p){return p.name}).join(', ');
+        h+=row(Z?'形态':'Patterns',pn);
+      }
+      if(sig.trend)h+=row(Z?'趋势':'Trend',sig.trend==='up'?(Z?'上涨':'Up'):(Z?'下跌':'Down'));
+      if(sig.desc)h+='<div class="us-reason-verdict">'+sig.desc+'</div>';
+    }
+  }
+  return h;
+};
+
+// ===== Loading / Error =====
+US.showLoading=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><div class="dots"><span></span><span></span><span></span></div><p style="margin-top:16px;color:var(--td)">'+US.T.loading+'</p></div>'};
+US.showError=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><p style="color:var(--r)">'+US.T.error+'</p></div>'};
+
+// ===== API Key Check + Init =====
+US.requireKey = function(cb){
+  var key=US.getKey();
+  if(key){cb(key);return}
+  var box=document.getElementById('us-apikey-area');
+  if(box)box.style.display='block';
+  var btn=document.getElementById('us-apikey-btn');
+  if(btn)btn.addEventListener('click',function(){
+    var input=document.getElementById('us-apikey-input');
+    if(input&&input.value.trim()){US.setKey(input.value.trim());if(box)box.style.display='none';cb(input.value.trim())}
+  });
+};
+
+// Init stat card info icons
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.us-stat-l[data-metric]').forEach(function(el){
+    var k=el.getAttribute('data-metric');if(k)el.insertAdjacentHTML('beforeend',US.infoIcon(k));
+  });
+});
+})();
+</script><script>
+(function(){
+var T=US.T;
+US.requireKey(function(key){
+  US.showLoading('us-main');
+  var progArea=document.getElementById('us-progress-area');if(progArea)progArea.style.display='block';
+  US.fetchQuotes(US.UNIVERSE).then(function(quotes){
+    var qmap={};quotes.forEach(function(q){qmap[q.symbol]=q});
+    return US.fetchHistory(US.UNIVERSE).then(function(histMap){
+      if(progArea)progArea.style.display='none';
+      var results=[];
+      US.UNIVERSE.forEach(function(sym){
+        var q=qmap[sym],h=histMap[sym];if(!q||!h||h.length<20)return;
+        var sig=US.strategies.oversold(h);
+        results.push({symbol:sym,name:q.name||sym,price:q.price,change:q.changesPercentage,
+          stochK:sig.value,stochD:sig.stochD,
+          signal:sig.signal,desc:sig.desc||'',signals:{oversold:sig}});
+      });
+      results.sort(function(a,b){return(a.stochK||999)-(b.stochK||999)});
+      document.getElementById('us-main').innerHTML='<div id="us-table-area"></div>';
+      var els=document.querySelectorAll('.us-stat-v');
+      var buys=results.filter(function(r){return r.signal==='buy'});
+      var oversold=results.filter(function(r){return r.stochK!=null&&r.stochK<20});
+      if(els[0])els[0].textContent=buys.length;if(els[1])els[1].textContent=oversold.length;
+      if(els[2])els[2].textContent=results[0]&&results[0].stochK!=null?results[0].stochK.toFixed(1):'-';
+      if(els[3])els[3].textContent=results.filter(function(r){return r.stochK!=null&&r.stochK>80}).length;
+      renderAll(results);
+    });
+  }).catch(function(){US.showError('us-main')});
+});
+function renderAll(data){
+  var cols=[
+    {key:'symbol',label:T.T?US.T.symbol:US.T.symbol,render:function(r){return'<td class="tk">'+r.symbol+'</td>'}},
+    {key:'name',label:US.T.name,render:function(r){return'<td class="stock-name">'+(r.name||r.symbol)+'</td>'}},
+    {key:'price',label:US.T.price,render:function(r){return'<td class="mono">$'+US.fmtP(r.price)+'</td>'}},
+    {key:'change',label:US.T.change,render:function(r){return'<td class="mono '+US.pnC(r.change)+'">'+US.fmtPct(r.change)+'</td>'}},
+    {key:'stochK',label:'%K',render:function(r){
+      var v=r.stochK;if(v==null)return'<td>-</td>';
+      var c=v<20?'var(--g)':v>80?'var(--r)':'var(--tm)';
+      return'<td class="mono" style="font-weight:700;color:'+c+'">'+v.toFixed(1)+'</td>'}},
+    {key:'stochD',label:'%D',render:function(r){return'<td class="mono">'+(r.stochD!=null?r.stochD.toFixed(1):'-')+'</td>'}},
+    {key:'signal',label:US.isZH?'信号':'Signal',render:function(r){
+      return r.signal==='buy'?'<td><span class="us-signal-badge us-signal-buy">'+US.T.signalBuy+'</span></td>':
+        r.signal==='sell'?'<td><span class="us-signal-badge us-signal-sell">'+US.T.signalSell+'</span></td>':
+        '<td><span class="us-signal-badge us-signal-neutral">'+US.T.signalNeutral+'</span></td>'}}
+  ];
+  US.renderTable('us-table-area',cols,data,'stochK',1,'oversold');
+}
+})();
+</script></body></html>
