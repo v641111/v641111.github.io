@@ -122,14 +122,7 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <div style="display:flex;gap:10px;align-items:center"><a class="lbtn" href="/" onclick="var p=location.pathname.replace(/^\/zh/,&quot;&quot;);location.href=p||&quot;/&quot;;return false">EN</a><button class="mbtn" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menu">&#9776;</button></div>
 </div><div id="mm" class="mmenu"><a href="/zh/etf/">ETF</a><a href="/zh/stock/">股票</a><a href="/zh/crypto/">加密货币</a><a href="/zh/defi/">DeFi</a><a href="/zh/cb/">可转债</a><a href="/zh/us-stock/">美股策略</a><a href="/zh/calculator/">工具</a><a href="/zh/about.html">关于</a></div></nav><div class="us-tabs"><a href="/zh/us-stock/" class="us-tab">概览</a><a href="/zh/us-stock/rsi.html" class="us-tab">RSI均值回归</a><a href="/zh/us-stock/golden-cross.html" class="us-tab active">金叉</a><a href="/zh/us-stock/macd-rsi.html" class="us-tab">MACD+RSI</a><a href="/zh/us-stock/bollinger.html" class="us-tab">布林通道</a><a href="/zh/us-stock/volume.html" class="us-tab">放量突破</a><a href="/zh/us-stock/oversold.html" class="us-tab">超卖反弹</a><a href="/zh/us-stock/kline.html" class="us-tab">K线形态</a></div><section class="sec" style="max-width:1200px"><div class="bc"><a href="/zh/">首页</a> <span>/</span> <a href="/zh/us-stock/">美股策略</a> <span>/</span> <span style="color:var(--t)">金叉策略</span></div><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "\u9996\u9875", "item": "https://zxcapitalgroup.com/zh/"}, {"@type": "ListItem", "position": 2, "name": "\u7f8e\u80a1\u7b56\u7565", "item": "https://zxcapitalgroup.com/zh/us-stock/"}, {"@type": "ListItem", "position": 3, "name": "\u91d1\u53c9\u7b56\u7565"}]}</script><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px">
 <div><h1 style="font-size:32px;font-weight:700;margin-bottom:6px">&#10010; 金叉策略 <span class="us-winrate" style="font-size:16px">79%</span></h1>
-<p style="color:var(--td);font-size:14px">SMA50上穿SMA200形成金叉，回测胜率79%，平均持有350天</p></div></div><div id="us-apikey-area" style="display:none">
-<div class="us-apikey-box">
-<label>FMP API Key (免费获取)</label>
-<input type="text" id="us-apikey-input" placeholder="输入你的API Key...">
-<button class="bp" id="us-apikey-btn">开始分析</button>
-<p>免费注册 <a href="https://site.financialmodelingprep.com/register" target="_blank" style="color:var(--g)">Financial Modeling Prep</a> - 每日250次调用</p>
-</div></div>
-<div id="us-progress-area" style="display:none">
+<p style="color:var(--td);font-size:14px">SMA50上穿SMA200形成金叉，回测胜率79%，平均持有350天</p></div></div><div id="us-progress-area">
 <div class="us-progress"><div class="us-progress-fill" id="us-progress-fill"></div></div>
 <div class="us-progress-text" id="us-progress-text">加载中...</div></div><div class="us-stats"><div class="us-stat"><div class="us-stat-l" data-metric="sma50">金叉</div><div class="us-stat-v">-</div></div><div class="us-stat"><div class="us-stat-l" data-metric="sma200">死叉</div><div class="us-stat-v">-</div></div><div class="us-stat"><div class="us-stat-l" data-metric="sma50">多头排列</div><div class="us-stat-v">-</div></div><div class="us-stat"><div class="us-stat-l" data-metric="count">总数</div><div class="us-stat-v">-</div></div></div><div class="card" style="margin-bottom:24px;border-color:rgba(0,220,130,.15)">
 <p style="font-size:13px;color:var(--tm);line-height:1.8">当50日均线从下方穿越200日均线形成'金叉'，是经典的趋势转换信号。自1960年以来在SPY上回测33次交易中有26次盈利(79%)。平均持有时间约350天，是中长线策略。</p></div><div id="us-main"><div id="us-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; 免责声明</h3>
@@ -169,24 +162,45 @@ US.T = {
   pattern:isZH?'形态':'Pattern',direction:isZH?'方向':'Direction'
 };
 
-// ===== API Key Management =====
-US.getKey = function(){return localStorage.getItem('us_fmp_key')||''};
-US.setKey = function(k){localStorage.setItem('us_fmp_key',k)};
+// ===== API Key (embedded) =====
+var _FMP_KEY = 'GVZl63vY5N0bmm0qWgfVds01CoADwbIX';
+US.getKey = function(){return _FMP_KEY};
 
-// ===== Data Fetching =====
-var _histCache = {};
+// ===== Data Fetching (FMP /stable/ endpoints) =====
 var _CACHE_TTL = 86400000; // 24h
 
-function _apiUrl(path){
-  return 'https://financialmodelingprep.com/api/v3/'+path+'&apikey='+US.getKey();
+function _stableUrl(path){
+  return 'https://financialmodelingprep.com/stable/'+path+(path.indexOf('?')>=0?'&':'?')+'apikey='+_FMP_KEY;
 }
 
 US.fetchQuotes = function(symbols){
-  var url = _apiUrl('quote/'+symbols.join(',')+'?');
-  return fetch(url).then(function(r){return r.json()}).then(function(data){
-    if(!Array.isArray(data)){throw new Error('Invalid response')}
-    return data;
-  });
+  // Free tier: single symbol per call. Fetch in parallel batches of 5.
+  var batches = [];
+  for(var i=0;i<symbols.length;i+=5){batches.push(symbols.slice(i,i+5))}
+  var progress = document.getElementById('us-progress-fill');
+  var progText = document.getElementById('us-progress-text');
+  var done = 0, total = batches.length;
+  var allQuotes = [];
+  return batches.reduce(function(chain, batch){
+    return chain.then(function(){
+      var fetches = batch.map(function(sym){
+        // Check cache
+        try{var c=localStorage.getItem('us_q_'+sym),t=localStorage.getItem('us_q_t_'+sym);
+          if(c&&t&&(Date.now()-parseInt(t))<300000){return Promise.resolve(JSON.parse(c))}}catch(e){}
+        return fetch(_stableUrl('quote?symbol='+sym)).then(function(r){return r.json()}).then(function(d){
+          var q=Array.isArray(d)?d[0]:d;
+          if(q&&q.symbol){try{localStorage.setItem('us_q_'+sym,JSON.stringify(q));localStorage.setItem('us_q_t_'+sym,''+Date.now())}catch(e){}}
+          return q;
+        }).catch(function(){return null});
+      });
+      return Promise.all(fetches).then(function(results){
+        results.forEach(function(q){if(q&&q.symbol)allQuotes.push(q)});
+        done++;
+        if(progress)progress.style.width=(done/total*50)+'%';
+        if(progText)progText.textContent=(isZH?'获取报价 ':'Quotes ')+done+'/'+total;
+      });
+    });
+  }, Promise.resolve()).then(function(){return allQuotes});
 };
 
 US.fetchHistory = function(symbols){
@@ -198,33 +212,34 @@ US.fetchHistory = function(symbols){
     needed.push(s);
   });
   if(!needed.length) return Promise.resolve(cached);
-  // Fetch in batches of 3
+  // Free tier: one symbol per call, fetch sequentially in batches of 5
   var batches = [];
-  for(var i=0;i<needed.length;i+=3){batches.push(needed.slice(i,i+3))}
+  for(var i=0;i<needed.length;i+=5){batches.push(needed.slice(i,i+5))}
   var progress = document.getElementById('us-progress-fill');
   var progText = document.getElementById('us-progress-text');
   var done = 0, total = batches.length;
-  return batches.reduce(function(chain, batch, idx){
-    return chain.then(function(acc){
-      var url = _apiUrl('historical-price-full/'+batch.join(',')+'?timeseries=300');
-      return fetch(url).then(function(r){return r.json()}).then(function(resp){
-        // Handle single vs multi symbol response
-        var list = resp.historicalStockList || (resp.symbol?[resp]:[]);
-        list.forEach(function(item){
-          if(item.symbol && item.historical){
-            var h = item.historical.slice().reverse(); // oldest first
-            acc[item.symbol] = h;
-            try{localStorage.setItem('us_hist_'+item.symbol,JSON.stringify(h));
-              localStorage.setItem('us_hist_t_'+item.symbol,''+Date.now())}catch(e){}
+  var now = new Date(), y1 = new Date(now);y1.setDate(y1.getDate()-300);
+  var fromDate = y1.toISOString().slice(0,10), toDate = now.toISOString().slice(0,10);
+  return batches.reduce(function(chain, batch){
+    return chain.then(function(){
+      var fetches = batch.map(function(sym){
+        var url = _stableUrl('historical-price-eod/full?symbol='+sym+'&from='+fromDate+'&to='+toDate);
+        return fetch(url).then(function(r){return r.json()}).then(function(data){
+          if(Array.isArray(data)&&data.length){
+            var h = data.slice().reverse(); // oldest first
+            cached[sym] = h;
+            try{localStorage.setItem('us_hist_'+sym,JSON.stringify(h));
+              localStorage.setItem('us_hist_t_'+sym,''+Date.now())}catch(e){}
           }
-        });
+        }).catch(function(){});
+      });
+      return Promise.all(fetches).then(function(){
         done++;
-        if(progress) progress.style.width = (done/total*100)+'%';
-        if(progText) progText.textContent = (isZH?'加载中 ':'Loading ')+done+'/'+total;
-        return acc;
-      }).catch(function(){done++;return acc});
+        if(progress)progress.style.width=(50+done/total*50)+'%';
+        if(progText)progText.textContent=(isZH?'历史数据 ':'History ')+done+'/'+total;
+      });
     });
-  }, Promise.resolve(cached));
+  }, Promise.resolve()).then(function(){return cached});
 };
 
 // ===== Technical Analysis Library =====
@@ -702,19 +717,6 @@ US.reasonText=function(st,s){
 US.showLoading=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><div class="dots"><span></span><span></span><span></span></div><p style="margin-top:16px;color:var(--td)">'+US.T.loading+'</p></div>'};
 US.showError=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><p style="color:var(--r)">'+US.T.error+'</p></div>'};
 
-// ===== API Key Check + Init =====
-US.requireKey = function(cb){
-  var key=US.getKey();
-  if(key){cb(key);return}
-  var box=document.getElementById('us-apikey-area');
-  if(box)box.style.display='block';
-  var btn=document.getElementById('us-apikey-btn');
-  if(btn)btn.addEventListener('click',function(){
-    var input=document.getElementById('us-apikey-input');
-    if(input&&input.value.trim()){US.setKey(input.value.trim());if(box)box.style.display='none';cb(input.value.trim())}
-  });
-};
-
 // Init stat card info icons
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.us-stat-l[data-metric]').forEach(function(el){
@@ -725,9 +727,8 @@ document.addEventListener('DOMContentLoaded',function(){
 </script><script>
 (function(){
 var T=US.T;
-US.requireKey(function(key){
-  US.showLoading('us-main');
-  var progArea=document.getElementById('us-progress-area');if(progArea)progArea.style.display='block';
+US.showLoading('us-main');
+var progArea=document.getElementById('us-progress-area');if(progArea)progArea.style.display='block';
   US.fetchQuotes(US.UNIVERSE).then(function(quotes){
     var qmap={};quotes.forEach(function(q){qmap[q.symbol]=q});
     return US.fetchHistory(US.UNIVERSE).then(function(histMap){
@@ -750,7 +751,6 @@ US.requireKey(function(key){
       renderAll(results);
     });
   }).catch(function(){US.showError('us-main')});
-});
 function renderAll(data){
   var cols=[
     {key:'symbol',label:T.symbol,render:function(r){return'<td class="tk">'+r.symbol+'</td>'}},

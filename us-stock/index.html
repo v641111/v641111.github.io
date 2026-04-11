@@ -124,15 +124,8 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <h1 style="font-size:clamp(28px,5vw,42px);font-weight:700;background:linear-gradient(135deg,#f1f5f9,#00dc82);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px">US Stock Multi-Strategy Screener</h1>
 <p style="color:var(--td);font-size:15px;max-width:600px">7 classic technical strategies analyzing 50 popular US stocks. More strategy hits = higher confidence.</p>
 <div style="margin-top:12px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
-<span style="font-size:11px;color:var(--td)">Data: FMP API | Win rates: Academic research & QuantifiedStrategies</span>
-</div></div><div id="us-apikey-area" style="display:none">
-<div class="us-apikey-box">
-<label>FMP API Key (Free)</label>
-<input type="text" id="us-apikey-input" placeholder="Enter your API Key...">
-<button class="bp" id="us-apikey-btn">Start Analysis</button>
-<p>Get free key at <a href="https://site.financialmodelingprep.com/register" target="_blank" style="color:var(--g)">Financial Modeling Prep</a> - 250 calls/day free</p>
-</div></div>
-<div id="us-progress-area" style="display:none">
+<span style="font-size:11px;color:var(--td)">Data: FMP | Win rates: Academic research & QuantifiedStrategies | Auto-loading, no API key needed</span>
+</div></div><div id="us-progress-area">
 <div class="us-progress"><div class="us-progress-fill" id="us-progress-fill"></div></div>
 <div class="us-progress-text" id="us-progress-text">Loading...</div></div><div class="us-stats">
 <div class="us-stat"><div class="us-stat-l" data-metric="count">Stock Count</div><div class="us-stat-v">-</div></div>
@@ -184,24 +177,45 @@ US.T = {
   pattern:isZH?'形态':'Pattern',direction:isZH?'方向':'Direction'
 };
 
-// ===== API Key Management =====
-US.getKey = function(){return localStorage.getItem('us_fmp_key')||''};
-US.setKey = function(k){localStorage.setItem('us_fmp_key',k)};
+// ===== API Key (embedded) =====
+var _FMP_KEY = 'GVZl63vY5N0bmm0qWgfVds01CoADwbIX';
+US.getKey = function(){return _FMP_KEY};
 
-// ===== Data Fetching =====
-var _histCache = {};
+// ===== Data Fetching (FMP /stable/ endpoints) =====
 var _CACHE_TTL = 86400000; // 24h
 
-function _apiUrl(path){
-  return 'https://financialmodelingprep.com/api/v3/'+path+'&apikey='+US.getKey();
+function _stableUrl(path){
+  return 'https://financialmodelingprep.com/stable/'+path+(path.indexOf('?')>=0?'&':'?')+'apikey='+_FMP_KEY;
 }
 
 US.fetchQuotes = function(symbols){
-  var url = _apiUrl('quote/'+symbols.join(',')+'?');
-  return fetch(url).then(function(r){return r.json()}).then(function(data){
-    if(!Array.isArray(data)){throw new Error('Invalid response')}
-    return data;
-  });
+  // Free tier: single symbol per call. Fetch in parallel batches of 5.
+  var batches = [];
+  for(var i=0;i<symbols.length;i+=5){batches.push(symbols.slice(i,i+5))}
+  var progress = document.getElementById('us-progress-fill');
+  var progText = document.getElementById('us-progress-text');
+  var done = 0, total = batches.length;
+  var allQuotes = [];
+  return batches.reduce(function(chain, batch){
+    return chain.then(function(){
+      var fetches = batch.map(function(sym){
+        // Check cache
+        try{var c=localStorage.getItem('us_q_'+sym),t=localStorage.getItem('us_q_t_'+sym);
+          if(c&&t&&(Date.now()-parseInt(t))<300000){return Promise.resolve(JSON.parse(c))}}catch(e){}
+        return fetch(_stableUrl('quote?symbol='+sym)).then(function(r){return r.json()}).then(function(d){
+          var q=Array.isArray(d)?d[0]:d;
+          if(q&&q.symbol){try{localStorage.setItem('us_q_'+sym,JSON.stringify(q));localStorage.setItem('us_q_t_'+sym,''+Date.now())}catch(e){}}
+          return q;
+        }).catch(function(){return null});
+      });
+      return Promise.all(fetches).then(function(results){
+        results.forEach(function(q){if(q&&q.symbol)allQuotes.push(q)});
+        done++;
+        if(progress)progress.style.width=(done/total*50)+'%';
+        if(progText)progText.textContent=(isZH?'获取报价 ':'Quotes ')+done+'/'+total;
+      });
+    });
+  }, Promise.resolve()).then(function(){return allQuotes});
 };
 
 US.fetchHistory = function(symbols){
@@ -213,33 +227,34 @@ US.fetchHistory = function(symbols){
     needed.push(s);
   });
   if(!needed.length) return Promise.resolve(cached);
-  // Fetch in batches of 3
+  // Free tier: one symbol per call, fetch sequentially in batches of 5
   var batches = [];
-  for(var i=0;i<needed.length;i+=3){batches.push(needed.slice(i,i+3))}
+  for(var i=0;i<needed.length;i+=5){batches.push(needed.slice(i,i+5))}
   var progress = document.getElementById('us-progress-fill');
   var progText = document.getElementById('us-progress-text');
   var done = 0, total = batches.length;
-  return batches.reduce(function(chain, batch, idx){
-    return chain.then(function(acc){
-      var url = _apiUrl('historical-price-full/'+batch.join(',')+'?timeseries=300');
-      return fetch(url).then(function(r){return r.json()}).then(function(resp){
-        // Handle single vs multi symbol response
-        var list = resp.historicalStockList || (resp.symbol?[resp]:[]);
-        list.forEach(function(item){
-          if(item.symbol && item.historical){
-            var h = item.historical.slice().reverse(); // oldest first
-            acc[item.symbol] = h;
-            try{localStorage.setItem('us_hist_'+item.symbol,JSON.stringify(h));
-              localStorage.setItem('us_hist_t_'+item.symbol,''+Date.now())}catch(e){}
+  var now = new Date(), y1 = new Date(now);y1.setDate(y1.getDate()-300);
+  var fromDate = y1.toISOString().slice(0,10), toDate = now.toISOString().slice(0,10);
+  return batches.reduce(function(chain, batch){
+    return chain.then(function(){
+      var fetches = batch.map(function(sym){
+        var url = _stableUrl('historical-price-eod/full?symbol='+sym+'&from='+fromDate+'&to='+toDate);
+        return fetch(url).then(function(r){return r.json()}).then(function(data){
+          if(Array.isArray(data)&&data.length){
+            var h = data.slice().reverse(); // oldest first
+            cached[sym] = h;
+            try{localStorage.setItem('us_hist_'+sym,JSON.stringify(h));
+              localStorage.setItem('us_hist_t_'+sym,''+Date.now())}catch(e){}
           }
-        });
+        }).catch(function(){});
+      });
+      return Promise.all(fetches).then(function(){
         done++;
-        if(progress) progress.style.width = (done/total*100)+'%';
-        if(progText) progText.textContent = (isZH?'加载中 ':'Loading ')+done+'/'+total;
-        return acc;
-      }).catch(function(){done++;return acc});
+        if(progress)progress.style.width=(50+done/total*50)+'%';
+        if(progText)progText.textContent=(isZH?'历史数据 ':'History ')+done+'/'+total;
+      });
     });
-  }, Promise.resolve(cached));
+  }, Promise.resolve()).then(function(){return cached});
 };
 
 // ===== Technical Analysis Library =====
@@ -717,19 +732,6 @@ US.reasonText=function(st,s){
 US.showLoading=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><div class="dots"><span></span><span></span><span></span></div><p style="margin-top:16px;color:var(--td)">'+US.T.loading+'</p></div>'};
 US.showError=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="us-loading"><p style="color:var(--r)">'+US.T.error+'</p></div>'};
 
-// ===== API Key Check + Init =====
-US.requireKey = function(cb){
-  var key=US.getKey();
-  if(key){cb(key);return}
-  var box=document.getElementById('us-apikey-area');
-  if(box)box.style.display='block';
-  var btn=document.getElementById('us-apikey-btn');
-  if(btn)btn.addEventListener('click',function(){
-    var input=document.getElementById('us-apikey-input');
-    if(input&&input.value.trim()){US.setKey(input.value.trim());if(box)box.style.display='none';cb(input.value.trim())}
-  });
-};
-
 // Init stat card info icons
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.us-stat-l[data-metric]').forEach(function(el){
@@ -740,11 +742,10 @@ document.addEventListener('DOMContentLoaded',function(){
 </script><script>
 (function(){
 var T=US.T;
-US.requireKey(function(key){
-  US.showLoading('us-main');
-  var progArea=document.getElementById('us-progress-area');
-  if(progArea)progArea.style.display='block';
-  US.fetchQuotes(US.UNIVERSE).then(function(quotes){
+US.showLoading('us-main');
+var progArea=document.getElementById('us-progress-area');
+if(progArea)progArea.style.display='block';
+US.fetchQuotes(US.UNIVERSE).then(function(quotes){
     var qmap={};quotes.forEach(function(q){qmap[q.symbol]=q});
     return US.fetchHistory(US.UNIVERSE).then(function(histMap){
       if(progArea)progArea.style.display='none';
@@ -780,7 +781,6 @@ US.requireKey(function(key){
         renderMain(results.filter(function(r){return r.symbol.indexOf(q)>=0||(r.name&&r.name.toUpperCase().indexOf(q)>=0)}))});
     });
   }).catch(function(err){console.error(err);US.showError('us-main');if(progArea)progArea.style.display='none'});
-});
 var tbl=null;
 function renderMain(results){
   var cols=[
