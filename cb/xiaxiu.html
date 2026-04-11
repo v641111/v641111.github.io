@@ -1,0 +1,585 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revision Play - CB Arbitrage | ZX Capital</title><meta name="description" content="Predict bonds where issuers may revise conversion price downward">
+<link rel="canonical" href="https://zxcapitalgroup.com/cb/xiaxiu.html">
+<link rel="alternate" hreflang="en" href="https://zxcapitalgroup.com/cb/xiaxiu.html">
+<link rel="alternate" hreflang="zh" href="https://zxcapitalgroup.com/zh/cb/xiaxiu.html">
+<link rel="alternate" hreflang="x-default" href="https://zxcapitalgroup.com/cb/xiaxiu.html">
+<meta property="og:title" content="Revision Play - CB Arbitrage | ZX Capital"><meta property="og:description" content="Predict bonds where issuers may revise conversion price downward">
+<meta property="og:url" content="https://zxcapitalgroup.com/cb/xiaxiu.html"><meta property="og:type" content="website"><meta property="og:site_name" content="ZX Capital">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#06080d;--bg2:#080b12;--card:#0d1117;--bdr:#161d2a;--g:#00dc82;--gd:#00b36b;--r:#ff4d6a;--amb:#f0a050;--t:#e2e8f0;--tm:#94a3b8;--td:#64748b;--tb:#f1f5f9}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}.mono{font-family:'Space Mono','Courier New',monospace}.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,8,13,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr)}.nav-in{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1100px;margin:0 auto;padding:0 20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--tb)}.logo-i{width:34px;height:34px;border-radius:7px;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--bg);font-family:'Space Mono',monospace}
+.nlinks{display:flex;gap:24px;align-items:center}.nlinks a{color:var(--tm);font-size:13px;font-weight:500;transition:color .2s}.nlinks a:hover,.nlinks a.on{color:var(--g)}
+.lbtn{background:var(--bdr);color:var(--tm);border:none;padding:5px 12px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Mono',monospace;text-decoration:none}
+.mbtn{display:none;background:none;border:none;color:var(--t);font-size:22px;cursor:pointer}.mmenu{display:none;background:var(--bg2);border-top:1px solid var(--bdr);padding:12px 20px}.mmenu a{display:block;padding:10px 0;color:var(--tm);font-size:14px}
+.sec{padding:70px 20px;max-width:1100px;margin:0 auto}.sec h2{font-size:32px;font-weight:700;margin-bottom:8px}.sub{color:var(--td);margin-bottom:32px}
+.bc{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--td);margin-bottom:24px;flex-wrap:wrap}.bc a{color:var(--tm)}.bc a:hover{color:var(--g)}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;transition:all .3s}.card:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,220,130,.06)}
+.met{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:18px 20px}.met-l{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}.met-v{font-size:20px;font-weight:700;font-family:'Space Mono',monospace}
+.disc{background:var(--card);border:1px solid #2a1c1c;border-radius:14px;padding:28px 32px;max-width:900px;margin:0 auto}.disc h3{font-size:15px;font-weight:700;color:var(--amb);margin-bottom:12px}.disc p{font-size:12px;color:var(--td);line-height:1.7;margin-bottom:8px}
+footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--bg)}.fi{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}.fb{display:flex;align-items:center;gap:8px}.fc{color:var(--td);font-size:11px}
+.calc-box{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:32px}.calc-box label{display:block;font-size:12px;color:var(--td);margin-bottom:6px;font-weight:500}
+.calc-box input,.calc-box select{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;color:var(--t);font-size:15px;font-family:'Space Mono',monospace;outline:none;margin-bottom:16px}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:24px}
+.bp{display:inline-block;background:linear-gradient(135deg,var(--g),var(--gd));color:var(--bg);padding:13px 30px;border-radius:8px;font-weight:700;font-size:14px;transition:all .3s;border:none;cursor:pointer}.bp:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,220,130,.3)}
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fu{animation:fadeup .6s ease both}
+@media(max-width:768px){.nlinks{display:none!important}.mbtn{display:flex!important}.mmenu.open{display:block!important}}
+@media(max-width:500px){td,th{padding:10px;font-size:12px}}
+.cb-ticker{overflow:hidden;background:rgba(0,220,130,.04);border-bottom:1px solid var(--bdr);padding:8px 0;white-space:nowrap}
+.cb-ticker-inner{display:inline-flex;gap:32px;animation:ticker 60s linear infinite}
+.cb-ticker-item{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-family:'Space Mono',monospace}
+.cb-ticker-item .name{color:var(--tm)}.cb-ticker-item .val{font-weight:700}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.cb-tabs{display:flex;gap:6px;padding:12px 20px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:1200px;margin:0 auto}
+.cb-tabs::-webkit-scrollbar{display:none}
+.cb-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;color:var(--tm);background:var(--card);border:1px solid var(--bdr);transition:all .3s;white-space:nowrap;cursor:pointer;text-decoration:none}
+.cb-tab:hover{border-color:var(--g);color:var(--g)}.cb-tab.active{background:var(--g);color:var(--bg);border-color:var(--g)}
+.cb-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.cb-stat{position:relative;background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px;overflow:hidden;transition:all .3s}
+.cb-stat:hover{border-color:var(--g);box-shadow:0 0 30px rgba(0,220,130,.08)}
+.cb-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);opacity:0;transition:opacity .3s}
+.cb-stat:hover::before{opacity:1}
+.cb-stat-l{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.cb-stat-v{font-size:26px;font-weight:700;font-family:'Space Mono',monospace;background:linear-gradient(135deg,var(--t),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cb-glass{background:rgba(13,17,23,.6);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(0,220,130,.12);border-radius:16px;padding:28px;transition:all .4s}
+.cb-glass:hover{border-color:rgba(0,220,130,.35);box-shadow:0 8px 40px rgba(0,220,130,.08),inset 0 1px 0 rgba(255,255,255,.05)}
+.cb-glass .icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;background:linear-gradient(135deg,rgba(0,220,130,.15),rgba(0,220,130,.03));border:1px solid rgba(0,220,130,.15)}
+.cb-glass h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.cb-glass p{font-size:13px;color:var(--td);line-height:1.6}
+.cb-glass .badge{position:absolute;top:14px;right:14px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;color:var(--g);background:rgba(0,220,130,.1);padding:3px 10px;border-radius:10px}
+.cb-strategies{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin:28px 0}
+.cb-filter{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:24px;padding:18px 22px;background:var(--card);border:1px solid var(--bdr);border-radius:12px}
+.cb-filter label{font-size:11px;color:var(--td);text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.cb-filter input[type=range]{-webkit-appearance:none;height:4px;background:var(--bdr);border-radius:2px;outline:none;flex:1;min-width:120px}
+.cb-filter input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--g);cursor:pointer;box-shadow:0 0 10px rgba(0,220,130,.4)}
+.cb-filter select,.cb-filter input[type=text]{background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:8px 12px;color:var(--t);font-size:13px;outline:none}
+.cb-filter .cb-range-val{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--g);min-width:36px;text-align:center}
+.cb-search{position:relative;margin-bottom:20px}
+.cb-search input{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:12px 16px 12px 40px;color:var(--t);font-size:14px;outline:none;transition:border .3s}
+.cb-search input:focus{border-color:var(--g)}
+.cb-search::before{content:'\2315';position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--td);font-size:16px}
+.cb-table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);margin-bottom:24px}
+.cb-table{width:100%;border-collapse:collapse;font-size:13px}
+.cb-table th{background:var(--card);color:var(--td);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:14px 14px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s;position:sticky;top:0;z-index:2}
+.cb-table th:hover{color:var(--g)}.cb-table th.sorted{color:var(--g)}
+.cb-table th .arrow{margin-left:4px;font-size:8px;opacity:.5}.cb-table th.sorted .arrow{opacity:1}
+.cb-table td{padding:12px 14px;border-bottom:1px solid rgba(22,29,42,.5);white-space:nowrap;transition:background .2s}
+.cb-table tr{transition:all .2s}.cb-table tr:hover td{background:rgba(0,220,130,.03)}
+.cb-table .pos{color:var(--g)}.cb-table .neg{color:var(--r)}
+.cb-table .tk{font-family:'Space Mono',monospace;color:var(--g);font-weight:700;font-size:12px}
+.cb-table .bond-name{font-weight:600;color:var(--t)}
+.cb-heatval{display:inline-block;padding:3px 10px;border-radius:6px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;min-width:50px;text-align:center}
+.cb-pager{display:flex;justify-content:center;align-items:center;gap:8px;margin:20px 0}
+.cb-pager button{background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:8px 16px;color:var(--tm);font-size:13px;cursor:pointer;transition:all .2s}
+.cb-pager button:hover:not(:disabled){border-color:var(--g);color:var(--g)}
+.cb-pager button:disabled{opacity:.3;cursor:default}
+.cb-pager span{font-size:13px;color:var(--td);font-family:'Space Mono',monospace}
+.cb-canvas-wrap{position:relative;border-radius:14px;border:1px solid var(--bdr);overflow:hidden;background:var(--card);margin-bottom:24px}
+.cb-canvas-tooltip{position:absolute;display:none;background:rgba(6,8,13,.95);border:1px solid var(--g);border-radius:8px;padding:10px 14px;font-size:12px;pointer-events:none;z-index:10;max-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.cb-canvas-legend{display:flex;flex-wrap:wrap;gap:12px;padding:12px 16px;border-top:1px solid var(--bdr);font-size:11px;color:var(--td)}
+.cb-canvas-legend span{display:flex;align-items:center;gap:4px}
+.cb-canvas-legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.cb-progress-bar{width:100%;height:22px;background:var(--bg);border-radius:11px;overflow:hidden;position:relative}
+.cb-progress-fill{height:100%;border-radius:11px;background:linear-gradient(90deg,var(--gd),var(--g));position:relative;transition:width 1s ease;box-shadow:0 0 12px rgba(0,220,130,.3)}
+.cb-progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(255,255,255,.15));animation:shimmer 2s ease-in-out infinite}
+@keyframes shimmer{0%,100%{opacity:0}50%{opacity:1}}
+.cb-progress-text{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;font-family:'Space Mono',monospace;font-weight:700;color:var(--bg);z-index:1}
+.cb-radar-wrap{display:flex;justify-content:center;padding:20px}
+.cb-score-badge{display:inline-block;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700;font-family:'Space Mono',monospace}
+.cb-score-high{background:rgba(0,220,130,.15);color:var(--g)}
+.cb-score-mid{background:rgba(240,160,80,.15);color:var(--amb)}
+.cb-score-low{background:rgba(255,77,106,.12);color:var(--r)}
+.cb-refresh{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:8px 16px;font-size:12px;color:var(--tm);cursor:pointer;transition:all .3s;font-family:inherit}
+.cb-refresh:hover{border-color:var(--g);color:var(--g)}
+.cb-refresh.loading{pointer-events:none;opacity:.5}
+.cb-refresh .spin{display:inline-block;animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.cb-loading{text-align:center;padding:60px 20px}
+.cb-loading .dots{display:inline-flex;gap:6px}
+.cb-loading .dots span{width:8px;height:8px;border-radius:50%;background:var(--g);animation:bounce 1.4s ease-in-out infinite}
+.cb-loading .dots span:nth-child(2){animation-delay:.2s}.cb-loading .dots span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+@media(max-width:768px){.cb-stats{grid-template-columns:repeat(2,1fr)}.cb-strategies{grid-template-columns:1fr}.cb-filter{flex-direction:column;align-items:stretch}}
+@media(max-width:500px){.cb-stats{grid-template-columns:1fr}}
+.cb-table .bond-name{cursor:pointer;transition:color .2s}.cb-table .bond-name:hover{color:var(--g);text-decoration:underline}
+.cb-reason-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeup .2s ease}
+.cb-reason-box{background:var(--card);border:1px solid var(--g);border-radius:16px;padding:28px 32px;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,220,130,.1)}
+.cb-reason-box h3{font-size:18px;font-weight:700;margin-bottom:16px;padding-right:30px;background:linear-gradient(135deg,var(--t),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cb-reason-box .cb-reason-close{position:absolute;top:16px;right:16px;background:none;border:1px solid var(--bdr);border-radius:8px;width:28px;height:28px;color:var(--tm);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cb-reason-box .cb-reason-close:hover{border-color:var(--r);color:var(--r)}
+.cb-reason-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:13px}
+.cb-reason-row:last-child{border:none}.cb-reason-row .lbl{color:var(--td)}.cb-reason-row .val{font-family:'Space Mono',monospace;font-weight:700}
+.cb-reason-verdict{margin-top:16px;padding:14px 18px;border-radius:10px;background:rgba(0,220,130,.06);border:1px solid rgba(0,220,130,.15);font-size:13px;line-height:1.7;color:var(--tm)}
+.cb-reason-verdict strong{color:var(--g)}
+.cb-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--td);color:var(--td);font-size:9px;font-weight:700;cursor:help;margin-left:4px;font-style:normal;transition:all .2s;vertical-align:middle;flex-shrink:0;font-family:'Space Mono',monospace}
+.cb-info:hover{border-color:var(--g);color:var(--g);background:rgba(0,220,130,.1)}
+.cb-info-tip{position:fixed;display:none;background:var(--bg2);border:1px solid var(--g);border-radius:8px;padding:10px 14px;font-size:11px;color:var(--tm);width:220px;z-index:2000;line-height:1.6;box-shadow:0 8px 24px rgba(0,0,0,.5);text-transform:none;letter-spacing:0;font-weight:400}
+.cb-info-tip::after{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-bottom-color:var(--g)}
+.cb-info-wrap{display:inline-flex;align-items:center}
+.cb-stat-l{display:flex;align-items:center;gap:4px}</style></head><body><nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><span class="logo-i">ZX</span>ZX Capital</a>
+<div class="nlinks"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></div>
+<div style="display:flex;gap:10px;align-items:center"><a class="lbtn" href="/zh/" onclick="location.href=&quot;/zh&quot;+location.pathname;return false">中文</a><button class="mbtn" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menu">&#9776;</button></div>
+</div><div id="mm" class="mmenu"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/calculator/">Tools</a><a href="/about.html">About</a></div></nav><div class="cb-tabs"><a href="/cb/" class="cb-tab">Overview</a><a href="/cb/tanbing.html" class="cb-tab">Diversified</a><a href="/cb/shuangdi.html" class="cb-tab">Double Low</a><a href="/cb/zhuangu.html" class="cb-tab">Conv Arb</a><a href="/cb/qiangshu.html" class="cb-tab">Forced Call</a><a href="/cb/xiaxiu.html" class="cb-tab active">Revision</a><a href="/cb/huishou.html" class="cb-tab">Put Play</a><a href="/cb/wangge.html" class="cb-tab">Grid Trade</a></div><section class="sec" style="max-width:1200px"><div class="bc"><a href="/">Home</a> <span>/</span> <a href="/cb/">CB</a> <span>/</span> <span style="color:var(--t)">Revision Play</span></div><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://zxcapitalgroup.com/"}, {"@type": "ListItem", "position": 2, "name": "CB", "item": "https://zxcapitalgroup.com/cb/"}, {"@type": "ListItem", "position": 3, "name": "Revision Play"}]}</script><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+<div><h1 style="font-size:32px;font-weight:700;margin-bottom:6px">&#128295; Revision Play</h1>
+<p style="color:var(--td);font-size:14px">Predict bonds where issuers may revise conversion price downward</p></div>
+<button class="cb-refresh" id="cb-refresh">&#8635; Refresh</button></div><div class="cb-stats"><div class="cb-stat"><div class="cb-stat-l" data-metric="revScore">Candidates</div><div class="cb-stat-v">-</div></div><div class="cb-stat"><div class="cb-stat-l" data-metric="revScore">High>=60</div><div class="cb-stat-v">-</div></div><div class="cb-stat"><div class="cb-stat-l" data-metric="revScore">Top</div><div class="cb-stat-v">-</div></div><div class="cb-stat"><div class="cb-stat-l" data-metric="revScore">Mid+</div><div class="cb-stat-v">-</div></div></div><div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+<div class="cb-canvas-wrap" style="flex:1;min-width:280px">
+<div style="padding:12px 16px;font-size:13px;font-weight:600;color:var(--tm)">Top Candidate -- Radar</div>
+<div class="cb-radar-wrap"><canvas id="cb-radar"></canvas></div>
+<div style="text-align:center;padding:0 16px 12px;font-size:12px;color:var(--tm)" id="cb-radar-label"></div></div></div><div id="cb-main"><div id="cb-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; Disclaimer</h3>
+<p>This page is for reference and educational purposes only. It does not constitute investment advice. Convertible bond trading involves price volatility risks. Data is sourced from public market APIs and may be delayed or inaccurate. Invest at your own risk.</p></div></section><footer><div class="fi">
+<div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
+<nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/calculator/">Tools</a></nav>
+<div class="fc">&copy; 2026 ZX Capital. All rights reserved.</div></div></footer><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Revision Play", "url": "https://zxcapitalgroup.com/cb/xiaxiu.html"}</script><script>
+(function(){
+'use strict';
+window.CB = window.CB || {};
+var isZH = document.documentElement.lang === 'zh';
+CB.isZH = isZH;
+CB.T = {
+  code:isZH?'代码':'Code',name:isZH?'名称':'Name',price:isZH?'现价':'Price',
+  change:isZH?'涨跌幅':'Change',convPrice:isZH?'转股价':'Conv Price',
+  convValue:isZH?'转股价值':'Conv Value',premium:isZH?'溢价率':'Premium',
+  doublelow:isZH?'双低值':'Double Low',ytm:isZH?'到期收益率':'YTM',
+  rating:isZH?'评级':'Rating',remaining:isZH?'剩余规模(亿)':'Remain(100M)',
+  maturity:isZH?'到期日':'Maturity',stock:isZH?'正股':'Stock',
+  stockPrice:isZH?'正股价':'Stock Price',arbSpace:isZH?'套利空间':'Arb Space',
+  redeemProg:isZH?'强赎进度':'Redeem Prog',revScore:isZH?'下修评分':'Rev Score',
+  putDist:isZH?'距回售触发':'Put Dist',gridScore:isZH?'网格评分':'Grid Score',
+  loading:isZH?'正在加载可转债数据...':'Loading CB data...',
+  error:isZH?'数据加载失败，请刷新重试':'Failed to load. Please refresh.',
+  noData:isZH?'暂无符合条件的数据':'No matching bonds',
+  refresh:isZH?'刷新数据':'Refresh',prev:isZH?'上一页':'Prev',next:isZH?'下一页':'Next',
+  total:isZH?'共':'Total',bonds:isZH?'只':'bonds',
+  search:isZH?'搜索转债名称或代码...':'Search bond name or code...'
+};
+
+CB.jsonp = function(url){
+  return new Promise(function(resolve,reject){
+    var cbName='cb_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);
+    var timeout=setTimeout(function(){cleanup();reject(new Error('timeout'))},20000);
+    var script=document.createElement('script');
+    function cleanup(){clearTimeout(timeout);delete window[cbName];if(script.parentNode)script.parentNode.removeChild(script)}
+    window[cbName]=function(data){cleanup();resolve(data)};
+    script.src=url+(url.indexOf('?')>=0?'&':'?')+'callback='+cbName;
+    script.onerror=function(){cleanup();reject(new Error('error'))};
+    document.head.appendChild(script);
+  });
+};
+
+var _cache=null,_cacheTime=0,_TTL=300000;
+
+function _parseBonds(diff){
+  return diff.map(function(b){
+    var price=typeof b.f2==='number'?b.f2:0;
+    var cv=typeof b.f227==='number'?b.f227:0;
+    var pr=typeof b.f236==='number'?b.f236:0;
+    var stockP=typeof b.f229==='number'?b.f229:0;
+    var convP=typeof b.f228==='number'?b.f228:0;
+    return{code:b.f12||'',name:b.f14||'',price:price,
+      change:typeof b.f3==='number'?b.f3:0,convPrice:convP,
+      convValue:cv,premium:pr,doubleLow:price+pr,ytm:null,rating:'-',
+      remaining:typeof b.f235==='number'?b.f235:0,maturity:'-',
+      stockCode:b.f232||'',stockName:b.f234||'',stockPrice:stockP,
+      arbSpace:cv>0&&price>0?((cv-price)/price*100):0,
+      putTrigger:0};
+  }).filter(function(b){return b.price>0});
+}
+
+function _fetchPage(pn){
+  var url='https://push2delay.eastmoney.com/api/qt/clist/get?cb=jQuery&pn='+pn+'&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f243&fs=b:MK0354&fields=f2,f3,f12,f14,f227,f228,f229,f230,f232,f234,f235,f236,f242';
+  var cbName='jq_'+Date.now()+'_'+Math.random().toString(36).substr(2,4);
+  return new Promise(function(resolve,reject){
+    var timeout=setTimeout(function(){cleanup();reject(new Error('timeout'))},20000);
+    var script=document.createElement('script');
+    function cleanup(){clearTimeout(timeout);delete window[cbName];if(script.parentNode)script.parentNode.removeChild(script)}
+    window[cbName]=function(resp){
+      cleanup();
+      var d=(resp&&resp.data&&resp.data.diff)?resp.data.diff:[];
+      var total=(resp&&resp.data)?resp.data.total||0:0;
+      resolve({diff:d,total:total});
+    };
+    script.src=url.replace('cb=jQuery','cb='+cbName);
+    script.onerror=function(){cleanup();reject(new Error('script_error'))};
+    document.head.appendChild(script);
+  });
+}
+
+function _fetchAllPages(){
+  return _fetchPage(1).then(function(r1){
+    var all=r1.diff,total=r1.total,pages=Math.ceil(total/100);
+    if(pages<=1)return _parseBonds(all);
+    var promises=[];
+    for(var p=2;p<=Math.min(pages,6);p++)promises.push(_fetchPage(p));
+    return Promise.all(promises).then(function(results){
+      results.forEach(function(r){all=all.concat(r.diff)});
+      return _parseBonds(all);
+    });
+  });
+}
+
+function _fetchWithRetry(attempt){
+  return _fetchAllPages().catch(function(err){
+    if(attempt<3){return new Promise(function(r){setTimeout(r,1000*(attempt+1))}).then(function(){return _fetchWithRetry(attempt+1)})}
+    throw err;
+  });
+}
+
+function _fetchRatingData(bonds){
+  var y=new Date().getFullYear()-1;
+  var url='https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_BOND_CB_LIST&columns=SECURITY_CODE,RATING,EXPIRE_DATE&pageSize=500&sortColumns=SECURITY_CODE&sortTypes=1&source=WEB&client=WEB&filter=(EXPIRE_DATE%3E%27'+y+'-01-01%27)';
+  return fetch(url).then(function(r){return r.json()}).then(function(resp){
+    if(!resp||!resp.result||!resp.result.data)return bonds;
+    var map={};resp.result.data.forEach(function(r){if(r.SECURITY_CODE)map[r.SECURITY_CODE]={rating:r.RATING||'-',expire:r.EXPIRE_DATE||''}});
+    var now=new Date();
+    bonds.forEach(function(b){var info=map[b.code];
+      if(info){b.rating=info.rating;if(info.expire)b.maturity=info.expire.slice(0,10)}
+      if(b.convPrice>0)b.putTrigger=+(b.convPrice*0.7).toFixed(2);
+      if(b.maturity&&b.maturity!=='-'&&b.price>0){
+        var md=new Date(b.maturity),yrs=(md-now)/(365.25*86400000);
+        if(yrs>0.05)b.ytm=+((((106-b.price)/b.price)/yrs)*100).toFixed(2);
+      }});
+    return bonds;
+  }).catch(function(){
+    bonds.forEach(function(b){if(b.convPrice>0)b.putTrigger=+(b.convPrice*0.7).toFixed(2)});
+    return bonds});
+}
+
+CB.fetchBonds=function(force){
+  var now=Date.now();
+  if(!force&&_cache&&(now-_cacheTime)<_TTL)return Promise.resolve(_cache);
+  if(!force){try{var s=sessionStorage.getItem('cb_b'),t=sessionStorage.getItem('cb_t');
+    if(s&&t&&(now-parseInt(t))<_TTL){_cache=JSON.parse(s);_cacheTime=parseInt(t);return Promise.resolve(_cache)}}catch(e){}}
+  return _fetchWithRetry(0).then(function(bonds){
+    return _fetchRatingData(bonds);
+  }).then(function(bonds){
+    _cache=bonds;_cacheTime=Date.now();
+    try{sessionStorage.setItem('cb_b',JSON.stringify(_cache));sessionStorage.setItem('cb_t',''+_cacheTime)}catch(e){}
+    return _cache;
+  }).catch(function(err){
+    try{var s=sessionStorage.getItem('cb_b');if(s){_cache=JSON.parse(s);_cacheTime=Date.now();return _cache}}catch(e){}
+    throw err;
+  });
+};
+
+CB.fmtP=function(n){return n!=null?n.toFixed(3):'-'};
+CB.fmtPct=function(n){return n!=null?n.toFixed(2)+'%':'-'};
+CB.fmtS=function(n){return n!=null?n.toFixed(2):'-'};
+CB.pnC=function(n){return n>0?'pos':n<0?'neg':''};
+CB.heatBg=function(v,lo,hi){var t=Math.max(0,Math.min(1,(v-lo)/(hi-lo||1)));var r=Math.round(255*t),g=Math.round(220*(1-t));return'rgba('+r+','+g+',60,.18)'};
+CB.heatTx=function(v,lo,hi){var t=Math.max(0,Math.min(1,(v-lo)/(hi-lo||1)));return t<.4?'var(--g)':t<.7?'var(--amb)':'var(--r)'};
+
+CB.PAGE_SIZE=50;
+CB.renderTable=function(cid,cols,data,dsort,ddir,strategy){
+  var c=document.getElementById(cid);if(!c)return;
+  var sort=dsort||'',dir=ddir||1,pg=0;
+  function render(){
+    var s=data.slice();
+    if(sort)s.sort(function(a,b){var va=a[sort],vb=b[sort];if(va==null)return 1;if(vb==null)return-1;if(typeof va==='string')return va.localeCompare(vb)*dir;return(va-vb)*dir});
+    var total=s.length,pages=Math.ceil(total/CB.PAGE_SIZE)||1;
+    if(pg>=pages)pg=pages-1;
+    var start=pg*CB.PAGE_SIZE,pd=s.slice(start,start+CB.PAGE_SIZE);
+    var h='<div class="cb-table-wrap"><table class="cb-table"><thead><tr>';
+    cols.forEach(function(col){var cl=sort===col.key?' sorted':'';var ar=sort===col.key?(dir>0?'&#9650;':'&#9660;'):'&#9650;';
+      h+='<th class="'+cl+'" data-key="'+col.key+'">'+col.label+CB.infoIcon(col.key)+'<span class="arrow">'+ar+'</span></th>'});
+    h+='</tr></thead><tbody>';
+    if(!pd.length)h+='<tr><td colspan="'+cols.length+'" style="text-align:center;padding:40px;color:var(--td)">'+CB.T.noData+'</td></tr>';
+    pd.forEach(function(row,idx){h+='<tr data-idx="'+idx+'" style="animation:fadeup .4s ease '+(idx*.02)+'s both">';
+      cols.forEach(function(col){h+=col.render?col.render(row):'<td>'+(row[col.key]!=null?row[col.key]:'-')+'</td>'});h+='</tr>'});
+    h+='</tbody></table></div>';
+    h+='<div class="cb-pager"><button id="'+cid+'-prev" '+(pg<=0?'disabled':'')+'>'+CB.T.prev+'</button>';
+    h+='<span>'+(pg+1)+' / '+pages+' ('+CB.T.total+' '+total+' '+CB.T.bonds+')</span>';
+    h+='<button id="'+cid+'-next" '+(pg>=pages-1?'disabled':'')+'>'+CB.T.next+'</button></div>';
+    c.innerHTML=h;
+    c.querySelectorAll('th[data-key]').forEach(function(th){th.addEventListener('click',function(e){if(e.target.closest('.cb-info-wrap'))return;var k=this.getAttribute('data-key');if(sort===k)dir=-dir;else{sort=k;dir=1}pg=0;render()})});
+    if(strategy){c.querySelectorAll('.bond-name').forEach(function(td){td.addEventListener('click',function(){var tr=this.closest('tr'),idx=parseInt(tr.getAttribute('data-idx'));if(!isNaN(idx)&&pd[idx])CB.showReason(strategy,pd[idx])})})}
+    var p=document.getElementById(cid+'-prev'),n=document.getElementById(cid+'-next');
+    if(p)p.addEventListener('click',function(){if(pg>0){pg--;render()}});
+    if(n)n.addEventListener('click',function(){if(pg<pages-1){pg++;render()}});
+  }
+  render();return{refresh:function(nd){data=nd;pg=0;render()}};
+};
+
+CB.animNum=function(el,target,dur,sfx){
+  sfx=sfx||'';var start=0,st=null;
+  el.textContent=Number.isInteger(target)?target+sfx:target.toFixed(2)+sfx;
+  function step(ts){if(!st)st=ts;var p=Math.min(1,(ts-st)/(dur||800));var ea=1-Math.pow(1-p,3);var cur=start+(target-start)*ea;
+    el.textContent=Number.isInteger(target)?Math.round(cur)+sfx:cur.toFixed(2)+sfx;if(p<1)requestAnimationFrame(step)}
+  try{requestAnimationFrame(step)}catch(e){}
+};
+
+CB.initParticles=function(id){
+  var cv=document.getElementById(id);if(!cv)return;var ctx=cv.getContext('2d');var ps=[];var W,H;
+  function resize(){var r=cv.parentElement.getBoundingClientRect();W=cv.width=r.width;H=cv.height=r.height||300}
+  resize();window.addEventListener('resize',resize);
+  var n=Math.min(60,Math.floor(W*H/8000));
+  for(var i=0;i<n;i++)ps.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.5+.5});
+  function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle='rgba(0,220,130,0.5)';
+    ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});
+    ctx.strokeStyle='rgba(0,220,130,0.06)';ctx.lineWidth=.5;
+    for(var i=0;i<ps.length;i++)for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y;
+      if(dx*dx+dy*dy<12000){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.stroke()}}
+    requestAnimationFrame(draw)}
+  draw();
+};
+
+CB.drawScatter=function(cid,tid,data,xK,yK,xL,yL,colorFn,labelFn){
+  var cv=document.getElementById(cid),tt=document.getElementById(tid);if(!cv||!data.length)return;
+  var ctx=cv.getContext('2d'),dpr=window.devicePixelRatio||1;
+  var rect=cv.parentElement.getBoundingClientRect(),W=rect.width,H=400;
+  cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';ctx.scale(dpr,dpr);
+  var pad={t:30,r:30,b:50,l:60},cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
+  var xMin=Infinity,xMax=-Infinity,yMin=Infinity,yMax=-Infinity;
+  data.forEach(function(d){var x=d[xK],y=d[yK];if(x<xMin)xMin=x;if(x>xMax)xMax=x;if(y<yMin)yMin=y;if(y>yMax)yMax=y});
+  var xP=(xMax-xMin)*.05||5,yP=(yMax-yMin)*.05||5;xMin-=xP;xMax+=xP;yMin-=yP;yMax+=yP;
+  function toX(v){return pad.l+(v-xMin)/(xMax-xMin)*cw}function toY(v){return pad.t+ch-(v-yMin)/(yMax-yMin)*ch}
+  ctx.strokeStyle='rgba(22,29,42,0.8)';ctx.lineWidth=.5;
+  for(var i=0;i<=5;i++){var yv=yMin+(yMax-yMin)*i/5,yy=toY(yv);ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(W-pad.r,yy);ctx.stroke();
+    ctx.fillStyle='#64748b';ctx.font='10px Space Mono';ctx.textAlign='right';ctx.fillText(yv.toFixed(1)+'%',pad.l-8,yy+3)}
+  for(var j=0;j<=5;j++){var xv=xMin+(xMax-xMin)*j/5,xx=toX(xv);ctx.beginPath();ctx.moveTo(xx,pad.t);ctx.lineTo(xx,H-pad.b);ctx.stroke();
+    ctx.fillStyle='#64748b';ctx.font='10px Space Mono';ctx.textAlign='center';ctx.fillText(xv.toFixed(0),xx,H-pad.b+16)}
+  ctx.fillStyle='#94a3b8';ctx.font='11px DM Sans';ctx.textAlign='center';ctx.fillText(xL,pad.l+cw/2,H-8);
+  ctx.save();ctx.translate(14,pad.t+ch/2);ctx.rotate(-Math.PI/2);ctx.fillText(yL,0,0);ctx.restore();
+  var pts=[];
+  data.forEach(function(d){var x=toX(d[xK]),y=toY(d[yK]),sz=Math.max(3,Math.min(12,d.remaining*1.5));
+    var col=colorFn?colorFn(d):'rgba(0,220,130,0.7)';
+    ctx.beginPath();ctx.arc(x,y,sz,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();pts.push({x:x,y:y,r:sz,d:d})});
+  if(tt){cv.addEventListener('mousemove',function(ev){var cr=cv.getBoundingClientRect(),mx=ev.clientX-cr.left,my=ev.clientY-cr.top,hit=null;
+    for(var i=pts.length-1;i>=0;i--){var dx=pts[i].x-mx,dy=pts[i].y-my;if(dx*dx+dy*dy<(pts[i].r+4)*(pts[i].r+4)){hit=pts[i];break}}
+    if(hit){tt.style.display='block';tt.style.left=(hit.x+16)+'px';tt.style.top=(hit.y-10)+'px';tt.innerHTML=labelFn?labelFn(hit.d):hit.d.name}else tt.style.display='none'});
+    cv.addEventListener('mouseleave',function(){tt.style.display='none'})}
+};
+
+CB.drawRadar=function(cid,labels,values,maxV){
+  var cv=document.getElementById(cid);if(!cv)return;var ctx=cv.getContext('2d'),dpr=window.devicePixelRatio||1,sz=220;
+  cv.width=sz*2*dpr;cv.height=sz*2*dpr;cv.style.width=sz*2+'px';cv.style.height=sz*2+'px';ctx.scale(dpr,dpr);
+  var cx=sz,cy=sz,r=sz*.7,n=labels.length,step=Math.PI*2/n;
+  for(var ring=1;ring<=5;ring++){ctx.beginPath();var rr=r*ring/5;
+    for(var i=0;i<=n;i++){var a=-Math.PI/2+step*(i%n),px=cx+Math.cos(a)*rr,py=cy+Math.sin(a)*rr;if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)}
+    ctx.strokeStyle='rgba(22,29,42,0.8)';ctx.lineWidth=.5;ctx.stroke()}
+  for(var i=0;i<n;i++){var a=-Math.PI/2+step*i;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.strokeStyle='rgba(22,29,42,0.6)';ctx.stroke();
+    var lx=cx+Math.cos(a)*(r+18),ly=cy+Math.sin(a)*(r+18);ctx.fillStyle='#94a3b8';ctx.font='11px DM Sans';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(labels[i],lx,ly)}
+  ctx.beginPath();
+  for(var i=0;i<n;i++){var a=-Math.PI/2+step*i,v=Math.min(1,(values[i]||0)/(maxV[i]||1)),px=cx+Math.cos(a)*r*v,py=cy+Math.sin(a)*r*v;
+    if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)}
+  ctx.closePath();ctx.fillStyle='rgba(0,220,130,0.12)';ctx.fill();ctx.strokeStyle='rgba(0,220,130,0.8)';ctx.lineWidth=2;ctx.stroke();
+  for(var i=0;i<n;i++){var a=-Math.PI/2+step*i,v=Math.min(1,(values[i]||0)/(maxV[i]||1)),px=cx+Math.cos(a)*r*v,py=cy+Math.sin(a)*r*v;
+    ctx.beginPath();ctx.arc(px,py,4,0,Math.PI*2);ctx.fillStyle='#00dc82';ctx.fill();ctx.strokeStyle='#06080d';ctx.lineWidth=2;ctx.stroke()}
+};
+
+CB.showLoading=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="cb-loading"><div class="dots"><span></span><span></span><span></span></div><p style="margin-top:16px;color:var(--td)">'+CB.T.loading+'</p></div>'};
+CB.showError=function(id){var el=document.getElementById(id);if(el)el.innerHTML='<div class="cb-loading"><p style="color:var(--r)">'+CB.T.error+'</p></div>'};
+CB.bindRefresh=function(bid,cb){var btn=document.getElementById(bid);if(!btn)return;btn.addEventListener('click',function(){
+  btn.classList.add('loading');btn.innerHTML='<span class="spin">&#8635;</span> '+CB.T.loading;
+  try{sessionStorage.removeItem('cb_b');sessionStorage.removeItem('cb_t')}catch(e){}
+  CB.fetchBonds(true).then(function(d){btn.classList.remove('loading');btn.innerHTML='&#8635; '+CB.T.refresh;if(cb)cb(d)}).catch(function(){btn.classList.remove('loading');btn.innerHTML='&#8635; '+CB.T.refresh})})};
+
+// Metric info tooltips
+CB.MI={
+  price:{zh:'转债当前市场价格，100为面值',en:'Current market price, 100 is par value'},
+  change:{zh:'今日涨跌幅百分比',en:'Today\'s price change %'},
+  premium:{zh:'(现价-转股价值)/转股价值，负值表示折价',en:'(Price - Conv Value) / Conv Value, negative = discount'},
+  doubleLow:{zh:'价格+溢价率，越低越好，<130为优质',en:'Price + Premium, lower is better, <130 is quality'},
+  ytm:{zh:'近似年化到期收益率(假设赎回价106)，正值=持有到期有收益',en:'Approx. annualized YTM (redemption at 106), positive = profit if held'},
+  rating:{zh:'信用评级，AAA最高，越高违约风险越低',en:'Credit rating, AAA is highest, lower default risk'},
+  remaining:{zh:'剩余未转股规模(亿元)，越大流动性越好',en:'Remaining unconverted (100M CNY), larger = better liquidity'},
+  maturity:{zh:'转债到期日期',en:'Bond maturity date'},
+  convPrice:{zh:'转债转换为股票的转股价格',en:'Conversion price to underlying stock'},
+  convValue:{zh:'按转股价计算的转股价值=100*正股价/转股价',en:'Conv value = 100 * Stock Price / Conv Price'},
+  stockPrice:{zh:'对应正股的当前价格',en:'Current price of underlying stock'},
+  arbSpace:{zh:'(转股价值-现价)/现价，正值=套利空间',en:'(Conv Value - Price) / Price, positive = arbitrage'},
+  redeemProgress:{zh:'正股价/转股价*100-100，反映强赎触发进度',en:'Stock/ConvPrice progress toward forced redemption'},
+  revScore:{zh:'下修可能性评分(0-100)，综合价格、股价偏离、规模等',en:'Revision likelihood score (0-100), multi-factor'},
+  putDistance:{zh:'(正股价-回售触发价)/触发价，越近越可能触发',en:'Distance from stock to put trigger, closer = more likely'},
+  putTrigger:{zh:'回售触发价，通常为转股价的70%',en:'Put trigger price, usually 70% of conv price'},
+  gridScore:{zh:'网格交易适合度(0-100)，考虑价格、规模、评级',en:'Grid trading suitability (0-100)'},
+  count:{zh:'符合策略条件的转债数量',en:'Number of bonds matching strategy criteria'},
+  code:{zh:'转债证券代码',en:'Bond security code'},
+  name:{zh:'转债名称，点击查看推荐理由',en:'Bond name, click for recommendation'},
+  stockName:{zh:'对应的正股名称',en:'Underlying stock name'}
+};
+CB._tipEl=null;
+CB.infoIcon=function(key){
+  var m=CB.MI[key];if(!m)return'';
+  return'<span class="cb-info-wrap"><i class="cb-info" data-tip="'+key+'">?</i></span>';
+};
+(function(){
+  document.addEventListener('mouseover',function(e){
+    var icon=e.target.closest('.cb-info');
+    if(!icon){if(CB._tipEl)CB._tipEl.style.display='none';return;}
+    var key=icon.getAttribute('data-tip'),m=CB.MI[key];if(!m)return;
+    if(!CB._tipEl){CB._tipEl=document.createElement('div');CB._tipEl.className='cb-info-tip';document.body.appendChild(CB._tipEl);}
+    CB._tipEl.textContent=CB.isZH?m.zh:m.en;
+    var r=icon.getBoundingClientRect();
+    CB._tipEl.style.display='block';
+    var tw=CB._tipEl.offsetWidth;
+    var left=r.left+r.width/2-tw/2;
+    if(left<8)left=8;if(left+tw>window.innerWidth-8)left=window.innerWidth-tw-8;
+    CB._tipEl.style.left=left+'px';
+    CB._tipEl.style.top=(r.bottom+8)+'px';
+  });
+  document.addEventListener('mouseout',function(e){
+    if(e.target.closest('.cb-info')&&CB._tipEl)CB._tipEl.style.display='none';
+  });
+  document.addEventListener('click',function(e){
+    var icon=e.target.closest('.cb-info');
+    if(icon&&CB._tipEl){
+      if(CB._tipEl.style.display==='block'){CB._tipEl.style.display='none';}
+      else{var ev=new MouseEvent('mouseover',{bubbles:true});icon.dispatchEvent(ev);}
+    }
+  });
+})();
+
+// Reason popup
+CB.showReason=function(strategy,bond){
+  var old=document.querySelector('.cb-reason-bg');if(old)old.remove();
+  var html=CB.reasonText(strategy,bond);if(!html)return;
+  var div=document.createElement('div');div.className='cb-reason-bg';
+  div.innerHTML='<div class="cb-reason-box"><button class="cb-reason-close">&times;</button>'+html+'</div>';
+  document.body.appendChild(div);
+  div.addEventListener('click',function(e){if(e.target===div||e.target.classList.contains('cb-reason-close'))div.remove()});
+  div.querySelector('.cb-reason-close').addEventListener('click',function(){div.remove()});
+};
+CB.reasonText=function(st,b){
+  var Z=CB.isZH,h='<h3>'+b.name+' ('+b.code+')</h3>';
+  function row(l,v,c){return'<div class="cb-reason-row"><span class="lbl">'+l+'</span><span class="val'+(c?' '+c:'')+'">'+(v!=null?v:'-')+'</span></div>'}
+  if(st==='tanbing'){
+    h+=row(Z?'现价':'Price',b.price.toFixed(3));
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%',b.premium<0?'pos':'');
+    h+=row(Z?'到期收益率':'YTM',b.ytm!=null?b.ytm.toFixed(2)+'%':'-',b.ytm>0?'pos':'');
+    h+=row(Z?'评级':'Rating',b.rating);
+    h+=row(Z?'剩余规模':'Remaining',b.remaining.toFixed(2)+' '+( Z?'亿':'100M'));
+    h+=row(Z?'到期日':'Maturity',b.maturity);
+    var reasons=[];
+    if(b.price<100)reasons.push(Z?'<strong>价格低于面值</strong>，到期有刚性兑付保护':'<strong>Below par value</strong>, maturity floor protection');
+    else if(b.price<110)reasons.push(Z?'<strong>价格接近面值</strong>，安全边际充足':'<strong>Near par value</strong>, adequate safety margin');
+    if(b.ytm!=null&&b.ytm>0)reasons.push(Z?'到期收益率为正('+b.ytm.toFixed(2)+'%)，<strong>持有即可保底</strong>':'Positive YTM ('+b.ytm.toFixed(2)+'%), <strong>floor return guaranteed</strong>');
+    if(b.rating&&b.rating!=='-'&&['AAA','AA+','AA'].indexOf(b.rating)>=0)reasons.push(Z?'<strong>'+b.rating+'</strong>评级，信用风险低':'<strong>'+b.rating+'</strong> rated, low credit risk');
+    h+='<div class="cb-reason-verdict">'+(Z?'推荐理由：':'Recommendation: ')+(reasons.length?reasons.join('；'):(Z?'满足低价分散条件':'Meets low-price diversification criteria'))+'</div>';
+  }else if(st==='shuangdi'){
+    h+=row(Z?'双低值':'Double Low',b.doubleLow.toFixed(2));
+    h+=row(Z?'现价':'Price',b.price.toFixed(3));
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%');
+    h+=row(Z?'到期收益率':'YTM',b.ytm!=null?b.ytm.toFixed(2)+'%':'-');
+    h+=row(Z?'评级':'Rating',b.rating);
+    var r2=[];
+    if(b.doubleLow<120)r2.push(Z?'双低值<120，属于<strong>极优区间</strong>':'DL < 120, <strong>premium zone</strong>');
+    else if(b.doubleLow<140)r2.push(Z?'双低值<140，<strong>性价比良好</strong>':'DL < 140, <strong>good value</strong>');
+    r2.push(Z?'价格贡献'+b.price.toFixed(0)+'，溢价率贡献'+b.premium.toFixed(0)+'，':'Price contributes '+b.price.toFixed(0)+', premium contributes '+b.premium.toFixed(0));
+    if(b.price<110&&b.premium<30)r2.push(Z?'<strong>兼具安全性与弹性</strong>':'<strong>Balance of safety and upside</strong>');
+    h+='<div class="cb-reason-verdict">'+(Z?'推荐理由：':'Recommendation: ')+r2.join('；')+'</div>';
+  }else if(st==='zhuangu'){
+    h+=row(Z?'现价':'Price',b.price.toFixed(3));
+    h+=row(Z?'转股价值':'Conv Value',b.convValue.toFixed(3));
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%',b.premium<0?'pos':'neg');
+    h+=row(Z?'套利空间':'Arb Space',(b.arbSpace>0?'+':'')+b.arbSpace.toFixed(2)+'%',b.arbSpace>0?'pos':'neg');
+    h+=row(Z?'正股':'Stock',b.stockName+' '+b.stockPrice.toFixed(2));
+    var r3=[];
+    if(b.premium<0)r3.push(Z?'<strong>溢价率为负</strong>('+b.premium.toFixed(2)+'%)，转股价值高于现价':'<strong>Negative premium</strong> ('+b.premium.toFixed(2)+'%), conv value > price');
+    if(b.arbSpace>3)r3.push(Z?'套利空间'+b.arbSpace.toFixed(2)+'%，<strong>空间较大</strong>':'Arb space '+b.arbSpace.toFixed(2)+'%, <strong>significant</strong>');
+    else if(b.arbSpace>0)r3.push(Z?'套利空间'+b.arbSpace.toFixed(2)+'%，需考虑交易成本':'Arb space '+b.arbSpace.toFixed(2)+'%, consider transaction costs');
+    r3.push(Z?'注意：转股后T+1才能卖出，有隔夜风险':'Note: T+1 to sell after conversion, overnight risk');
+    h+='<div class="cb-reason-verdict">'+(Z?'推荐理由：':'Recommendation: ')+r3.join('；')+'</div>';
+  }else if(st==='qiangshu'){
+    h+=row(Z?'强赎进度':'Redeem Progress',(b.redeemProgress||0)+'%');
+    h+=row(Z?'正股价':'Stock Price',b.stockPrice.toFixed(2));
+    h+=row(Z?'转股价':'Conv Price',b.convPrice.toFixed(2));
+    h+=row(Z?'比值':'Ratio',b.convPrice>0?(b.stockPrice/b.convPrice).toFixed(3):'-');
+    h+=row(Z?'现价':'Bond Price',b.price.toFixed(3));
+    var r4=[];
+    var prog=b.redeemProgress||0;
+    if(prog>=80)r4.push(Z?'强赎进度'+prog+'%，<strong>极度接近触发</strong>':'Redeem progress '+prog+'%, <strong>very close to trigger</strong>');
+    else if(prog>=50)r4.push(Z?'强赎进度'+prog+'%，<strong>中度接近</strong>':'Redeem progress '+prog+'%, <strong>moderately close</strong>');
+    if(b.price>130)r4.push(Z?'现价'+b.price.toFixed(0)+'元，强赎后可能回落至130附近':'Price '+b.price.toFixed(0)+', may drop to ~130 after redemption');
+    h+='<div class="cb-reason-verdict">'+(Z?'分析：':'Analysis: ')+(r4.length?r4.join('；'):(Z?'持续跟踪中':'Tracking in progress'))+'</div>';
+  }else if(st==='xiaxiu'){
+    h+=row(Z?'下修评分':'Rev Score',b.revScore||0);
+    h+=row(Z?'现价':'Price',b.price.toFixed(3));
+    h+=row(Z?'转股价':'Conv Price',b.convPrice.toFixed(2));
+    h+=row(Z?'正股价':'Stock Price',b.stockPrice.toFixed(2));
+    h+=row(Z?'正股/转股':'Stock/Conv',b.convPrice>0?(b.stockPrice/b.convPrice*100).toFixed(1)+'%':'-');
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%');
+    var r5=[];
+    if(b.price<100)r5.push(Z?'价格低于面值，发行人<strong>下修动力强</strong>':'Below par, issuer has <strong>strong revision incentive</strong>');
+    if(b.convPrice>0&&b.stockPrice/b.convPrice<0.7)r5.push(Z?'正股深度偏离转股价(比值<70%)，<strong>下修条件充分</strong>':'Stock deeply below conv price (<70%), <strong>revision conditions met</strong>');
+    if(b.premium>50)r5.push(Z?'高溢价率'+b.premium.toFixed(0)+'%，转股意愿受阻':'High premium '+b.premium.toFixed(0)+'%, conversion blocked');
+    h+='<div class="cb-reason-verdict">'+(Z?'推荐理由：':'Recommendation: ')+(r5.length?r5.join('；'):(Z?'综合评分表明存在下修可能':'Composite score indicates revision possibility'))+'</div>';
+  }else if(st==='huishou'){
+    h+=row(Z?'正股价':'Stock Price',b.stockPrice.toFixed(2));
+    h+=row(Z?'回售触发价':'Put Trigger',b.putTrigger?b.putTrigger.toFixed(2):'-');
+    h+=row(Z?'距触发距离':'Put Distance',(b.putDistance!=null?(b.putDistance>0?'+':'')+b.putDistance.toFixed(2)+'%':'-'),b.putDistance<0?'neg':'pos');
+    h+=row(Z?'现价':'Bond Price',b.price.toFixed(3));
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%');
+    var r6=[];
+    if(b.putDistance!=null&&b.putDistance<0)r6.push(Z?'正股<strong>已跌破回售触发价</strong>，可能触发回售保护':'Stock <strong>below put trigger</strong>, put protection may activate');
+    else if(b.putDistance!=null&&b.putDistance<10)r6.push(Z?'距回售触发仅'+b.putDistance.toFixed(1)+'%，<strong>密切关注</strong>':'Only '+b.putDistance.toFixed(1)+'% from put trigger, <strong>watch closely</strong>');
+    r6.push(Z?'回售触发后发行人通常选择下修转股价以避免回售':'After trigger, issuers typically revise conv price to avoid put-back');
+    h+='<div class="cb-reason-verdict">'+(Z?'分析：':'Analysis: ')+r6.join('；')+'</div>';
+  }else if(st==='wangge'){
+    h+=row(Z?'网格评分':'Grid Score',b.gridScore||0);
+    h+=row(Z?'现价':'Price',b.price.toFixed(3));
+    h+=row(Z?'剩余规模':'Remaining',b.remaining.toFixed(2));
+    h+=row(Z?'评级':'Rating',b.rating);
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%');
+    var r7=[];
+    if(b.price>=100&&b.price<=130)r7.push(Z?'价格在100-130区间，<strong>适合网格操作</strong>':'Price 100-130 range, <strong>ideal for grid trading</strong>');
+    if(b.remaining>=5)r7.push(Z?'规模'+b.remaining.toFixed(1)+'亿，<strong>流动性充足</strong>':'Size '+b.remaining.toFixed(1)+'00M, <strong>good liquidity</strong>');
+    if(b.rating&&['AAA','AA+','AA'].indexOf(b.rating)>=0)r7.push(Z?b.rating+'评级，<strong>安全性高</strong>':b.rating+' rated, <strong>high safety</strong>');
+    if(b.premium>=0&&b.premium<=30)r7.push(Z?'溢价率适中('+b.premium.toFixed(0)+'%)，正股联动性好':'Moderate premium ('+b.premium.toFixed(0)+'%), good stock correlation');
+    h+='<div class="cb-reason-verdict">'+(Z?'推荐理由：':'Recommendation: ')+(r7.length?r7.join('；'):(Z?'符合网格交易基本条件':'Meets basic grid trading criteria'))+'</div>';
+  }else{
+    h+=row(Z?'现价':'Price',b.price.toFixed(3));
+    h+=row(Z?'溢价率':'Premium',b.premium.toFixed(2)+'%');
+    h+=row(Z?'评级':'Rating',b.rating);
+    h+='<div class="cb-reason-verdict">'+(Z?'点击策略页面的转债名称可查看详细推荐理由':'Click bond name on strategy pages for detailed analysis')+'</div>';
+  }
+  return h;
+};
+// Init stat card info icons
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.cb-stat-l[data-metric]').forEach(function(el){
+    var k=el.getAttribute('data-metric');if(k)el.insertAdjacentHTML('beforeend',CB.infoIcon(k));
+  });
+});
+})();
+</script><script>
+(function(){
+var T=CB.T;CB.showLoading('cb-main');
+CB.fetchBonds().then(function(bonds){
+  document.getElementById('cb-main').innerHTML='<div id="cb-table-area"></div>';
+  var sc=bonds.map(function(b){var s=0;if(b.price<100)s+=30;else if(b.price<105)s+=15;
+    if(b.convPrice>0&&b.stockPrice>0){var r=b.stockPrice/b.convPrice;if(r<.7)s+=30;else if(r<.85)s+=20;else if(r<.95)s+=10}
+    if(b.remaining>10)s+=15;else if(b.remaining>5)s+=10;if(b.premium>50)s+=15;else if(b.premium>30)s+=10;
+    if(b.ytm!=null&&b.ytm<0)s+=10;b.revScore=Math.min(100,s);return b}).filter(function(b){return b.revScore>0&&b.convPrice>0})
+    .sort(function(a,b){return b.revScore-a.revScore});
+  renderAll(sc);
+}).catch(function(){CB.showError('cb-main')});
+CB.bindRefresh('cb-refresh',function(){location.reload()});
+function renderAll(bonds){
+  var els=document.querySelectorAll('.cb-stat-v');var hi=bonds.filter(function(b){return b.revScore>=60});
+  if(els[0])els[0].textContent=bonds.length;if(els[1])els[1].textContent=hi.length;
+  if(els[2])els[2].textContent=bonds[0]?bonds[0].revScore:'-';if(els[3])els[3].textContent=bonds.filter(function(b){return b.revScore>=40}).length;
+  if(bonds[0]){var b=bonds[0];
+    var labels=[CB.isZH?'Price':'Price',CB.isZH?'Premium':'Premium',CB.isZH?'Size':'Size',CB.isZH?'Stock Dev':'Stock Dev','YTM'];
+    var vals=[Math.max(0,130-b.price),Math.min(b.premium,80),Math.min(b.remaining,20),
+      b.convPrice>0?Math.max(0,(1-b.stockPrice/b.convPrice)*100):0,b.ytm!=null?Math.max(0,10-b.ytm):0];
+    CB.drawRadar('cb-radar',labels,vals,[50,80,20,50,15]);
+    document.getElementById('cb-radar-label').textContent=(CB.isZH?'Top: ':'Top: ')+b.name+' ('+b.revScore+')'}
+  var cols=[{key:'code',label:T.code,render:function(r){return'<td class="tk">'+r.code+'</td>'}},
+    {key:'name',label:T.name,render:function(r){return'<td class="bond-name">'+r.name+'</td>'}},
+    {key:'revScore',label:T.revScore,render:function(r){var c=r.revScore>=60?'cb-score-high':r.revScore>=40?'cb-score-mid':'cb-score-low';return'<td><span class="cb-score-badge '+c+'">'+r.revScore+'</span></td>'}},
+    {key:'price',label:T.price,render:function(r){return'<td class="mono">'+CB.fmtP(r.price)+'</td>'}},
+    {key:'convPrice',label:T.convPrice,render:function(r){return'<td class="mono">'+r.convPrice.toFixed(2)+'</td>'}},
+    {key:'stockPrice',label:T.stockPrice,render:function(r){return'<td class="mono">'+r.stockPrice.toFixed(2)+'</td>'}},
+    {key:'premium',label:T.premium,render:function(r){return'<td class="mono '+CB.pnC(r.premium)+'">'+CB.fmtPct(r.premium)+'</td>'}},
+    {key:'remaining',label:T.remaining,render:function(r){return'<td class="mono">'+CB.fmtS(r.remaining)+'</td>'}}];
+  CB.renderTable('cb-table-area',cols,bonds,'revScore',-1,'xiaxiu')}
+})();
+</script></body></html>
