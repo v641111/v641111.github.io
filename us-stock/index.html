@@ -77,12 +77,6 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 .us-refresh.loading{pointer-events:none;opacity:.5}
 .us-refresh .spin{display:inline-block;animation:spin 1s linear infinite}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.us-apikey-box{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:28px 32px;margin-bottom:24px;max-width:600px}
-.us-apikey-box label{display:block;font-size:13px;color:var(--tm);margin-bottom:8px;font-weight:600}
-.us-apikey-box input{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;color:var(--t);font-size:14px;font-family:'Space Mono',monospace;outline:none;margin-bottom:12px}
-.us-apikey-box input:focus{border-color:var(--g)}
-.us-apikey-box .bp{font-size:13px;padding:10px 24px}
-.us-apikey-box p{font-size:11px;color:var(--td);margin-top:8px;line-height:1.6}
 .us-progress{width:100%;height:6px;background:var(--bdr);border-radius:3px;margin:12px 0;overflow:hidden}
 .us-progress-fill{height:100%;background:linear-gradient(90deg,var(--gd),var(--g));border-radius:3px;transition:width .3s;width:0%}
 .us-progress-text{font-size:11px;color:var(--td);font-family:'Space Mono',monospace;margin-bottom:16px}
@@ -125,9 +119,9 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <p style="color:var(--td);font-size:15px;max-width:600px">7 classic technical strategies analyzing 50 popular US stocks. More strategy hits = higher confidence.</p>
 <div style="margin-top:12px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
 <span style="font-size:11px;color:var(--td)">Data: FMP | Win rates: Academic research & QuantifiedStrategies | Auto-loading, no API key needed</span>
-</div></div><div id="us-progress-area">
+</div></div><div id="us-progress-area" style="margin-bottom:20px">
 <div class="us-progress"><div class="us-progress-fill" id="us-progress-fill"></div></div>
-<div class="us-progress-text" id="us-progress-text">Loading...</div></div><div class="us-stats">
+<div class="us-progress-text" id="us-progress-text">Loading data for 50 US stocks...</div></div><div class="us-stats">
 <div class="us-stat"><div class="us-stat-l" data-metric="count">Stock Count</div><div class="us-stat-v">-</div></div>
 <div class="us-stat"><div class="us-stat-l" data-metric="hits">Hits>=3</div><div class="us-stat-v">-</div></div>
 <div class="us-stat"><div class="us-stat-l" data-metric="hits">Avg Hits</div><div class="us-stat-v">-</div></div>
@@ -138,9 +132,21 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <span class="badge">-</span><div class="icon">&#128203;</div><h3>Bollinger Bands <span class="us-winrate">65%</span></h3><p>Squeeze breakout above upper band, 60-75% with filters</p></a><a href="/us-stock/volume.html" class="us-glass" data-strategy="volume" style="text-decoration:none;position:relative">
 <span class="badge">-</span><div class="icon">&#128266;</div><h3>Volume Breakout <span class="us-winrate">74%</span></h3><p>Break 20-day high + volume >1.5x average, 74% win rate</p></a><a href="/us-stock/oversold.html" class="us-glass" data-strategy="oversold" style="text-decoration:none;position:relative">
 <span class="badge">-</span><div class="icon">&#128281;</div><h3>Oversold Bounce <span class="us-winrate">78%</span></h3><p>Stochastic %K<20 and reversing above %D, 78% win rate</p></a><a href="/us-stock/kline.html" class="us-glass" data-strategy="kline" style="text-decoration:none;position:relative">
-<span class="badge">-</span><div class="icon">&#127919;</div><h3>Candlestick Patterns <span class="us-winrate">68%</span></h3><p>Detect Engulfing, Hammer, Morning Star etc., 65-79% with trend filter</p></a></div><div style="margin-top:32px"><h2 style="font-size:22px;font-weight:700;margin-bottom:16px">Strategy Stacking Heatmap</h2>
-<p class="sub" style="max-width:700px">Each stock runs through all 7 strategies. More hits (green checks) = stronger signal. Click stock name for details.</p>
-<div class="us-search"><input type="text" id="us-search-input" placeholder="Search symbol..."></div></div><div id="us-main"><div id="us-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; Disclaimer</h3>
+<span class="badge">-</span><div class="icon">&#127919;</div><h3>Candlestick Patterns <span class="us-winrate">68%</span></h3><p>Detect Engulfing, Hammer, Morning Star etc., 65-79% with trend filter</p></a></div><div class="card" style="margin:32px 0 24px;border-color:rgba(0,220,130,.2);background:linear-gradient(135deg,rgba(0,220,130,.03),rgba(13,17,23,.8))">
+<h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--g)">&#128200; Strategy Stacking</h3>
+<p style="font-size:13px;color:var(--tm);line-height:1.8;margin-bottom:12px">Each stock runs through 7 independent technical strategies. Individual win rates are 65-79%, but when multiple strategies trigger simultaneously, confidence increases significantly:</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+<span class="us-hits-badge us-hits-1" style="font-size:12px">1 hit → 55%</span>
+<span class="us-hits-badge us-hits-2" style="font-size:12px">2 hits → 68%</span>
+<span class="us-hits-badge us-hits-3" style="font-size:12px">3 hits → 78%</span>
+<span class="us-hits-badge us-hits-4" style="font-size:12px">4 hits → 85%</span>
+<span class="us-hits-badge us-hits-5" style="font-size:12px">5 hits → 90%</span>
+<span class="us-hits-badge us-hits-6" style="font-size:12px">6 hits → 93%</span>
+<span class="us-hits-badge us-hits-7" style="font-size:12px">7 hits → 96%</span>
+</div>
+<p style="font-size:11px;color:var(--td)">&#10003; = Buy signal | &#10007; = Sell signal | - = Neutral | Click stock name for details</p>
+</div><div style="margin-top:8px"><h2 style="font-size:22px;font-weight:700;margin-bottom:16px">Strategy Stacking Heatmap</h2>
+<div class="us-search"><input type="text" id="us-search-input" placeholder="Search symbol or name..."></div></div><div id="us-main"><div id="us-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; Disclaimer</h3>
 <p>This page is for reference and educational purposes only. It does not constitute investment advice. Technical indicators are calculated from historical data; past performance does not guarantee future results. Backtested win rates come from academic research and quant communities; actual trading results may differ significantly. Invest at your own risk.</p></div></section><footer><div class="fi">
 <div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
 <nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="/etf/">ETF</a><a href="/stock/">Stocks</a><a href="/crypto/">Crypto</a><a href="/defi/">DeFi</a><a href="/cb/">CB</a><a href="/us-stock/">US Tech</a><a href="/calculator/">Tools</a></nav>
@@ -744,25 +750,29 @@ document.addEventListener('DOMContentLoaded',function(){
 var T=US.T;
 US.showLoading('us-main');
 var progArea=document.getElementById('us-progress-area');
-if(progArea)progArea.style.display='block';
+var allResults=[];
+// Bind search immediately
+var si=document.getElementById('us-search-input');
+if(si)si.addEventListener('input',function(){var q=this.value.toUpperCase();
+  if(!allResults.length)return;
+  renderMain(q?allResults.filter(function(r){return r.symbol.indexOf(q)>=0||(r.name&&r.name.toUpperCase().indexOf(q)>=0)}):allResults)});
 US.fetchQuotes(US.UNIVERSE).then(function(quotes){
     var qmap={};quotes.forEach(function(q){qmap[q.symbol]=q});
     return US.fetchHistory(US.UNIVERSE).then(function(histMap){
       if(progArea)progArea.style.display='none';
-      var results=[];
       US.UNIVERSE.forEach(function(sym){
         var q=qmap[sym],h=histMap[sym];
         if(!q)return;
-        results.push(US.analyzeStock(sym,h,q));
+        allResults.push(US.analyzeStock(sym,h,q));
       });
-      results.sort(function(a,b){return b.hits-a.hits});
+      allResults.sort(function(a,b){return b.hits-a.hits});
       document.getElementById('us-main').innerHTML='<div id="us-table-area"></div>';
       // Stats
       var els=document.querySelectorAll('.us-stat-v');
-      var buyCount=results.filter(function(r){return r.hits>=3}).length;
-      var avgHits=results.length?results.reduce(function(s,r){return s+r.hits},0)/results.length:0;
-      var topHits=results.length?results[0].hits:0;
-      if(els[0])els[0].textContent=results.length;
+      var buyCount=allResults.filter(function(r){return r.hits>=3}).length;
+      var avgHits=allResults.length?allResults.reduce(function(s,r){return s+r.hits},0)/allResults.length:0;
+      var topHits=allResults.length?allResults[0].hits:0;
+      if(els[0])els[0].textContent=allResults.length;
       if(els[1])els[1].textContent=buyCount;
       if(els[2])els[2].textContent=avgHits.toFixed(1);
       if(els[3])els[3].textContent=topHits+'/7';
@@ -771,14 +781,10 @@ US.fetchQuotes(US.UNIVERSE).then(function(quotes){
         var badge=card.querySelector('.badge'),s=card.getAttribute('data-strategy');
         var fn={rsi:'rsi','golden-cross':'goldenCross','macd-rsi':'macdRsi',bollinger:'bollinger',volume:'volume',oversold:'oversold',kline:'kline'};
         var sk=fn[s];if(!sk)return;
-        var count=results.filter(function(r){return r.signals[sk]&&r.signals[sk].signal==='buy'}).length;
+        var count=allResults.filter(function(r){return r.signals[sk]&&r.signals[sk].signal==='buy'}).length;
         if(badge)badge.textContent=count+(US.isZH?' 只':' stocks');
       });
-      // Table
-      renderMain(results);
-      var si=document.getElementById('us-search-input');
-      if(si)si.addEventListener('input',function(){var q=this.value.toUpperCase();
-        renderMain(results.filter(function(r){return r.symbol.indexOf(q)>=0||(r.name&&r.name.toUpperCase().indexOf(q)>=0)}))});
+      renderMain(allResults);
     });
   }).catch(function(err){console.error(err);US.showError('us-main');if(progArea)progArea.style.display='none'});
 var tbl=null;

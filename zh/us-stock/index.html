@@ -77,12 +77,6 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 .us-refresh.loading{pointer-events:none;opacity:.5}
 .us-refresh .spin{display:inline-block;animation:spin 1s linear infinite}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.us-apikey-box{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:28px 32px;margin-bottom:24px;max-width:600px}
-.us-apikey-box label{display:block;font-size:13px;color:var(--tm);margin-bottom:8px;font-weight:600}
-.us-apikey-box input{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;color:var(--t);font-size:14px;font-family:'Space Mono',monospace;outline:none;margin-bottom:12px}
-.us-apikey-box input:focus{border-color:var(--g)}
-.us-apikey-box .bp{font-size:13px;padding:10px 24px}
-.us-apikey-box p{font-size:11px;color:var(--td);margin-top:8px;line-height:1.6}
 .us-progress{width:100%;height:6px;background:var(--bdr);border-radius:3px;margin:12px 0;overflow:hidden}
 .us-progress-fill{height:100%;background:linear-gradient(90deg,var(--gd),var(--g));border-radius:3px;transition:width .3s;width:0%}
 .us-progress-text{font-size:11px;color:var(--td);font-family:'Space Mono',monospace;margin-bottom:16px}
@@ -125,9 +119,9 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <p style="color:var(--td);font-size:15px;max-width:600px">7大经典技术策略实时分析50只热门美股，策略叠加命中越多置信度越高</p>
 <div style="margin-top:12px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
 <span style="font-size:11px;color:var(--td)">数据来源: FMP | 回测来源: 学术研究 & QuantifiedStrategies | 自动加载，无需API Key</span>
-</div></div><div id="us-progress-area">
+</div></div><div id="us-progress-area" style="margin-bottom:20px">
 <div class="us-progress"><div class="us-progress-fill" id="us-progress-fill"></div></div>
-<div class="us-progress-text" id="us-progress-text">加载中...</div></div><div class="us-stats">
+<div class="us-progress-text" id="us-progress-text">正在加载50只美股数据...</div></div><div class="us-stats">
 <div class="us-stat"><div class="us-stat-l" data-metric="count">股票数量</div><div class="us-stat-v">-</div></div>
 <div class="us-stat"><div class="us-stat-l" data-metric="hits">命中>=3</div><div class="us-stat-v">-</div></div>
 <div class="us-stat"><div class="us-stat-l" data-metric="hits">平均命中</div><div class="us-stat-v">-</div></div>
@@ -138,9 +132,21 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <span class="badge">-</span><div class="icon">&#128203;</div><h3>布林通道 <span class="us-winrate">65%</span></h3><p>布林带收窄后突破上轨，加过滤器后胜率60-75%</p></a><a href="/zh/us-stock/volume.html" class="us-glass" data-strategy="volume" style="text-decoration:none;position:relative">
 <span class="badge">-</span><div class="icon">&#128266;</div><h3>放量突破 <span class="us-winrate">74%</span></h3><p>突破20日高点+成交量>1.5倍均量，回测胜率74%</p></a><a href="/zh/us-stock/oversold.html" class="us-glass" data-strategy="oversold" style="text-decoration:none;position:relative">
 <span class="badge">-</span><div class="icon">&#128281;</div><h3>超卖反弹 <span class="us-winrate">78%</span></h3><p>随机指标%K<20且反转上穿%D，回测胜率78%</p></a><a href="/zh/us-stock/kline.html" class="us-glass" data-strategy="kline" style="text-decoration:none;position:relative">
-<span class="badge">-</span><div class="icon">&#127919;</div><h3>K线形态 <span class="us-winrate">68%</span></h3><p>识别吞没、锤子、早晨之星等经典形态，配合趋势过滤胜率65-79%</p></a></div><div style="margin-top:32px"><h2 style="font-size:22px;font-weight:700;margin-bottom:16px">策略叠加热力图</h2>
-<p class="sub" style="max-width:700px">每只股票运行全部7个策略，命中越多（绿色对勾）信号越强。点击股票名称查看详细分析。</p>
-<div class="us-search"><input type="text" id="us-search-input" placeholder="搜索股票代码..."></div></div><div id="us-main"><div id="us-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; 免责声明</h3>
+<span class="badge">-</span><div class="icon">&#127919;</div><h3>K线形态 <span class="us-winrate">68%</span></h3><p>识别吞没、锤子、早晨之星等经典形态，配合趋势过滤胜率65-79%</p></a></div><div class="card" style="margin:32px 0 24px;border-color:rgba(0,220,130,.2);background:linear-gradient(135deg,rgba(0,220,130,.03),rgba(13,17,23,.8))">
+<h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--g)">&#128200; 策略叠加原理</h3>
+<p style="font-size:13px;color:var(--tm);line-height:1.8;margin-bottom:12px">每只股票同时运行7个独立技术策略。单个策略胜率约65-79%，但当多个策略同时发出买入信号时，置信度显著提升：</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+<span class="us-hits-badge us-hits-1" style="font-size:12px">1 命中 → 55%</span>
+<span class="us-hits-badge us-hits-2" style="font-size:12px">2 命中 → 68%</span>
+<span class="us-hits-badge us-hits-3" style="font-size:12px">3 命中 → 78%</span>
+<span class="us-hits-badge us-hits-4" style="font-size:12px">4 命中 → 85%</span>
+<span class="us-hits-badge us-hits-5" style="font-size:12px">5 命中 → 90%</span>
+<span class="us-hits-badge us-hits-6" style="font-size:12px">6 命中 → 93%</span>
+<span class="us-hits-badge us-hits-7" style="font-size:12px">7 命中 → 96%</span>
+</div>
+<p style="font-size:11px;color:var(--td)">&#10003; = 该策略发出买入信号 | &#10007; = 卖出信号 | - = 无信号 | 点击股票名称查看详细分析</p>
+</div><div style="margin-top:8px"><h2 style="font-size:22px;font-weight:700;margin-bottom:16px">策略叠加热力图</h2>
+<div class="us-search"><input type="text" id="us-search-input" placeholder="搜索股票代码或名称..."></div></div><div id="us-main"><div id="us-table-area"></div></div><div class="disc" style="margin-top:40px"><h3>&#9888;&#65039; 免责声明</h3>
 <p>本页面仅供参考和学习，不构成任何投资建议。技术指标基于历史数据计算，过去的表现不代表未来的收益。回测胜率来源于学术研究和量化社区，实际交易结果可能存在显著差异。市场有风险，投资需谨慎。</p></div></section><footer><div class="fi">
 <div class="fb"><span class="logo-i" style="width:28px;height:28px;font-size:10px">ZX</span><span style="font-weight:600;font-size:14px">ZX Capital</span></div>
 <nav style="display:flex;gap:20px;font-size:12px;color:var(--td)"><a href="/zh/etf/">ETF</a><a href="/zh/stock/">股票</a><a href="/zh/crypto/">加密货币</a><a href="/zh/defi/">DeFi</a><a href="/zh/cb/">可转债</a><a href="/zh/us-stock/">美股策略</a><a href="/zh/calculator/">工具</a></nav>
@@ -744,25 +750,29 @@ document.addEventListener('DOMContentLoaded',function(){
 var T=US.T;
 US.showLoading('us-main');
 var progArea=document.getElementById('us-progress-area');
-if(progArea)progArea.style.display='block';
+var allResults=[];
+// Bind search immediately
+var si=document.getElementById('us-search-input');
+if(si)si.addEventListener('input',function(){var q=this.value.toUpperCase();
+  if(!allResults.length)return;
+  renderMain(q?allResults.filter(function(r){return r.symbol.indexOf(q)>=0||(r.name&&r.name.toUpperCase().indexOf(q)>=0)}):allResults)});
 US.fetchQuotes(US.UNIVERSE).then(function(quotes){
     var qmap={};quotes.forEach(function(q){qmap[q.symbol]=q});
     return US.fetchHistory(US.UNIVERSE).then(function(histMap){
       if(progArea)progArea.style.display='none';
-      var results=[];
       US.UNIVERSE.forEach(function(sym){
         var q=qmap[sym],h=histMap[sym];
         if(!q)return;
-        results.push(US.analyzeStock(sym,h,q));
+        allResults.push(US.analyzeStock(sym,h,q));
       });
-      results.sort(function(a,b){return b.hits-a.hits});
+      allResults.sort(function(a,b){return b.hits-a.hits});
       document.getElementById('us-main').innerHTML='<div id="us-table-area"></div>';
       // Stats
       var els=document.querySelectorAll('.us-stat-v');
-      var buyCount=results.filter(function(r){return r.hits>=3}).length;
-      var avgHits=results.length?results.reduce(function(s,r){return s+r.hits},0)/results.length:0;
-      var topHits=results.length?results[0].hits:0;
-      if(els[0])els[0].textContent=results.length;
+      var buyCount=allResults.filter(function(r){return r.hits>=3}).length;
+      var avgHits=allResults.length?allResults.reduce(function(s,r){return s+r.hits},0)/allResults.length:0;
+      var topHits=allResults.length?allResults[0].hits:0;
+      if(els[0])els[0].textContent=allResults.length;
       if(els[1])els[1].textContent=buyCount;
       if(els[2])els[2].textContent=avgHits.toFixed(1);
       if(els[3])els[3].textContent=topHits+'/7';
@@ -771,14 +781,10 @@ US.fetchQuotes(US.UNIVERSE).then(function(quotes){
         var badge=card.querySelector('.badge'),s=card.getAttribute('data-strategy');
         var fn={rsi:'rsi','golden-cross':'goldenCross','macd-rsi':'macdRsi',bollinger:'bollinger',volume:'volume',oversold:'oversold',kline:'kline'};
         var sk=fn[s];if(!sk)return;
-        var count=results.filter(function(r){return r.signals[sk]&&r.signals[sk].signal==='buy'}).length;
+        var count=allResults.filter(function(r){return r.signals[sk]&&r.signals[sk].signal==='buy'}).length;
         if(badge)badge.textContent=count+(US.isZH?' 只':' stocks');
       });
-      // Table
-      renderMain(results);
-      var si=document.getElementById('us-search-input');
-      if(si)si.addEventListener('input',function(){var q=this.value.toUpperCase();
-        renderMain(results.filter(function(r){return r.symbol.indexOf(q)>=0||(r.name&&r.name.toUpperCase().indexOf(q)>=0)}))});
+      renderMain(allResults);
     });
   }).catch(function(err){console.error(err);US.showError('us-main');if(progArea)progArea.style.display='none'});
 var tbl=null;
