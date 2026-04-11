@@ -132,7 +132,7 @@ footer{border-top:1px solid var(--bdr);padding:40px 20px 24px;background:var(--b
 <span class="badge">-</span><div class="icon">&#128203;</div><h3>布林通道 <span class="us-winrate">65%</span></h3><p>布林带收窄后突破上轨，加过滤器后胜率60-75%</p></a><a href="/zh/us-stock/volume.html" class="us-glass" data-strategy="volume" style="text-decoration:none;position:relative">
 <span class="badge">-</span><div class="icon">&#128266;</div><h3>放量突破 <span class="us-winrate">74%</span></h3><p>突破20日高点+成交量>1.5倍均量，回测胜率74%</p></a><a href="/zh/us-stock/oversold.html" class="us-glass" data-strategy="oversold" style="text-decoration:none;position:relative">
 <span class="badge">-</span><div class="icon">&#128281;</div><h3>超卖反弹 <span class="us-winrate">78%</span></h3><p>随机指标%K<20且反转上穿%D，回测胜率78%</p></a><a href="/zh/us-stock/kline.html" class="us-glass" data-strategy="kline" style="text-decoration:none;position:relative">
-<span class="badge">-</span><div class="icon">&#127919;</div><h3>K线形态 <span class="us-winrate">68%</span></h3><p>识别吞没、锤子、早晨之星等经典形态，配合趋势过滤胜率65-79%</p></a></div><div class="card" style="margin:32px 0 24px;border-color:rgba(0,220,130,.2);background:linear-gradient(135deg,rgba(0,220,130,.03),rgba(13,17,23,.8))">
+<span class="badge">-</span><div class="icon">&#127919;</div><h3>K线形态 <span class="us-winrate">68%</span></h3><p>识别吞没、锤子、射击之星、三白兵、孕线、刺透等20种经典K线形态，配合趋势过滤</p></a></div><div class="card" style="margin:32px 0 24px;border-color:rgba(0,220,130,.2);background:linear-gradient(135deg,rgba(0,220,130,.03),rgba(13,17,23,.8))">
 <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--g)">&#128200; 策略叠加原理</h3>
 <p style="font-size:13px;color:var(--tm);line-height:1.8;margin-bottom:12px">每只股票同时运行7个独立技术策略。单个策略胜率约65-79%，但当多个策略同时发出买入信号时，置信度显著提升：</p>
 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">
@@ -421,6 +421,48 @@ US.TA.candlePatterns = function(opens, highs, lows, closes){
     // Evening Star (3-bar)
     if(i>=2 && isBullish(i-2) && body(i-2)>ab*0.8 && body(i-1)<ab*0.3 && isBearish(i) && body(i)>ab*0.5 && closes[i]<=(opens[i-2]+closes[i-2])/2)
       p.push({name:isZH?'黄昏之星':'Evening Star',dir:'bearish',strength:3});
+    // Inverted Hammer (bullish, after downtrend)
+    if(body(i)<range(i)*0.3 && (highs[i]-Math.max(opens[i],closes[i]))>body(i)*2 && (Math.min(opens[i],closes[i])-lows[i])<body(i)*0.5 && isBearish(i-1))
+      p.push({name:isZH?'倒锤子':'Inverted Hammer',dir:'bullish',strength:2});
+    // Hanging Man (bearish, after uptrend)
+    if(body(i)<range(i)*0.3 && (Math.min(opens[i],closes[i])-lows[i])>body(i)*2 && (highs[i]-Math.max(opens[i],closes[i]))<body(i)*0.5 && isBullish(i-1))
+      p.push({name:isZH?'上吊线':'Hanging Man',dir:'bearish',strength:2});
+    // Piercing Line (bullish 2-bar)
+    if(i>=1 && isBearish(i-1) && body(i-1)>ab*0.6 && isBullish(i) && opens[i]<lows[i-1] && closes[i]>(opens[i-1]+closes[i-1])/2 && closes[i]<opens[i-1])
+      p.push({name:isZH?'刺透形态':'Piercing Line',dir:'bullish',strength:3});
+    // Dark Cloud Cover (bearish 2-bar)
+    if(i>=1 && isBullish(i-1) && body(i-1)>ab*0.6 && isBearish(i) && opens[i]>highs[i-1] && closes[i]<(opens[i-1]+closes[i-1])/2 && closes[i]>opens[i-1])
+      p.push({name:isZH?'乌云盖顶':'Dark Cloud Cover',dir:'bearish',strength:3});
+    // Three White Soldiers (bullish 3-bar)
+    if(i>=2 && isBullish(i-2)&&isBullish(i-1)&&isBullish(i) && closes[i]>closes[i-1]&&closes[i-1]>closes[i-2] && body(i)>ab*0.5&&body(i-1)>ab*0.5&&body(i-2)>ab*0.5 && opens[i-1]>opens[i-2]&&opens[i]>opens[i-1] && opens[i-1]<closes[i-2]&&opens[i]<closes[i-1])
+      p.push({name:isZH?'三白兵':'Three White Soldiers',dir:'bullish',strength:4});
+    // Three Black Crows (bearish 3-bar)
+    if(i>=2 && isBearish(i-2)&&isBearish(i-1)&&isBearish(i) && closes[i]<closes[i-1]&&closes[i-1]<closes[i-2] && body(i)>ab*0.5&&body(i-1)>ab*0.5&&body(i-2)>ab*0.5 && opens[i-1]<opens[i-2]&&opens[i]<opens[i-1] && opens[i-1]>closes[i-2]&&opens[i]>closes[i-1])
+      p.push({name:isZH?'三只乌鸦':'Three Black Crows',dir:'bearish',strength:4});
+    // Tweezer Bottom (bullish 2-bar)
+    if(i>=1 && isBearish(i-1)&&isBullish(i) && Math.abs(lows[i]-lows[i-1])<range(i)*0.05 && body(i)>ab*0.3&&body(i-1)>ab*0.3)
+      p.push({name:isZH?'镊子底':'Tweezer Bottom',dir:'bullish',strength:2});
+    // Tweezer Top (bearish 2-bar)
+    if(i>=1 && isBullish(i-1)&&isBearish(i) && Math.abs(highs[i]-highs[i-1])<range(i)*0.05 && body(i)>ab*0.3&&body(i-1)>ab*0.3)
+      p.push({name:isZH?'镊子顶':'Tweezer Top',dir:'bearish',strength:2});
+    // Harami (bullish)
+    if(i>=1 && isBearish(i-1) && isBullish(i) && body(i-1)>ab*0.8 && opens[i]>closes[i-1] && closes[i]<opens[i-1] && body(i)<body(i-1)*0.5)
+      p.push({name:isZH?'看涨孕线':'Bullish Harami',dir:'bullish',strength:2});
+    // Harami (bearish)
+    if(i>=1 && isBullish(i-1) && isBearish(i) && body(i-1)>ab*0.8 && opens[i]<closes[i-1] && closes[i]>opens[i-1] && body(i)<body(i-1)*0.5)
+      p.push({name:isZH?'看跌孕线':'Bearish Harami',dir:'bearish',strength:2});
+    // Dragonfly Doji (bullish)
+    if(body(i)<range(i)*0.05 && range(i)>0 && (Math.min(opens[i],closes[i])-lows[i])>range(i)*0.7 && (highs[i]-Math.max(opens[i],closes[i]))<range(i)*0.05)
+      p.push({name:isZH?'蜻蜓十字':'Dragonfly Doji',dir:'bullish',strength:2});
+    // Gravestone Doji (bearish)
+    if(body(i)<range(i)*0.05 && range(i)>0 && (highs[i]-Math.max(opens[i],closes[i]))>range(i)*0.7 && (Math.min(opens[i],closes[i])-lows[i])<range(i)*0.05)
+      p.push({name:isZH?'墓碑十字':'Gravestone Doji',dir:'bearish',strength:2});
+    // Marubozu Bullish (strong momentum)
+    if(isBullish(i) && body(i)>range(i)*0.9 && body(i)>ab*1.5)
+      p.push({name:isZH?'光头光脚阳线':'Bullish Marubozu',dir:'bullish',strength:3});
+    // Marubozu Bearish
+    if(isBearish(i) && body(i)>range(i)*0.9 && body(i)>ab*1.5)
+      p.push({name:isZH?'光头光脚阴线':'Bearish Marubozu',dir:'bearish',strength:3});
 
     patterns.push(p);
   }
